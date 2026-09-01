@@ -358,12 +358,12 @@ export class RingPlatform implements DynamicPlatformPlugin {
           },
         )
 
-        // ── Audio del Ring Intercom ───────────────────────────────────────────
-        // Se publica como accesorio EXTERNO aparte, sin tocar el accesorio del
-        // intercom que ya existe: HomeKit exige que las cámaras vayan sin puente,
-        // y convertir el accesorio actual obligaría a re-emparejarlo y perder sus
-        // automatizaciones. Así el intercom de siempre sigue igual y el audio se
-        // añade al lado.
+        // ── Ring Intercom audio ───────────────────────────────────────────────
+        // Published as a separate EXTERNAL accessory, leaving the existing intercom
+        // accessory untouched: HomeKit requires cameras to be unbridged, and
+        // converting the current accessory would force a re-pair and lose its
+        // automations. This way the familiar intercom stays as it is and the audio
+        // is added alongside it.
         if (config.enableIntercomAudio && intercoms.length) {
           intercoms.forEach((intercom) => {
             const audioUuid = hap.uuid.generate(
@@ -394,9 +394,10 @@ export class RingPlatform implements DynamicPlatformPlugin {
 
               audioAccessory.configureController(cameraSource.controller)
 
-              // Sin los servicios Microphone y Speaker, HomeKit NO dibuja el botón
-              // del micrófono: no basta con negociar audio bidireccional en el
-              // CameraController. camera.ts se los añade a las cámaras por esto mismo.
+              // Without the Microphone and Speaker services, HomeKit does NOT draw
+              // the microphone button: negotiating two-way audio on the
+              // CameraController is not enough. camera.ts adds them to cameras for
+              // this same reason.
               const { Characteristic, Service } = hap
               for (const svcType of [Service.Microphone, Service.Speaker]) {
                 const svc =
@@ -405,9 +406,9 @@ export class RingPlatform implements DynamicPlatformPlugin {
                 svc.getCharacteristic(Characteristic.Mute).onGet(() => false)
               }
 
-              // Doorbell en el propio accesorio de audio: así, cuando llaman al
-              // portal, la notificación lleva directamente a este stream en vez de
-              // dejar el audio en un accesorio aparte que hay que ir a buscar.
+              // Doorbell on the audio accessory itself: that way, when someone
+              // rings, the notification leads straight to this stream instead of
+              // leaving the audio on a separate accessory the user has to go find.
               const doorbellSvc =
                 audioAccessory.getService(Service.Doorbell) ||
                 audioAccessory.addService(Service.Doorbell, intercom.name)
@@ -432,10 +433,10 @@ export class RingPlatform implements DynamicPlatformPlugin {
               this.homebridgeAccessories[audioUuid] = audioAccessory
               activeAccessoryIds.push(audioUuid)
             } catch (e) {
-              // Que falle el audio no puede tumbar el resto del plugin: el intercom
-              // normal (abrir puerta, timbre) tiene que seguir vivo.
+              // A failure here must not take the rest of the plugin down: the
+              // regular intercom (unlock, ding) has to keep working.
               logError(
-                `No se pudo configurar el audio de ${intercom.name}: ${(e as Error).message}`,
+                `Failed to configure audio for ${intercom.name}: ${(e as Error).message}`,
               )
             }
           })

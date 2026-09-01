@@ -1,16 +1,17 @@
 
-// Copia adaptada de camera-source.ts SOLO para el Ring Intercom.
+// Adapted copy of camera-source.ts, for the Ring Intercom ONLY.
 //
-// Se copia en vez de heredar porque la clase que hay que cambiar
-// (StreamingSessionWrapper) no se exporta, y porque tocar el original pondría en
-// riesgo el streaming de las cámaras Ring de verdad, que hoy funciona.
+// Copied rather than subclassed because the class that needs changing
+// (StreamingSessionWrapper) is not exported, and because touching the original would
+// put streaming for real Ring cameras at risk, which works today.
 //
-// ÚNICA DIFERENCIA DE FONDO: el intercom no tiene cámara. Ring manda audio
-// (medido: 210 paquetes en 15 s) pero por el canal de vídeo no llega H.264 válido.
-// El original reenvía esos paquetes a HomeKit tal cual, y HomeKit —al recibir por
-// vídeo algo que no entiende— tumba la sesión ENTERA y se pierde también el audio.
-// Aquí NO se reenvía el vídeo de Ring: se genera una pista H.264 real con ffmpeg a
-// partir de la imagen fija y se manda por SRTP, mientras el audio sigue su camino.
+// THE ONE SUBSTANTIVE DIFFERENCE: the intercom has no camera. Ring does send audio
+// (measured: 210 packets in 15s) but no valid H.264 arrives on the video channel.
+// The original forwards those packets to HomeKit as-is, and HomeKit — receiving
+// something it cannot parse on the video track — tears down the ENTIRE session,
+// taking the audio with it.
+// So Ring's video is NOT forwarded here: ffmpeg encodes a real H.264 track from the
+// still image and sends it over SRTP, while the audio takes its normal path.
 import { hap } from './hap.ts'
 import { spawn, type ChildProcess } from 'child_process'
 import type { IntercomCamera } from './intercom-camera.ts'
@@ -212,25 +213,25 @@ class IntercomStreamingSessionWrapper {
     void sentVideo
     void videoSrtpSession
 
-    // ── Abrir el micrófono del portal ─────────────────────────────────────────
-    // ESTA es la pieza que faltaba para oír algo. El original solo manda
-    // `camera_options { stealth_mode: false }` cuando HomeKit empieza a devolver
-    // audio, es decir, cuando el usuario pulsa el micrófono para hablar. Un
-    // intercom arranca en modo sigilo, así que hasta entonces transmite SILENCIO.
-    // Medido: sin esto los bloques caen a -92 dB (silencio digital) incluso durante
-    // una llamada real; con esto se quedan entre -42 y -79 dB, sonido de verdad.
+    // ── Open the intercom microphone ──────────────────────────────────────────
+    // THIS is the piece that was missing in order to hear anything. The original only
+    // sends `camera_options { stealth_mode: false }` once HomeKit starts returning
+    // audio, i.e. when the user presses the microphone to talk. An intercom starts in
+    // stealth mode, so until that moment it transmits SILENCE.
+    // Measured: without this, blocks sit at -92 dB (digital silence) even during a
+    // real call; with it they land between -42 and -79 dB, i.e. actual sound.
     this.streamingSession.activateCameraSpeaker()
 
-    // ── Vídeo sintético ───────────────────────────────────────────────────────
-    // NO se reenvía onVideoRtp: lo que Ring manda por ese canal para un intercom no
-    // es H.264 y HomeKit descarta la sesión entera al recibirlo, llevándose por
-    // delante el audio. En su lugar, ffmpeg codifica la imagen fija como H.264 real
-    // y la envía por SRTP directamente al iPhone.
+    // ── Synthetic video ───────────────────────────────────────────────────────
+    // onVideoRtp is NOT forwarded: what Ring sends on that channel for an intercom is
+    // not H.264, and HomeKit drops the whole session on receiving it, taking the audio
+    // down with it. Instead, ffmpeg encodes the still image as real H.264 and sends it
+    // over SRTP straight to the iPhone.
     //
-    // ⚠️ 10 fps, NO menos. Se probó bajar a 5 para ahorrar CPU (6,2 % -> 4,9 %) y
-    // HomeKit empezó a cortar la sesión a los pocos segundos: el audio pasaba de
-    // ~25 KiB a 2 KiB por sesión y no se oía nada. La optimización que SÍ funciona
-    // es reducir el TAMAÑO del fotograma: a 320x240 el codificador baja a 1,5 %.
+    // WARNING: 10 fps, NO lower. Dropping to 5 to save CPU (6.2% -> 4.9%) was tried and
+    // HomeKit began cutting the session after a few seconds: audio fell from ~25 KiB to
+    // 2 KiB per session and nothing could be heard. The optimization that DOES work is
+    // reducing frame SIZE: at 320x240 the encoder drops to 1.5%.
     const snapshotFile = this.ringCamera.getSnapshotPath(),
       srtpParams = Buffer.concat([
         this.videoSrtp.srtpKey,
@@ -255,21 +256,22 @@ class IntercomStreamingSessionWrapper {
       logDebug(`[intercom video] ${d.toString().trim()}`),
     )
     this.videoFfmpeg.on('error', (e: Error) =>
-      logError(`ffmpeg de vídeo del intercom falló: ${e.message}`),
+      logError(`Intercom video ffmpeg failed: ${e.message}`),
     )
     logInfo(
-      `Imagen fija enviada a HomeKit para ${this.ringCamera.name} (${getDurationSeconds(this.start)}s)`,
+      `Sent still image to HomeKit for ${this.ringCamera.name} (${getDurationSeconds(this.start)}s)`,
     )
 
     const transcodingPromise = this.streamingSession.startTranscoding({
-      // `-fflags +genpts` y el resample asíncrono: el audio del intercom llega con
-      // marcas de tiempo inconsistentes y ffmpeg avisa «Queue input is backward in
-      // time». Con timestamps que van hacia atrás, HomeKit descarta el audio aunque
-      // los paquetes lleguen bien.
+      // `-fflags +genpts` plus the async resample: intercom audio arrives with
+      // inconsistent timestamps and ffmpeg warns "Queue input is backward in time".
+      // With timestamps that go backwards, HomeKit discards the audio even though the
+      // packets themselves arrive fine.
       input: ['-vn', '-fflags', '+genpts+discardcorrupt', '-use_wallclock_as_timestamps', '1'],
       audio: [
-        // volume sube el audio que llega del portal (capta bajo) y alimiter impide
-        // que ese aumento sature en los picos, que es donde están las consonantes.
+        // volume boosts the audio coming from the intercom (its mic is quiet) and
+        // alimiter keeps that boost from clipping on peaks, which is where the
+        // consonants live.
         '-af', `aresample=async=1:first_pts=0,volume=${this.ringCamera.micGainDb}dB,alimiter=limit=0.95`,
         '-acodec',
         'libopus',
@@ -325,9 +327,9 @@ class IntercomStreamingSessionWrapper {
           rtcpPort: 0, // we don't care about rtcp for incoming audio
         },
         outputArgs: [
-          // Ganancia de la voz que sale hacia el altavoz del portal. Con limitador:
-          // subir a pelo distorsiona justo en los picos, que es donde está la
-          // consonante que hace entender la palabra.
+          // Gain for the voice going out to the intercom speaker. With a limiter:
+          // boosting raw distorts exactly on the peaks, which carry the consonants
+          // that make a word intelligible.
           '-af',
           `volume=${this.ringCamera.speakerGainDb}dB,alimiter=limit=0.95`,
           '-acodec',
@@ -464,8 +466,8 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
 
     try {
       const previousSnapshot = this.cachedSnapshot,
-        // El intercom no tiene cámara: la imagen es siempre la misma y no hay
-        // uuid de snapshot que pedirle a Ring.
+        // The intercom has no camera: the image is always the same one, and there is
+        // no snapshot uuid to ask Ring for.
         newSnapshot = await this.ringCamera.getSnapshot()
       this.cachedSnapshot = newSnapshot
 

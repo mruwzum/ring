@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "dev": "bash ./dev-homebridge.sh",
     "dev:run": "npm run dev",
-    "test:intercom": "node --test test/"
+    "test": "vitest run"
   },
   "dependencies": {
     "@homebridge/camera-utils": "^3.0.0",
@@ -22,7 +22,8 @@
     "eslint-config-shared": "*",
     "homebridge": "2.0.2",
     "tsconfig": "*",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "vitest": "^4.1.8"
   },
   "engines": {
     "node": "^20 || ^22 || ^24 || ^26",

@@ -2,15 +2,17 @@ import type { RingIntercom } from 'ring-client-api'
 import { StreamingSession } from 'ring-client-api/streaming/streaming-session'
 import { logInfo } from 'ring-client-api/util'
 import { readFile } from 'fs/promises'
+import { existsSync } from 'fs'
 import { createRequire } from 'module'
-import { dirname, join } from 'path'
+import { dirname, join, parse } from 'path'
+import { fileURLToPath } from 'url'
 
-// WebrtcConnection NO está en el campo `exports` de ring-client-api, así que no se
-// puede importar por su nombre de paquete. Y una ruta relativa a node_modules
-// tampoco vale: según haya hoisting de npm workspaces o no, el paquete acaba en
-// sitios distintos (en la instalación real de Homebridge cuelga de
-// homebridge-ring/node_modules/, en un monorepo suele subir a la raíz).
-// Se resuelve preguntando a Node dónde está de verdad el paquete y navegando desde ahí.
+// WebrtcConnection is NOT in ring-client-api's `exports` field, so it cannot be
+// imported by package specifier. A relative path into node_modules does not work
+// either: depending on whether npm workspaces hoist or not, the package lands in
+// different places (under homebridge-ring/node_modules/ in a real Homebridge
+// install, usually at the root in a monorepo).
+// So we ask Node where the package actually is and walk from there.
 const ringClientApiLib = dirname(
     createRequire(import.meta.url).resolve('ring-client-api'),
   ),
@@ -18,31 +20,55 @@ const ringClientApiLib = dirname(
     join(ringClientApiLib, 'streaming', 'webrtc-connection.js')
   )) as { WebrtcConnection: any }
 
+// The still image lives at the package root, but this module runs from two different
+// depths: `intercom-camera.ts` at the root when running from source or tests, and
+// `lib/intercom-camera.js` once built. A fixed '../media' resolves correctly in only
+// one of them, and getting it wrong is invisible until runtime: ffmpeg finds no input,
+// HomeKit gets no video and tears the session down, taking the audio with it.
+// So walk up to the directory that owns package.json and resolve from there.
+function findPackageRoot(startDir: string): string {
+  let dir = startDir
+  for (;;) {
+    if (existsSync(join(dir, 'package.json'))) {
+      return dir
+    }
+    const parent = dirname(dir)
+    if (parent === dir || dir === parse(dir).root) {
+      // Should be unreachable in a published package; fall back to the old behavior
+      // rather than throwing while Homebridge is starting up.
+      return startDir
+    }
+    dir = parent
+  }
+}
+
+const packageRoot = findPackageRoot(dirname(fileURLToPath(import.meta.url)))
+
 /**
- * Envuelve un RingIntercom para que pueda usarse como cámara en HomeKit.
+ * Wraps a RingIntercom so it can be used as a HomeKit camera.
  *
- * POR QUÉ EXISTE
- * El Ring Intercom no tiene cámara, así que el plugin nunca le dio un accesorio de
- * vídeo y por tanto tampoco audio: en HomeKit solo se podía abrir la puerta, no
- * escuchar ni hablar. Pero el audio SÍ está disponible. Comprobado el 1 Sep 2026
- * contra los servidores de Ring: el intercom es un "doorbot" igual que las cámaras,
- * el ticket de streaming es genérico (no lleva el id del aparato) y al negociar con
- * el `doorbot_id` del intercom el servidor responde
+ * WHY THIS EXISTS
+ * The Ring Intercom has no camera, so the plugin never gave it a video accessory and
+ * therefore no audio either: in HomeKit you could open the door but not hear or speak.
+ * The audio channel IS available though. Verified on 2026-09-01 against Ring's
+ * servers: the intercom is a "doorbot" just like the cameras, the streaming ticket is
+ * generic (it carries no device id), and negotiating with the intercom's `doorbot_id`
+ * makes the server answer with
  *
  *     m=audio 9 UDP/TLS/RTP/SAVPF 96
  *     a=sendrecv
  *
- * es decir: audio en ambos sentidos y sin pista de vídeo. Escuchar y hablar.
+ * that is: audio in both directions and no video track. Listen and talk.
  *
- * CÓMO SE RESUELVE LA FALTA DE VÍDEO
- * HomeKit no acepta una "cámara" sin vídeo, así que se sirve una imagen fija que
- * viene incluida con el plugin (`media/intercom-still.jpg`). No se dibuja ni se
- * calcula: es un fichero, siempre el mismo, y no depende de las fuentes del sistema.
+ * HOW THE MISSING VIDEO IS HANDLED
+ * HomeKit will not accept a "camera" without video, so we serve a still image that
+ * ships with the plugin (`media/intercom-still.jpg`). It is not drawn or computed: it
+ * is a file, always the same one, with no dependency on system fonts.
  *
- * La interfaz que expone es la mínima que consumen CameraSource (name, isOffline,
+ * The surface exposed here is the minimum consumed by CameraSource (name, isOffline,
  * getSnapshot, hasSnapshotWithinLifetime, snapshotsAreBlocked, snapshotLifeTime,
- * startLiveCall), StreamingSession (name) y WebrtcConnection (id, name,
- * isRingEdgeEnabled) — sacada de leer su código, no supuesta.
+ * startLiveCall), StreamingSession (name) and WebrtcConnection (id, name,
+ * isRingEdgeEnabled) — taken from reading their code, not assumed.
  */
 export class IntercomCamera {
   public readonly snapshotsAreBlocked = false
@@ -53,13 +79,14 @@ export class IntercomCamera {
   public readonly micGainDb: number
 
   private snapshot: Buffer | null = null
-  private readonly stillPath = new URL(
-    '../media/intercom-still.jpg',
-    import.meta.url,
-  ).pathname
+  private readonly stillPath = join(
+    packageRoot,
+    'media',
+    'intercom-still.jpg',
+  )
 
-  // Los campos se declaran aparte: el tsconfig del repo usa `erasableSyntaxOnly`,
-  // que prohíbe los parámetros-propiedad (`private readonly x` en el constructor).
+  // Fields are declared separately: this repo's tsconfig sets `erasableSyntaxOnly`,
+  // which forbids parameter properties (`private readonly x` in the constructor).
   private readonly intercom: RingIntercom
   public readonly restClient: { request: <T>(options: any) => Promise<T> }
 
@@ -73,10 +100,10 @@ export class IntercomCamera {
     this.intercom = intercom
     this.restClient = restClient
     this.ffmpegPath = ffmpegPath || 'ffmpeg'
-    // OJO con Number(): Number(null) es 0 y Number('') también, así que un valor
-    // vacío en la config se colaba como «ganancia 0 dB» en vez de caer al valor por
-    // defecto — el usuario se quedaba sin ganancia sin saber por qué. Lo cazó un
-    // test. Un 0 EXPLÍCITO sí es válido y debe respetarse.
+    // Careful with Number(): Number(null) is 0 and so is Number(''), so an empty
+    // config value slipped through as "0 dB gain" instead of falling back to the
+    // default — the user lost their gain with no idea why. A test caught it.
+    // An EXPLICIT 0 is valid and must be honored.
     this.speakerGainDb = IntercomCamera.gain(speakerGainDb, 10)
     this.micGainDb = IntercomCamera.gain(micGainDb, 12)
   }
@@ -103,7 +130,7 @@ export class IntercomCamera {
     return Boolean(this.snapshot)
   }
 
-  /** Imagen fija incluida con el plugin. Se lee una vez y se queda en memoria. */
+  /** Still image shipped with the plugin. Read once, then kept in memory. */
   async getSnapshot() {
     if (!this.snapshot) {
       this.snapshot = await readFile(this.stillPath)
@@ -111,21 +138,21 @@ export class IntercomCamera {
     return this.snapshot
   }
 
-  /** ffmpeg necesita el fichero en disco, no el buffer. */
+  /** ffmpeg needs the file on disk, not the buffer. */
   getSnapshotPath() {
     return this.stillPath
   }
 
   /**
-   * Abre la llamada de audio. Mismo camino que una cámara: ticket genérico y luego
-   * negociación WebRTC identificando el aparato por su doorbot_id.
+   * Opens the audio call. Same path as a camera: generic ticket, then a WebRTC
+   * negotiation that identifies the device by its doorbot_id.
    */
   async startLiveCall() {
     const ticket = await this.restClient.request<{ ticket: string }>({
       method: 'POST',
       url: 'https://app.ring.com/api/v1/clap/ticket/request/signalsocket',
     })
-    logInfo(`Abriendo audio con ${this.name}`)
+    logInfo(`Opening audio to ${this.name}`)
     const connection = new WebrtcConnection(ticket.ticket, this as any, {})
     return new StreamingSession(this as any, connection)
   }

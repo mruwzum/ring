@@ -24,20 +24,20 @@ export interface RingPlatformConfig extends RingApiOptions {
   showPanicButtons?: boolean
   disableLogs?: boolean
 
-  // ── Ring Intercom (fork de Miguel Ángel Antolín) ────────────────────────────
-  /** Sensor de contacto que avisa si el Intercom pierde la conexión. */
+  // ── Ring Intercom ───────────────────────────────────────────────────────────
+  /** Contact sensor that reports when the Intercom loses its connection. */
   showOfflineSensor?: boolean
-  /** Interruptor que da de baja los avisos de llamada en el servidor de Ring. */
+  /** Switch that unsubscribes from ding alerts on Ring's servers. */
   showDoNotDisturbSwitch?: boolean
-  /** Registra cada llamada y apertura del Intercom en un JSONL, sin throttle. */
+  /** Logs every Intercom ding and unlock to a JSONL file, unthrottled. */
   logIntercomDings?: boolean
-  /** Carpeta del registro. Por defecto, la de Homebridge. */
+  /** Folder for that log. Defaults to the Homebridge storage directory. */
   intercomDingLogPath?: string
-  /** Accesorio de cámara con imagen fija y audio bidireccional para el Intercom. */
+  /** Camera accessory with a still image and two-way audio for the Intercom. */
   enableIntercomAudio?: boolean
-  /** dB que se suman a la voz que sale hacia el altavoz del portal. */
+  /** dB added to the voice going out to the intercom speaker. */
   intercomSpeakerGainDb?: number
-  /** dB que se suman al audio que llega del portal. */
+  /** dB added to the audio coming in from the intercom. */
   intercomMicGainDb?: number
 }
 

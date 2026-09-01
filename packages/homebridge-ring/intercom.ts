@@ -111,9 +111,9 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
     })
 
     // Programmable Switch Service
-    // `hideDoorbellSwitch` se respeta en camera.ts pero aquí se creaba el botón
-    // siempre, sin mirar la opción: quien no lo usara se comía un accesorio extra
-    // en la app Casa sin forma de quitarlo.
+    // `hideDoorbellSwitch` is honored in camera.ts, but here the switch was always
+    // created regardless of the option, so anyone who did not want it was stuck with
+    // an extra accessory in the Home app and no way to remove it.
     if (!config.hideDoorbellSwitch) {
       this.registerObservableCharacteristic({
         characteristicType: ProgrammableSwitchEvent,
@@ -129,12 +129,12 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
         })
     }
 
-    // ── Registro de llamadas ──────────────────────────────────────────────────
-    // HomeKit no guarda historial, y el servicio Doorbell de arriba aplica un
-    // throttle de 15 s: dos llamadas seguidas se ven como una sola. Aquí se
-    // registra CADA ding, sin throttle, en un JSONL que sobrevive a los reinicios.
-    // Se escribe con appendFile asíncrono a propósito: un fallo al registrar no
-    // puede retrasar ni romper el aviso del timbre, que es lo que importa.
+    // ── Ding log ──────────────────────────────────────────────────────────────
+    // HomeKit keeps no history, and the Doorbell service above throttles to 15s, so
+    // two rings close together look like one. This records EVERY ding, unthrottled,
+    // to a JSONL file that survives restarts.
+    // The async appendFile is deliberate: a logging failure must never delay or break
+    // the doorbell notification, which is the part that actually matters.
     if (config.logIntercomDings) {
       const logPath = join(
           config.intercomDingLogPath || '/var/lib/homebridge',
@@ -151,7 +151,7 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
           appendFile(logPath, line, (err) => {
             if (err) {
               logError(
-                `No se pudo escribir el registro del intercom en ${logPath}: ${err.message}`,
+                `Failed to write the intercom ding log at ${logPath}: ${err.message}`,
               )
             }
           })
@@ -159,20 +159,20 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
 
       device.onDing.subscribe(() => writeEvent('ding'))
       device.onUnlocked.subscribe(() => writeEvent('unlocked'))
-      logInfo(`Registro de llamadas del intercom activo en ${logPath}`)
+      logInfo(`Logging intercom dings to ${logPath}`)
     }
 
-    // ── Sensor de conexión ────────────────────────────────────────────────────
-    // La API expone `alerts.connection` y el plugin no lo usaba: si el interfono
-    // se quedaba sin conexión no había forma de enterarse hasta que alguien
-    // llamaba y no sonaba. ContactSensor es el único servicio que HomeKit deja
-    // usar como disparador de automatización y notificación.
-    // "Detectado" (contacto abierto) = portal SIN conexión.
+    // ── Connectivity sensor ───────────────────────────────────────────────────
+    // The API exposes `alerts.connection` and the plugin never used it: if the
+    // intercom dropped off the network there was no way to find out until someone
+    // rang and nothing happened. ContactSensor is the only service HomeKit allows
+    // as both an automation trigger and a notification source.
+    // "Detected" (contact open) = intercom OFFLINE.
     if (config.showOfflineSensor) {
       this.registerObservableCharacteristic({
         characteristicType: Characteristic.ContactSensorState,
         serviceType: Service.ContactSensor,
-        name: device.name + ' sin conexión',
+        name: device.name + ' Offline',
         serviceSubType: 'offline',
         onValue: device.onData.pipe(
           map((data) =>
@@ -185,18 +185,18 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
       })
     }
 
-    // ── No molestar ───────────────────────────────────────────────────────────
-    // Usa subscribe/unsubscribeToDingEvents, que la API ya ofrecía y el plugin
-    // nunca llamaba. Al contrario que bajar el volumen, esto corta el aviso de
-    // raíz: Ring deja de enviar el push.
-    // SEGURIDAD: el estado NO se persiste a propósito. Tras un reinicio vuelve a
-    // "recibiendo llamadas": es preferible un no-molestar que se olvida solo a
-    // quedarse sin oír el portal sin saber por qué.
+    // ── Do Not Disturb ────────────────────────────────────────────────────────
+    // Uses subscribe/unsubscribeToDingEvents, which the API already offered and the
+    // plugin never called. Unlike turning the volume down, this stops the alert at
+    // the source: Ring stops sending the push.
+    // SAFETY: the state is deliberately NOT persisted. After a restart it goes back
+    // to "receiving dings" — a Do Not Disturb that forgets itself is far better than
+    // silently losing your doorbell with no idea why.
     if (config.showDoNotDisturbSwitch) {
       this.registerCharacteristic({
         characteristicType: Characteristic.On,
         serviceType: Service.Switch,
-        name: device.name + ' no molestar',
+        name: device.name + ' Do Not Disturb',
         serviceSubType: 'dnd',
         getValue: () => this.doNotDisturb,
         setValue: async (on: boolean) => {
@@ -204,17 +204,17 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
             if (on) {
               await device.unsubscribeFromDingEvents()
               logInfo(
-                `No molestar ACTIVADO para ${device.name}: Ring deja de enviar avisos de llamada`,
+                `Do Not Disturb ON for ${device.name}: Ring will stop sending ding alerts`,
               )
             } else {
               await device.subscribeToDingEvents()
               logInfo(
-                `No molestar desactivado para ${device.name}: avisos de llamada restaurados`,
+                `Do Not Disturb off for ${device.name}: ding alerts restored`,
               )
             }
             this.doNotDisturb = Boolean(on)
           } catch (e) {
-            // Si la llamada falla, no mentimos al usuario diciendo que está activo
+            // If the call fails, do not lie to the user about the switch state
             logError(e as Error)
             this.doNotDisturb = !on
           }

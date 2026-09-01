@@ -1,0 +1,3167 @@
+{
+  "_attachments/dna/genera_figs2.py": {
+    "mtime": 1781538938.148993,
+    "ast_hash": "121c5c06695335d3cc6b220b1976c25f",
+    "semantic_hash": ""
+  },
+  "_attachments/dna/genera_pdf2.py": {
+    "mtime": 1781538938.1487246,
+    "ast_hash": "5bfebacb4e99aa07a780695bd70f670a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/17_stirling_road.json": {
+    "mtime": 1781374305.6318278,
+    "ast_hash": "42be9ac7b9b0ec452d12b86aaccfe9e6",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ads-b_dashboard.json": {
+    "mtime": 1781374305.6614802,
+    "ast_hash": "d455c63b2129d3fc7448bbc77c1466e8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/agustina_berm\u00fadez_castillo.json": {
+    "mtime": 1781374305.6826255,
+    "ast_hash": "76ad95d95b59af2fe60f64f2245d6f17",
+    "semantic_hash": ""
+  },
+  "meta/provenance/alerts_and_automation.json": {
+    "mtime": 1781374305.6274028,
+    "ast_hash": "cf1aaeb4cc64f3f9294eeccc2f94bbe4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/alvaro_vecino.json": {
+    "mtime": 1781374305.682852,
+    "ast_hash": "3378f6d3435256d71990e51f33ac930a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ana_antol\u00edn.json": {
+    "mtime": 1781374305.6830559,
+    "ast_hash": "33e56a4a6bc0173921be621bfbfe42f5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ana_lucero.json": {
+    "mtime": 1781374305.6833262,
+    "ast_hash": "40018be56cfdf0a6ac7697b6ff0c6dc7",
+    "semantic_hash": ""
+  },
+  "meta/provenance/appian.json": {
+    "mtime": 1781374305.6836472,
+    "ast_hash": "25d3beea1fd0f95f47fa1cbf29a041b5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/apple_health.json": {
+    "mtime": 1781374305.6323237,
+    "ast_hash": "fff138036894ae14873982d1bfe62103",
+    "semantic_hash": ""
+  },
+  "meta/provenance/apple_music_history.json": {
+    "mtime": 1781374305.6332633,
+    "ast_hash": "f639c787a1f4249612850c0585ccfc08",
+    "semantic_hash": ""
+  },
+  "meta/provenance/apple_music_library.json": {
+    "mtime": 1781374305.6336493,
+    "ast_hash": "6157b259fb928e95321d9b21a7db6e87",
+    "semantic_hash": ""
+  },
+  "meta/provenance/apple_music_\u2014_2026.json": {
+    "mtime": 1781374305.6343577,
+    "ast_hash": "0c89dbe398573d307708dd0bdee45bb0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/apple_music_\u2014_top_tracks.json": {
+    "mtime": 1781374305.636806,
+    "ast_hash": "2660bdaa1e8cdfc056eea8d3f83ca840",
+    "semantic_hash": ""
+  },
+  "meta/provenance/arras_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6657255,
+    "ast_hash": "3284c520f2ac33e9a893d52e0d34c261",
+    "semantic_hash": ""
+  },
+  "meta/provenance/bad_gyal.json": {
+    "mtime": 1781374305.6168978,
+    "ast_hash": "819012e1e88d5d84b4deb38cefc0216e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/bash.json": {
+    "mtime": 1781374305.6625705,
+    "ast_hash": "a0e96ba8f9e74fb53109060a3e86b4a4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/belen.json": {
+    "mtime": 1781374305.6840167,
+    "ast_hash": "014494178010888c661f7bbe29912e59",
+    "semantic_hash": ""
+  },
+  "meta/provenance/bitwarden_cli.json": {
+    "mtime": 1781374305.6628103,
+    "ast_hash": "6edcb25e4590838e4780cd49edcb78f4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/calendar_\u2014_jun_2025_to_dec_2026.json": {
+    "mtime": 1781374305.6676054,
+    "ast_hash": "eec94e9805db894caa9ccaf230e360b6",
+    "semantic_hash": ""
+  },
+  "meta/provenance/candelorra.json": {
+    "mtime": 1781374305.6843374,
+    "ast_hash": "ae8cc498d9d6f1827844f9d8c780ce00",
+    "semantic_hash": ""
+  },
+  "meta/provenance/carmen_berm\u00fadez_castillo.json": {
+    "mtime": 1781374305.6850417,
+    "ast_hash": "b39ad4b2a9cb820430f5b0054e40c1e0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/carmen_cohen.json": {
+    "mtime": 1781374305.6853306,
+    "ast_hash": "5b3660e63930bc240131edbb11f001e9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/catalina_guerrero.json": {
+    "mtime": 1781374305.685615,
+    "ast_hash": "2475e1e51cba055055ba5e6aa70f2afe",
+    "semantic_hash": ""
+  },
+  "meta/provenance/catastro_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6678708,
+    "ast_hash": "40b85b420fecae6db19162c6d61ce36a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/cee_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6661956,
+    "ast_hash": "4e4b9e8cb29eaee6afc3562355cd800b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/cert_comunidad_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6681342,
+    "ast_hash": "34d88395a0c596213934be947317aeb6",
+    "semantic_hash": ""
+  },
+  "meta/provenance/cert_tributario_\u2014_isaac_leon_ruiz.json": {
+    "mtime": 1781374305.6685238,
+    "ast_hash": "4321ebe394126f3a414cc5c1fc777eb8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/chema.json": {
+    "mtime": 1781374305.686038,
+    "ast_hash": "43a22e4930b9523c1365c21db6314a65",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ciro_l\u00f3pez.json": {
+    "mtime": 1781374305.6864262,
+    "ast_hash": "426f24edcbe8e5821f19323cd215b3cc",
+    "semantic_hash": ""
+  },
+  "meta/provenance/clara_moreno.json": {
+    "mtime": 1781374305.6868508,
+    "ast_hash": "2e4978a6ac090e171a01013bbb300294",
+    "semantic_hash": ""
+  },
+  "meta/provenance/claude_code.json": {
+    "mtime": 1781374305.663105,
+    "ast_hash": "a020948ec04a855e90dd90bfb6a7aff7",
+    "semantic_hash": ""
+  },
+  "meta/provenance/cron_jobs_raspi5.json": {
+    "mtime": 1781374305.6178215,
+    "ast_hash": "c92204f4189fe4a70e66f766fe1d129a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/crossfit.json": {
+    "mtime": 1781374305.6172533,
+    "ast_hash": "c8969bb298a33501a15448f80d7e778e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/cuenta_unicaja_vendedor_\u2014_av_de_andaluci.json": {
+    "mtime": 1781374305.668816,
+    "ast_hash": "75042a7b12bf90d8726f16ee392ea901",
+    "semantic_hash": ""
+  },
+  "meta/provenance/curro_molina.json": {
+    "mtime": 1781374305.687098,
+    "ast_hash": "0e6b23037a9aa56882527ae015535777",
+    "semantic_hash": ""
+  },
+  "meta/provenance/daniel_galindo.json": {
+    "mtime": 1781374305.6874244,
+    "ast_hash": "a5931f2fe38fedef2dd2df2b9637dc20",
+    "semantic_hash": ""
+  },
+  "meta/provenance/deeno.json": {
+    "mtime": 1781374305.6877162,
+    "ast_hash": "50b3b360993c993c5dd8b08a2da97bd8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/digi_alta_+_unifi_\u2014_plan_de_acci\u00f3n.json": {
+    "mtime": 1781374305.6185017,
+    "ast_hash": "a33313bd5a825225b4dba50c5a6f17bc",
+    "semantic_hash": ""
+  },
+  "meta/provenance/documentaci\u00f3n_notarial_santander_\u2014_av_de.json": {
+    "mtime": 1781112803.5583708,
+    "ast_hash": "c8bd3a5b898565ecd78d35bfd6818b85",
+    "semantic_hash": ""
+  },
+  "meta/provenance/donacion_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6696787,
+    "ast_hash": "4f3693e2573635bc804f242d02e3b62e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/draft_\u2014_email_mar\u00eda_barrantes_santander.json": {
+    "mtime": 1781374305.6699502,
+    "ast_hash": "5cc8ddc6939377a316ff4431cb81efb7",
+    "semantic_hash": ""
+  },
+  "meta/provenance/dream-checkpoint.json": {
+    "mtime": 1781112803.5567176,
+    "ast_hash": "c20b7cdf6d6126860498952ad0ac385f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/eduardo_d\u00edaz.json": {
+    "mtime": 1781374305.688053,
+    "ast_hash": "85c49071ef43a0adfc9b552ad4b0d5fa",
+    "semantic_hash": ""
+  },
+  "meta/provenance/electricity_\u2014_av_andalucia_6.json": {
+    "mtime": 1781374305.6702237,
+    "ast_hash": "d0db8f806bcbc83e2ebc5b07cbd2bcad",
+    "semantic_hash": ""
+  },
+  "meta/provenance/elena_bravo_arche.json": {
+    "mtime": 1781374305.6889277,
+    "ast_hash": "40919a6906e8acf95ab37b88343f315c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/elena_rodr\u00edguez_burgos.json": {
+    "mtime": 1781374305.689473,
+    "ast_hash": "505c0c4eb540a7960debd21e9ed5237c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/email-to-calendar.json": {
+    "mtime": 1781374305.6620917,
+    "ast_hash": "c0bc41efcd3de5bf9a1f10d6d93a9135",
+    "semantic_hash": ""
+  },
+  "meta/provenance/empadronamiento_\u2014_sevilla.json": {
+    "mtime": 1781374305.6705582,
+    "ast_hash": "cfbf6c4b4345987f99b1dd755d8e09c2",
+    "semantic_hash": ""
+  },
+  "meta/provenance/facturas_luz_\u2014_ram\u00f3n_resa.json": {
+    "mtime": 1781374305.671009,
+    "ast_hash": "197d009eeb6e9094f6aa26b46e1619ef",
+    "semantic_hash": ""
+  },
+  "meta/provenance/family.json": {
+    "mtime": 1781374305.6375613,
+    "ast_hash": "adc6f77a915a450ff7640f7846b78eb5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/finances_and_services.json": {
+    "mtime": 1781374305.6396976,
+    "ast_hash": "4be37d41cfdac40bca8ce764b3f1f9ef",
+    "semantic_hash": ""
+  },
+  "meta/provenance/flat_decoration_\u2014_av_andalucia_6.json": {
+    "mtime": 1781374305.6713715,
+    "ast_hash": "53a206ea3fb863b71aae980d6ed33b58",
+    "semantic_hash": ""
+  },
+  "meta/provenance/flat_search_\u2014_marqu\u00e9s_de_pickman.json": {
+    "mtime": 1781374305.6719682,
+    "ast_hash": "5915e1317f5a5a356019b28e38a6eb41",
+    "semantic_hash": ""
+  },
+  "meta/provenance/flowable.json": {
+    "mtime": 1781374305.689907,
+    "ast_hash": "a7636149771f79d39ac016e870b60d43",
+    "semantic_hash": ""
+  },
+  "meta/provenance/flowable_\u2014_work.json": {
+    "mtime": 1781374305.6409695,
+    "ast_hash": "386da317e6db2fe253e3a0db1bff883b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/frequent_flights.json": {
+    "mtime": 1781374305.6723387,
+    "ast_hash": "afbb5cd7c11931d21b24956b8f33b268",
+    "semantic_hash": ""
+  },
+  "meta/provenance/garc\u00eda-carpintero.json": {
+    "mtime": 1781374305.6901846,
+    "ast_hash": "0a1d9ff416c608a9c52a8de9b49b9fbe",
+    "semantic_hash": ""
+  },
+  "meta/provenance/gemilla_alexander.json": {
+    "mtime": 1781374305.690603,
+    "ast_hash": "44d1a61cd292c8228d7274aae8971164",
+    "semantic_hash": ""
+  },
+  "meta/provenance/gerardo_\"gerardito\"_berm\u00fadez_rangel.json": {
+    "mtime": 1781374305.6911244,
+    "ast_hash": "fd85930df6608d325af668e4eedc3285",
+    "semantic_hash": ""
+  },
+  "meta/provenance/gerardo_berm\u00fadez_castillo.json": {
+    "mtime": 1781374305.6914012,
+    "ast_hash": "54b45a43c8371f371b395baa5a478081",
+    "semantic_hash": ""
+  },
+  "meta/provenance/gerardo_berm\u00fadez_gallardo.json": {
+    "mtime": 1781374305.6916008,
+    "ast_hash": "323f9e112c4c56da178bce534695d1f0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/graph_report.json": {
+    "mtime": 1781374305.736243,
+    "ast_hash": "a770ad5baee932e78a2e3b96042631e5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/guille.json": {
+    "mtime": 1781374305.6917894,
+    "ast_hash": "87fc1eb8bcbcf5ce32df0293b6a9d946",
+    "semantic_hash": ""
+  },
+  "meta/provenance/hipoteca_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6736627,
+    "ast_hash": "34cb25d3105db0dd68ff865376e48839",
+    "semantic_hash": ""
+  },
+  "meta/provenance/historical_infrastructure_\u2014_2019.json": {
+    "mtime": 1781374305.6188648,
+    "ast_hash": "9cfb0856b8b97200bc41b03fc666930b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/history_with_joshua.json": {
+    "mtime": 1781374305.6416276,
+    "ast_hash": "eeef675a59967c916b6c00e60e26b24f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/homebridge.json": {
+    "mtime": 1781374305.6191268,
+    "ast_hash": "c307226eedd32abb478d2d21f2da9fb4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/hot.json": {
+    "mtime": 1781112803.5469797,
+    "ast_hash": "40b29073fa2a8a0e55f58dcc246182a8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/icloud_drive.json": {
+    "mtime": 1781374305.6612043,
+    "ast_hash": "3b31e24f0e024e442f4512049f0a763d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/index.json": {
+    "mtime": 1781112803.547927,
+    "ast_hash": "67f0dc950581c92cb84d4b28368a0a40",
+    "semantic_hash": ""
+  },
+  "meta/provenance/indian_crossfit.json": {
+    "mtime": 1781374305.6920662,
+    "ast_hash": "ce1ec0c3a42f8fbc4ed7b9b3a5933490",
+    "semantic_hash": ""
+  },
+  "meta/provenance/infrastructure_as_code.json": {
+    "mtime": 1781374305.6633599,
+    "ast_hash": "3274687cae17167ea57ea0819c3d17c8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/infrastructure_overview.json": {
+    "mtime": 1781374305.6196146,
+    "ast_hash": "9121f27f450019b69b1b984a72dc17ee",
+    "semantic_hash": ""
+  },
+  "meta/provenance/instagram_dms.json": {
+    "mtime": 1781374305.643272,
+    "ast_hash": "c288f7bf0831ac293b30b2d82e87361d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/installed_software_inventory.json": {
+    "mtime": 1781374305.6200771,
+    "ast_hash": "30075777d37386a77827b7ac885faec8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/isabel_arroyo_berm\u00fadez.json": {
+    "mtime": 1781374305.6923945,
+    "ast_hash": "06c8dbcd6428a7d0f13cfb09b28a69dc",
+    "semantic_hash": ""
+  },
+  "meta/provenance/isabel_berm\u00fadez_castillo.json": {
+    "mtime": 1781374305.6926854,
+    "ast_hash": "cfa9de8017aa774d525209b9b9c01165",
+    "semantic_hash": ""
+  },
+  "meta/provenance/isabel_castillo_peguero.json": {
+    "mtime": 1781374305.6928897,
+    "ast_hash": "4d7a023420e3e2228b9fcae5c9467081",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ite_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.674105,
+    "ast_hash": "a08a9163103a92ade8484be74930c4ef",
+    "semantic_hash": ""
+  },
+  "meta/provenance/i\u00f1igo.json": {
+    "mtime": 1781374305.6931884,
+    "ast_hash": "9375d730bca47f86c3ef078cab6b93cb",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jan_ohlhoff.json": {
+    "mtime": 1781374305.6935112,
+    "ast_hash": "03e6dd72f289ca913cd695d3aca81666",
+    "semantic_hash": ""
+  },
+  "meta/provenance/javier_esteban.json": {
+    "mtime": 1781374305.6937885,
+    "ast_hash": "676ea0669441ac1edbde16970489663a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/javier_fabre.json": {
+    "mtime": 1781374305.6947792,
+    "ast_hash": "796b867d5a4e4ba99d12153e977f71cf",
+    "semantic_hash": ""
+  },
+  "meta/provenance/javier_guerra.json": {
+    "mtime": 1781374305.6952646,
+    "ast_hash": "338555a62d6bfeff22d0e270aafa449e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/javier_mart\u00edn_mart\u00edn.json": {
+    "mtime": 1781374305.6954846,
+    "ast_hash": "54adb4e75735c7be2527896eeece8896",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jenkins.json": {
+    "mtime": 1781374305.620264,
+    "ast_hash": "c63606e46b8befc3765981dd62d6365c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/joaqu\u00edn_becerra.json": {
+    "mtime": 1781374305.695787,
+    "ast_hash": "3543a51b1a9afd301c81188965a660c1",
+    "semantic_hash": ""
+  },
+  "meta/provenance/john_pearson.json": {
+    "mtime": 1781374305.6961465,
+    "ast_hash": "e70bf9ffe6480291878d38b9d4966e90",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jos_so.json": {
+    "mtime": 1781374305.6963925,
+    "ast_hash": "cc37b3b7a10973d855d17b5a84fe91fd",
+    "semantic_hash": ""
+  },
+  "meta/provenance/joshua_alexander.json": {
+    "mtime": 1781374305.6978862,
+    "ast_hash": "a7d4e699aea61bcbb15da01520772a3a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/josito.json": {
+    "mtime": 1781374305.6981242,
+    "ast_hash": "2dffb03cb80445a0b8959d31f6c34c5f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jos\u00e9_arroyo_garc\u00eda.json": {
+    "mtime": 1781374305.6983225,
+    "ast_hash": "c6a29d4a6cbeb54dcbd27fe695776da9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jos\u00e9_gabriel_calvache_mart\u00ednez.json": {
+    "mtime": 1781374305.6986144,
+    "ast_hash": "9460d6e808012345d9ca6f8357525c2e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jos\u00e9_ram\u00f3n_sol\u00eds.json": {
+    "mtime": 1781374305.6991427,
+    "ast_hash": "c50ba29bacfc9c4b4d4971e63a0f431e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/jos\u00e9_s\u00e1nchez.json": {
+    "mtime": 1781374305.6994278,
+    "ast_hash": "0e06c28d7564e62964abd6b0ae5e2adc",
+    "semantic_hash": ""
+  },
+  "meta/provenance/juan_carlos_prieto.json": {
+    "mtime": 1781374305.6997335,
+    "ast_hash": "26b4cfeec4e6a24e3d373a22b3c4ea4b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/juan_luis_rodr\u00edguez.json": {
+    "mtime": 1781374305.6999424,
+    "ast_hash": "ea9dfbd83d68cd481b7a878b2d2bad09",
+    "semantic_hash": ""
+  },
+  "meta/provenance/kit_b\u00e1sico_viaje.json": {
+    "mtime": 1781374305.67437,
+    "ast_hash": "572ed110c364d5c312a8927ee60bce30",
+    "semantic_hash": ""
+  },
+  "meta/provenance/log-archive-2026.json": {
+    "mtime": 1781112803.5525863,
+    "ast_hash": "a88fd85e2254b30d530d72be1a876157",
+    "semantic_hash": ""
+  },
+  "meta/provenance/log.json": {
+    "mtime": 1781112803.556483,
+    "ast_hash": "149e950eb7360fbbd43eb3c1466e76e5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/loles_vecina.json": {
+    "mtime": 1781374305.7002,
+    "ast_hash": "4aa9d122a612b6f06cacc44637757898",
+    "semantic_hash": ""
+  },
+  "meta/provenance/london_\u2014_joshua.json": {
+    "mtime": 1781374305.6748786,
+    "ast_hash": "503b5bd0d1bc577508e2ad5b0197a8f1",
+    "semantic_hash": ""
+  },
+  "meta/provenance/lourdes_lir\u00f3.json": {
+    "mtime": 1781374305.7004755,
+    "ast_hash": "d2d1070a93c8dd91a7de1855753adc94",
+    "semantic_hash": ""
+  },
+  "meta/provenance/lourdes_romero.json": {
+    "mtime": 1781374305.7007306,
+    "ast_hash": "488f3f5681a63f9a72ce4393ee50e0dd",
+    "semantic_hash": ""
+  },
+  "meta/provenance/luc\u00eda_fern\u00e1ndez_sarria.json": {
+    "mtime": 1781374305.700967,
+    "ast_hash": "21c46096ef3ab74fc00c4c69359e19e9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mac.json": {
+    "mtime": 1781374305.663952,
+    "ast_hash": "af193807d91183524345df0c8e2ce00c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/manuel_antol\u00edn.json": {
+    "mtime": 1781374305.701201,
+    "ast_hash": "e3562bd34763bc7027adbefc68f3566d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/manuel_berm\u00fadez_rangel.json": {
+    "mtime": 1781374305.7014203,
+    "ast_hash": "5d0b99e137ddfa254810fd3a70318fdd",
+    "semantic_hash": ""
+  },
+  "meta/provenance/marcos.json": {
+    "mtime": 1781374305.7019336,
+    "ast_hash": "512b5acb4aa1b52f7f8925757e64de4a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/maricarmen-mem_\u2014_wiki.json": {
+    "mtime": 1781374305.6623554,
+    "ast_hash": "1e1abd53bb0fce0bfb55a363c954987f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/maricarmen_\u2014_identity.json": {
+    "mtime": 1781374305.6280732,
+    "ast_hash": "2685083dd90e3881eef4253e0c914216",
+    "semantic_hash": ""
+  },
+  "meta/provenance/maricarmen_\u2014_memory_system.json": {
+    "mtime": 1781374305.6284654,
+    "ast_hash": "12d67b64702a51b46d7e5fb8828a19d9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/maricarmen_\u2014_tools.json": {
+    "mtime": 1781374305.6287653,
+    "ast_hash": "abb66e457da5f6f994ddb64876e44b45",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mari\u00e1ngeles_carde\u00f1o_mart\u00edn.json": {
+    "mtime": 1781374305.7022247,
+    "ast_hash": "61a3df1ac448dc41b26d567b09cbb59b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mark_kent.json": {
+    "mtime": 1781374305.702636,
+    "ast_hash": "5219eada860a793b13b8899830c80191",
+    "semantic_hash": ""
+  },
+  "meta/provenance/marta_edu.json": {
+    "mtime": 1781374305.702845,
+    "ast_hash": "87a8b893413afba6275e90510810b1d4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/marta_rubia_riso.json": {
+    "mtime": 1781374305.7031918,
+    "ast_hash": "a3ab05a6592a37c42054455a186ef564",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mar\u00eda_arroyo_berm\u00fadez.json": {
+    "mtime": 1781374305.7034352,
+    "ast_hash": "e41d6027fa72d3071b99779057bf0273",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mar\u00eda_barrantes.json": {
+    "mtime": 1781374305.70365,
+    "ast_hash": "e1809eeb0588a29caf2a1dec3f856fcd",
+    "semantic_hash": ""
+  },
+  "meta/provenance/matt_fischetti.json": {
+    "mtime": 1781374305.7039614,
+    "ast_hash": "28c528b6b28b10252f472ed220cca5de",
+    "semantic_hash": ""
+  },
+  "meta/provenance/maxine_alexander.json": {
+    "mtime": 1781374305.7042203,
+    "ast_hash": "1cf3c5151a884d4aa73c7e78b12855b5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/mayte_acu\u00f1a.json": {
+    "mtime": 1781374305.7046072,
+    "ast_hash": "36e239589a43fe8683c62ce5a1defe4a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel.json": {
+    "mtime": 1781374305.6452518,
+    "ast_hash": "a37760fdaea5c1532da771cfdcac2b66",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_aguirre.json": {
+    "mtime": 1781374305.7048993,
+    "ast_hash": "6919826039f4eca4cef4d9a4ec15418d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_\u00e1ngel_antol\u00edn_l\u00f3pez.json": {
+    "mtime": 1781374305.7051678,
+    "ast_hash": "d8751eebc74cd700bc2417dcf46b57c1",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_\u00e1ngel_antol\u00edn_siffredi.json": {
+    "mtime": 1781374305.705365,
+    "ast_hash": "7294a8967bb20b5ffe2ceabf603ff84f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_\u2014_replication_playbook.json": {
+    "mtime": 1781374305.629351,
+    "ast_hash": "4e263dfa373aacdc2dffdbfa31b7b5ba",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_\u2014_telegram_command_style.json": {
+    "mtime": 1781374305.6303475,
+    "ast_hash": "0aa3968bab3822911655d9be6d1f5883",
+    "semantic_hash": ""
+  },
+  "meta/provenance/miguel_\u2014_voice_profile.json": {
+    "mtime": 1781374305.6308372,
+    "ast_hash": "1403eeb1b0bb917d14d3ae83ee01e2d1",
+    "semantic_hash": ""
+  },
+  "meta/provenance/morritos_gonz\u00e1lez.json": {
+    "mtime": 1781374305.7057927,
+    "ast_hash": "c74feb9a22a76e2c2d65879c360d9006",
+    "semantic_hash": ""
+  },
+  "meta/provenance/needs_review.json": {
+    "mtime": 1781112803.5572753,
+    "ast_hash": "1909d9c94aa698fbfde25617c27bffaf",
+    "semantic_hash": ""
+  },
+  "meta/provenance/niovi.json": {
+    "mtime": 1781374305.706111,
+    "ast_hash": "33a17e2256d89c44355a699c804cdfbd",
+    "semantic_hash": ""
+  },
+  "meta/provenance/node-js.json": {
+    "mtime": 1781374305.6641507,
+    "ast_hash": "f922eb8d8f537d249634973d572dbb0a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/nota_simple_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781112803.5587866,
+    "ast_hash": "f6feb79fa1ff6eca61415d2f7d2949c0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ntfy.json": {
+    "mtime": 1781374305.6237986,
+    "ast_hash": "45da76c86bdf3fda7f30953f656fe5f4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/observability.json": {
+    "mtime": 1781374305.664361,
+    "ast_hash": "1c34cc0341e339206f35b9bbe4aa9beb",
+    "semantic_hash": ""
+  },
+  "meta/provenance/obsidian_llm_wiki.json": {
+    "mtime": 1781374305.664598,
+    "ast_hash": "b65669794b04ee1071a8c96ad29f9b23",
+    "semantic_hash": ""
+  },
+  "meta/provenance/oferta_hipoteca_\u2014_bbva.json": {
+    "mtime": 1781374305.6755302,
+    "ast_hash": "392f4528f99aad3f9c26506a49fa2f9e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/oferta_hipoteca_\u2014_caixabank.json": {
+    "mtime": 1781374305.675844,
+    "ast_hash": "cc5c4c150a6ee0f9637c22193f1f413a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/oferta_hipoteca_\u2014_ibercaja.json": {
+    "mtime": 1781374305.6763036,
+    "ast_hash": "e2c41f08f34468e3f6ab32321a8b00c9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/oferta_hipoteca_\u2014_santander.json": {
+    "mtime": 1781374305.676919,
+    "ast_hash": "6b95b22dfdef970104000e84ebf7bb03",
+    "semantic_hash": ""
+  },
+  "meta/provenance/overview.json": {
+    "mtime": 1781112803.557636,
+    "ast_hash": "5fd78b119b3bfab4daea6e93329b6259",
+    "semantic_hash": ""
+  },
+  "meta/provenance/paul_turner.json": {
+    "mtime": 1781374305.7063105,
+    "ast_hash": "2f10a88011e0f55b020bbe600b9b6668",
+    "semantic_hash": ""
+  },
+  "meta/provenance/pedro_vesi.json": {
+    "mtime": 1781374305.7068408,
+    "ast_hash": "f947cc8d4fbc8107dcfc294b324810ea",
+    "semantic_hash": ""
+  },
+  "meta/provenance/personality.json": {
+    "mtime": 1781374305.6462643,
+    "ast_hash": "47f41f09ba484f47e2d64fb99cc534c0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/petra_l\u00f3pez.json": {
+    "mtime": 1781374305.7070186,
+    "ast_hash": "cc66fdaddc48667d4b9729bc881d3b9c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/pi-hole.json": {
+    "mtime": 1781374305.62056,
+    "ast_hash": "2c33a672055901b371e5a05ea5be695d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/pilar_n\u00fa\u00f1ez_porr\u00f3n.json": {
+    "mtime": 1781374305.7072015,
+    "ast_hash": "f0124c050254c3cb5856b03b907294c2",
+    "semantic_hash": ""
+  },
+  "meta/provenance/plan_migraci\u00f3n_casa_\u2014_digi.json": {
+    "mtime": 1781374305.6215281,
+    "ast_hash": "8b95ebe57f868971f0f04a6fab4848d7",
+    "semantic_hash": ""
+  },
+  "meta/provenance/profile_\u2014_complete_review_jun_2026.json": {
+    "mtime": 1781374305.6468728,
+    "ast_hash": "0923f6856b2b6697391ccb49699e3878",
+    "semantic_hash": ""
+  },
+  "meta/provenance/python.json": {
+    "mtime": 1781374305.6648028,
+    "ast_hash": "8d7c14414fa99408b89ef721226b53b3",
+    "semantic_hash": ""
+  },
+  "meta/provenance/qipert.json": {
+    "mtime": 1781374305.7075136,
+    "ast_hash": "c9d3b82c6b8c527996e1dc7b129c27a9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/rafael_pueyo_gonz\u00e1lez.json": {
+    "mtime": 1781374305.7080586,
+    "ast_hash": "78daae89a649ce1213823c81fb1119ae",
+    "semantic_hash": ""
+  },
+  "meta/provenance/raspb_jmja.json": {
+    "mtime": 1781374305.6249275,
+    "ast_hash": "cb52c54f3d1be72b60573c1a31b8dbd0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/raspi4.json": {
+    "mtime": 1781374305.6254885,
+    "ast_hash": "835409b394cfab08917bc098db575616",
+    "semantic_hash": ""
+  },
+  "meta/provenance/raspi5.json": {
+    "mtime": 1781374305.6261637,
+    "ast_hash": "4f3ba8c2668225a20a8b3f848009621f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/red_piso_nuevo_\u2014_unifi_xgs-pon.json": {
+    "mtime": 1781374305.6222835,
+    "ast_hash": "d9302f827379668bfa633183ecc21ef4",
+    "semantic_hash": ""
+  },
+  "meta/provenance/restaurants.json": {
+    "mtime": 1781374305.6772,
+    "ast_hash": "cd2541d7f81f8675a63ecbfb6a27991f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/roma.json": {
+    "mtime": 1781374305.7078147,
+    "ast_hash": "7b8db547067dc44365d8b11b3fd3970c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/salary_history.json": {
+    "mtime": 1781374305.6497548,
+    "ast_hash": "0e09b6187bf1e9331ec4b6189c06299c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/se_oneroso_draconiano.json": {
+    "mtime": 1781374305.6175432,
+    "ast_hash": "4a40ea4942a0e8d572cf3aa288419f5a",
+    "semantic_hash": ""
+  },
+  "meta/provenance/secrets_and_api_keys.json": {
+    "mtime": 1781374305.6652746,
+    "ast_hash": "6802b80537643bf758b3392259dcfdfc",
+    "semantic_hash": ""
+  },
+  "meta/provenance/seville_\u2014_home.json": {
+    "mtime": 1781374305.6776183,
+    "ast_hash": "e6dcf7a44a5b17b5837a9318b56d6dba",
+    "semantic_hash": ""
+  },
+  "meta/provenance/smart_home_\u2014_av_andalucia_6.json": {
+    "mtime": 1781374305.6227114,
+    "ast_hash": "d96c3465f146500fccfde74d14121b17",
+    "semantic_hash": ""
+  },
+  "meta/provenance/social_circle.json": {
+    "mtime": 1781374305.6505306,
+    "ast_hash": "213041c553df51144cbecfd76a2115b0",
+    "semantic_hash": ""
+  },
+  "meta/provenance/soft-sh_\u2014_updates.json": {
+    "mtime": 1781374305.626392,
+    "ast_hash": "36c7c923dae8e38344c297fe6a958a28",
+    "semantic_hash": ""
+  },
+  "meta/provenance/soul.json": {
+    "mtime": 1781374305.7082393,
+    "ast_hash": "c4924783f19f6bd6c27aa2c1f6a95298",
+    "semantic_hash": ""
+  },
+  "meta/provenance/sre_principles.json": {
+    "mtime": 1781374305.6650116,
+    "ast_hash": "3943ece5a334d6b69b9237d19a2ae125",
+    "semantic_hash": ""
+  },
+  "meta/provenance/switzerland_trip_june_2026.json": {
+    "mtime": 1781374305.6779044,
+    "ast_hash": "c301e82915909d67125a2e3e39a04d96",
+    "semantic_hash": ""
+  },
+  "meta/provenance/switzerland_trip_sep_2026.json": {
+    "mtime": 1781374305.678179,
+    "ast_hash": "8adac5ce37844cb726bbf6fc11617cac",
+    "semantic_hash": ""
+  },
+  "meta/provenance/tasacion_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.679009,
+    "ast_hash": "af9ad5e852aaaba1af98a2ab22525e0e",
+    "semantic_hash": ""
+  },
+  "meta/provenance/telegram_claude_\u2014_personal_bot.json": {
+    "mtime": 1781374305.661849,
+    "ast_hash": "6dba95fbb09c667e66409f759ac62617",
+    "semantic_hash": ""
+  },
+  "meta/provenance/tetas.json": {
+    "mtime": 1781374305.7094274,
+    "ast_hash": "00b258ebf4c7e57cb9f94281fe7535ee",
+    "semantic_hash": ""
+  },
+  "meta/provenance/teticias.json": {
+    "mtime": 1781374305.710092,
+    "ast_hash": "18d65f31e5f49c47659ae0cbbeab1bf3",
+    "semantic_hash": ""
+  },
+  "meta/provenance/toni_rangel.json": {
+    "mtime": 1781374305.7103505,
+    "ast_hash": "d009665f2602c209bfbfa2b92f9ba3ba",
+    "semantic_hash": ""
+  },
+  "meta/provenance/transferencia_arras_\u2014_av_de_andalucia_6.json": {
+    "mtime": 1781374305.6793175,
+    "ast_hash": "85fa27888c199e7d92e052426985cda6",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trioteca.json": {
+    "mtime": 1781374305.7106485,
+    "ast_hash": "0e7786c471a910688cf276599dc48149",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_algarve_hen_party_mar_2025.json": {
+    "mtime": 1781374305.6795547,
+    "ast_hash": "7e5584bf98645c2fad90bacbcc954b95",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_bali_feb_2026.json": {
+    "mtime": 1781374305.6797817,
+    "ast_hash": "37c67f67a80edcce3bc89545ddab7ddf",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_flowable_team_event_eindhoven_feb.json": {
+    "mtime": 1781374305.6800005,
+    "ast_hash": "8acb5e56384eb1358395242650b9dae5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_japan_feb\u2013mar_2024.json": {
+    "mtime": 1781374305.6801875,
+    "ast_hash": "a305d4237893a47ce2797512d89076f1",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_las_vegas_grand_canyon_dec_2024.json": {
+    "mtime": 1781374305.6803706,
+    "ast_hash": "440c33d0655ba879a4c2e26c3a6fab26",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_maldives_apr\u2013may_2023.json": {
+    "mtime": 1781374305.6805513,
+    "ast_hash": "e09eb76ab68dfe11bc8e62c947ba7371",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_qatar_abu_dhabi_dubai_jul_2025.json": {
+    "mtime": 1781374305.6808035,
+    "ast_hash": "49333ca6b694820e06aea68ed353496f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_qatar_dubai_muscat_sep\u2013oct_2025.json": {
+    "mtime": 1781374305.6810195,
+    "ast_hash": "257219b80fda3270b72758841d0df7d9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_thailand_jul_2024.json": {
+    "mtime": 1781374305.6811998,
+    "ast_hash": "571eaf41c034e5b9d5dd928babecd52d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_turkey_nov_2025.json": {
+    "mtime": 1781374305.6814632,
+    "ast_hash": "25610b25d9d7a1386f0de65d9e123316",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trip_\u2014_usa_jan\u2013feb_2025.json": {
+    "mtime": 1781374305.681709,
+    "ast_hash": "f0cfcc6ece3230efe8eb8f8e6cb083f8",
+    "semantic_hash": ""
+  },
+  "meta/provenance/trips.json": {
+    "mtime": 1781374305.6819787,
+    "ast_hash": "509793fd8ed875af7916d5879572dbda",
+    "semantic_hash": ""
+  },
+  "meta/provenance/tussam.json": {
+    "mtime": 1781374305.6311603,
+    "ast_hash": "510ef28d329633c91df1636b242c08ca",
+    "semantic_hash": ""
+  },
+  "meta/provenance/vendedor_\u2014_isaac_leon_ruiz.json": {
+    "mtime": 1781374305.7110956,
+    "ast_hash": "469002e454b568039136642ecfcdad6b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/ver\u00f3nica_cano_ram\u00edrez.json": {
+    "mtime": 1781374305.71133,
+    "ast_hash": "b1547d7777eca79993a175a9f86604d9",
+    "semantic_hash": ""
+  },
+  "meta/provenance/vesi_flaca.json": {
+    "mtime": 1781374305.711647,
+    "ast_hash": "173e9f349ce2ceee518788e7d3979fe2",
+    "semantic_hash": ""
+  },
+  "meta/provenance/vps_miguelangelantolin_com.json": {
+    "mtime": 1781374305.6232505,
+    "ast_hash": "6da6b22c74375398fbcb66bb7d6f7d41",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_alexander_palace_n22_visit.json": {
+    "mtime": 1781374305.7121956,
+    "ast_hash": "1eda507718cc174422587c722b2b8437",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_cumple_joaqui.json": {
+    "mtime": 1781374305.7125897,
+    "ast_hash": "269641a4e995ae776b3ac5f5d53525eb",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_cumple_p_chos.json": {
+    "mtime": 1781374305.7130632,
+    "ast_hash": "15681ce48f2dd3b8744e732e2faae258",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_dxb_uae_crew.json": {
+    "mtime": 1781374305.7135575,
+    "ast_hash": "ad83e510c09aaba6e2b69b429326dc5d",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_familia_antol\u00edn_berm\u00fadez.json": {
+    "mtime": 1781374305.7155194,
+    "ast_hash": "04e0c7e1dcb2cdc411f1350f8d0f002c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_familia_berm\u00fadez.json": {
+    "mtime": 1781374305.7165127,
+    "ast_hash": "9a56578aed1333470736fd859b04fc4c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_faml.json": {
+    "mtime": 1781374305.7143645,
+    "ast_hash": "34f6a6f31c3d5fb23f3e002952e1efa3",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_period_(flatmates).json": {
+    "mtime": 1781374305.7169046,
+    "ast_hash": "5096cc51f695662803cd51168119367f",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_se_oneroso_draconiano.json": {
+    "mtime": 1781374305.7175965,
+    "ast_hash": "397560f1ad11054af6b33003724d3d4c",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_tontacos.json": {
+    "mtime": 1781374305.718031,
+    "ast_hash": "af61e466ed24ae816ead6ad2c20b0f55",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wa_group_\u2014_yallah_yallah_habibe.json": {
+    "mtime": 1781374305.7186842,
+    "ast_hash": "cdb364bc328f71c7c55c8c8be0056196",
+    "semantic_hash": ""
+  },
+  "meta/provenance/whatsapp_lid_map.json": {
+    "mtime": 1781374305.6533535,
+    "ast_hash": "a1f8ea105c52d4568b6cf44376eb6fde",
+    "semantic_hash": ""
+  },
+  "meta/provenance/wireguard_vpn.json": {
+    "mtime": 1781374305.6235394,
+    "ast_hash": "cda7b0dff128b33e9f36e4d8d0d8c19b",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style.json": {
+    "mtime": 1781374305.6595824,
+    "ast_hash": "05a34e2cc7f83e67d90ae9caf4d0c270",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style_\u2014_corpus_stats.json": {
+    "mtime": 1781374305.6546943,
+    "ast_hash": "848e853cbf09c5e84b4ae97ce199f3d5",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style_\u2014_email_register.json": {
+    "mtime": 1781374305.6555681,
+    "ast_hash": "8e8c5c6343ec7ac45b03407b96d3b4ac",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style_\u2014_instagram.json": {
+    "mtime": 1781374305.6562195,
+    "ast_hash": "acbfc8ce82d9350db363908fcdb0c892",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style_\u2014_private_notes.json": {
+    "mtime": 1781374305.6571956,
+    "ast_hash": "7779768ff7191d7ae23d2a1021400276",
+    "semantic_hash": ""
+  },
+  "meta/provenance/writing_style_\u2014_recent_patterns.json": {
+    "mtime": 1781374305.6578355,
+    "ast_hash": "61c95f04085fb5d2cdf7ae06e872972c",
+    "semantic_hash": ""
+  },
+  "meta/router-backups/static_dhcp-2026-08-28-pre-meross.json": {
+    "mtime": 1787946582.8377392,
+    "ast_hash": "acc6a5f171d0770ed83461cbd840e055",
+    "semantic_hash": ""
+  },
+  "meta/router-backups/zyxel-2026-08-10-full-audit.json": {
+    "mtime": 1786393404.5711884,
+    "ast_hash": "a3be7c7f4165099c5bdc41e6ba3e3958",
+    "semantic_hash": ""
+  },
+  "meta/router-backups/zyxel-2026-08-10-postfix.json": {
+    "mtime": 1786392235.8828166,
+    "ast_hash": "94a711f5c6d79a24592acc936a57b40c",
+    "semantic_hash": ""
+  },
+  "meta/tasks.json": {
+    "mtime": 1788259077.417834,
+    "ast_hash": "ba43e420e34ba953806eee59ff648e62",
+    "semantic_hash": ""
+  },
+  ".raw/BBVA-Autorizacion-CH-26Jun2026.md": {
+    "mtime": 1781284294.2336144,
+    "ast_hash": "236faa1052aa5fad2958cecd65cb7985",
+    "semantic_hash": ""
+  },
+  ".raw/BBVA-Contrato-Final-12Jun2026.md": {
+    "mtime": 1781254954.599684,
+    "ast_hash": "ae5b8170132cd569e67aa52b8c9b80c1",
+    "semantic_hash": ""
+  },
+  ".raw/BBVA-Provision-Fondos-26Jun2026.md": {
+    "mtime": 1783095449.7310855,
+    "ast_hash": "d5de5360626454c04176068e4cd64736",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Bancos de preguntas.md": {
+    "mtime": 1783529468.2628345,
+    "ast_hash": "21362964aa6df7474ef1fb1f33b035f2",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 C\u00f3mputo.md": {
+    "mtime": 1783529430.9703553,
+    "ast_hash": "47ffd2a4d8d89f5ae0a4e55dd6f26604",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Identidad y Gobernanza.md": {
+    "mtime": 1783529418.2055645,
+    "ast_hash": "ab1e8ba46e72b3d5aa2e99fe36c8ec4b",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Log\u00edstica del examen.md": {
+    "mtime": 1783529430.8478427,
+    "ast_hash": "28b4316503b6520783c5dd7f4199c995",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Metodolog\u00eda de estudio.md": {
+    "mtime": 1783529414.1278071,
+    "ast_hash": "c8e4a464d4c735b5a25dc570f7d1127e",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Monitor y Mantenimiento.md": {
+    "mtime": 1783529425.0985284,
+    "ast_hash": "299ef51efa46ef416771f485419b38b3",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Redes.md": {
+    "mtime": 1783529421.8695865,
+    "ast_hash": "865d6aa4e6a2658de499342e757da666",
+    "semantic_hash": ""
+  },
+  "concepts/AZ-104 \u2014 Storage.md": {
+    "mtime": 1783529408.5586243,
+    "ast_hash": "39c453292f1dac1b916bc1962c662885",
+    "semantic_hash": ""
+  },
+  "concepts/Bad Gyal.md": {
+    "mtime": 1781508108.5089417,
+    "ast_hash": "afbe75df454dd20baaa5fe4065c10f72",
+    "semantic_hash": ""
+  },
+  "concepts/CrossFit.md": {
+    "mtime": 1784670622.5581903,
+    "ast_hash": "ce042c4863901663fa6a2dbf5698d15c",
+    "semantic_hash": ""
+  },
+  "concepts/SE Oneroso Draconiano.md": {
+    "mtime": 1781365611.856246,
+    "ast_hash": "0ea1701d22777df479f33026005131d0",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Banderita Espanola.md": {
+    "mtime": 1781997453.6792116,
+    "ast_hash": "bf251aa8ec748892333cc3a42fb5749c",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Bangers and Mash.md": {
+    "mtime": 1781986032.478056,
+    "ast_hash": "e864d40b71110ab95b04f93b04cc4bec",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Basque Cheesecake.md": {
+    "mtime": 1781985872.0511642,
+    "ast_hash": "e55b2488b495a5f99839cdc9e844d741",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Big Mac (Copycat).md": {
+    "mtime": 1781986056.1871548,
+    "ast_hash": "0f3ed4a8249bd6828cfc99810ffb6c52",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Bizcocho de Yogur.md": {
+    "mtime": 1781986061.0775075,
+    "ast_hash": "5c547d9de8d624aefc92ef30a918c8c6",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Carbonara.md": {
+    "mtime": 1781986716.4820035,
+    "ast_hash": "a741e718bed084b2c9bad00a127f002b",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Carrillera (Braised Pork Cheeks).md": {
+    "mtime": 1781985880.4591575,
+    "ast_hash": "5a653e68d3bf391541b30f3d24b095ff",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Chicken Curry.md": {
+    "mtime": 1781985856.665183,
+    "ast_hash": "3a09bf802a56c775ffc7d94d39263f38",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Chicken Katsu Curry.md": {
+    "mtime": 1781985859.3388238,
+    "ast_hash": "6b101b4c4b116506f32cd3a51acc67c1",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Cloud Bread (Chocolate Chip).md": {
+    "mtime": 1781985860.0638463,
+    "ast_hash": "43b26cc9daf1b6b07162d329b85857c6",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Couscous with Roasted Aubergine and Seasonal Vegetables.md": {
+    "mtime": 1782428568.2193234,
+    "ast_hash": "ce9f650d700437897dc8a6b71de25ed6",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Crema de Calabacin (Courgette Soup).md": {
+    "mtime": 1781985888.9477832,
+    "ast_hash": "791b0ad88f5be0fbb052b26bb2edaa0a",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Dulce de Leche.md": {
+    "mtime": 1781985870.156064,
+    "ast_hash": "8e16ef0159803eff2e2df7e44175056d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Ensaladilla Rusa.md": {
+    "mtime": 1781986899.7821841,
+    "ast_hash": "28b5cf56f84b4d0adeae20f84f914afd",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Falafel.md": {
+    "mtime": 1781986048.1471536,
+    "ast_hash": "20bc66956440506029aac310d6970e8a",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Flourless Chocolate Cake with Berry Coulis and Mascarpone.md": {
+    "mtime": 1782428588.6294894,
+    "ast_hash": "e77f55f8bfeb73782c025be474423d7d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Garbanzos (Spanish Chickpea Stew).md": {
+    "mtime": 1781985887.0422895,
+    "ast_hash": "a65150c5f79f987ef33d21396d8a94e7",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Gazpacho.md": {
+    "mtime": 1781985894.6657584,
+    "ast_hash": "351a86f3a8f632c333b6916c613eeed3",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Gyozas.md": {
+    "mtime": 1781986738.5026839,
+    "ast_hash": "b07fda97d651f0d2d5d622418363ec7d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Ham Croquettes.md": {
+    "mtime": 1781985864.7200444,
+    "ast_hash": "93af5d9df5838b7600414b945b844b67",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Hummus.md": {
+    "mtime": 1781985872.1720736,
+    "ast_hash": "94f0cd91f9d629fde78f1ee2d41e03d9",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Infection Cookbook (2013).md": {
+    "mtime": 1782946191.075299,
+    "ast_hash": "1683a598ebe5884e5bc0643c4f7d787a",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Lasagna.md": {
+    "mtime": 1781986041.336477,
+    "ast_hash": "b2bff7c5ecd959f8f5a8e6c58965b07f",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Lentejas (Spanish Lentil Stew).md": {
+    "mtime": 1781985883.9500275,
+    "ast_hash": "9df5b0dc7b04a2eed3895f1e4160f728",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Mango Sticky Rice.md": {
+    "mtime": 1781986320.3971696,
+    "ast_hash": "faade8283c9cdba26e5e6679dcb7379b",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Mashed Potatoes.md": {
+    "mtime": 1781986043.7980654,
+    "ast_hash": "9b02044e429974727ff5acce7f648a9c",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Mousse de Chocolate.md": {
+    "mtime": 1781986200.8751886,
+    "ast_hash": "46593efb034434a7e9397b3df09ada2d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Pollo Teriyaki.md": {
+    "mtime": 1781986710.6406314,
+    "ast_hash": "448b96c2fe5569e0ac487bcf0204a706",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Recetas.md": {
+    "mtime": 1782824048.4358208,
+    "ast_hash": "7d1ca71385840646ccfee8ee6fbf27d0",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Salmorejo.md": {
+    "mtime": 1781985892.3752325,
+    "ast_hash": "d049745a63a24acaa76865699c43955b",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Sausages in Wine.md": {
+    "mtime": 1781985878.1896987,
+    "ast_hash": "0335f5cc2889f735198c7b1268b7171c",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Spiced Falafel with Lime Sesame Sauce.md": {
+    "mtime": 1782428516.0374155,
+    "ast_hash": "595222c99aec17538363813990e05c3d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Sweet Potato and Feta Burger.md": {
+    "mtime": 1782428528.527776,
+    "ast_hash": "2314dff959583d9194ec0d057eb5c134",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Sweet and Sour Chicken.md": {
+    "mtime": 1781985861.6118345,
+    "ast_hash": "585a83bc6591874334cbe8cf6672b128",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Swiss-Style Crostini with Ham and Cheese.md": {
+    "mtime": 1782428501.192026,
+    "ast_hash": "768fb2fbf2d64c95d76e7840e4921233",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Tamago Sando.md": {
+    "mtime": 1781985874.3826284,
+    "ast_hash": "c346e1b3a447b92aa4110ddad6e1b55d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Tarta de Tres Chocolates.md": {
+    "mtime": 1781986225.5015497,
+    "ast_hash": "1346c92f410ade06515bfc05e964e47c",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Tecnicas Basicas.md": {
+    "mtime": 1781986293.0066066,
+    "ast_hash": "bc7472ac6365b8b9a5f9d2952ff396d6",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Tiramisu.md": {
+    "mtime": 1781986201.2104611,
+    "ast_hash": "d9069fd854f4df83d4d008a5667115f3",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Tortilla de Patatas.md": {
+    "mtime": 1781985896.082844,
+    "ast_hash": "1778b013541d1f1d67587f8a0dc6608d",
+    "semantic_hash": ""
+  },
+  "domains/cocina/Veal Fillet with Tasmanian Pepper and Chimichurri.md": {
+    "mtime": 1782428548.0534272,
+    "ast_hash": "981b20a69a2e44215ca30278c5eea858",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Cloudflare \u2014 Domains and Registrar.md": {
+    "mtime": 1787150100.9535437,
+    "ast_hash": "c4a608e7f9993dd84d33f24c94005449",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Corte IPv4 Digi \u2014 9 Ago 2026.md": {
+    "mtime": 1786391892.2882268,
+    "ast_hash": "5d6bbb5bc299b135d197239a73e929f3",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Cron Jobs raspi5.md": {
+    "mtime": 1787866969.511917,
+    "ast_hash": "b62a025f3a7bf91cedae77fa7edf7610",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Digi Alta + UniFi \u2014 Plan de Acci\u00f3n.md": {
+    "mtime": 1782862094.440093,
+    "ast_hash": "c260a5444637c279533e4ca55cee19bb",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Historical Infrastructure \u2014 2019.md": {
+    "mtime": 1781365611.8533618,
+    "ast_hash": "6a5d493f75ad77b45c75912beaac5de6",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Home Assistant.md": {
+    "mtime": 1788029135.2563334,
+    "ast_hash": "954f0aa6717dd146f6193a5c3460c9d4",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Homebridge Ring \u2014 An\u00e1lisis del plugin (1 Sep 2026).md": {
+    "mtime": 1788277829.2541995,
+    "ast_hash": "fc8238d8b45bbd2b6ba4148c8d278ccb",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Homebridge \u2014 Activo-pasivo vs dos activos (investigaci\u00f3n).md": {
+    "mtime": 1787865322.463667,
+    "ast_hash": "827112643f809c24fc7817352f3e47fd",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Homebridge.md": {
+    "mtime": 1788267590.258284,
+    "ast_hash": "8e7b2c3f7ed6f8eda237083b21aee7c9",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Incident \u2014 Postfix SNI Chroot Bug 2026-07-16.md": {
+    "mtime": 1784213942.8088908,
+    "ast_hash": "21779297f26335222d452dba58b169d9",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Incident \u2014 Power Cut 2026-07-06.md": {
+    "mtime": 1783298304.7622917,
+    "ast_hash": "ff119e26a3bda58b61eb6b8b94aca35e",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Incidente \u2014 gerardobermudez.com hackeado (11 Ago 2026).md": {
+    "mtime": 1786471401.898894,
+    "ast_hash": "9b5ffe890fa99b79a2fa2dffa39c2adb",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Infrastructure Overview.md": {
+    "mtime": 1787934181.6722806,
+    "ast_hash": "07e92af47184920799341b9b3ce055d3",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Installed Software Inventory.md": {
+    "mtime": 1781551854.9571269,
+    "ast_hash": "e6f017a2714c3502360a131da82f5166",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Jenkins.md": {
+    "mtime": 1781365611.8519406,
+    "ast_hash": "51335cd154f6301a4c1c69003eacc603",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Network Topology \u2014 Full Picture.md": {
+    "mtime": 1787857154.775446,
+    "ast_hash": "c01848d4d83b5772bf30eda3e8276d48",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Pi-hole.md": {
+    "mtime": 1788114086.1371038,
+    "ast_hash": "3779697c2e1254fd006efa8e1b1d3486",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Plan Migraci\u00f3n Casa \u2014 Digi.md": {
+    "mtime": 1787058013.6747928,
+    "ast_hash": "077afe12ab80ba965ddbbffdcf3318ab",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Raspis \u2014 Auditor\u00eda completa 27 Ago 2026.md": {
+    "mtime": 1787870697.2093606,
+    "ast_hash": "4d0dc8990e2b3c92eb01dbf00ec97598",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Red Piso Nuevo \u2014 UniFi XGS-PON.md": {
+    "mtime": 1784816542.2762535,
+    "ast_hash": "7ed292f4599eaf882bb6495d23b4b940",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/SSH Access and Rotation.md": {
+    "mtime": 1781464391.3139338,
+    "ast_hash": "f62c593f3e19953e4a5736270746f5f7",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Smart Home \u2014 Av Andalucia 6.md": {
+    "mtime": 1787950576.9383821,
+    "ast_hash": "1a45f09c6c5cd5b8f13d44737fedb677",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/VPS miguelangelantolin com.md": {
+    "mtime": 1788041859.147065,
+    "ast_hash": "a6ffd2654ab31dbc491eae1e6f2fa8bb",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Web Terminal \u2014 Mac via raspi5.md": {
+    "mtime": 1781516750.5757189,
+    "ast_hash": "6ebcdbd337c1d99677f2be723130bf1d",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/WireGuard VPN \u2014 Topology and Firewall.md": {
+    "mtime": 1787959012.67444,
+    "ast_hash": "f8527a316af9c2d5d9e434e9b7b7fdb0",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/WireGuard VPN.md": {
+    "mtime": 1787325686.3961186,
+    "ast_hash": "44c065b095b43a69bb407d93d2901e50",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/WireGuard \u2014 IPv6 Dual-Stack (investigaci\u00f3n).md": {
+    "mtime": 1787847490.000172,
+    "ast_hash": "3f09e3575edf0a271892f2f891b61609",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Zyxel PE5301-01 \u2014 Router Digi.md": {
+    "mtime": 1788254256.071098,
+    "ast_hash": "d3bc4bb0205bc5aaaf4ce52b9a754e61",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/Zyxel \u2014 Auditor\u00eda completa 27 Ago 2026.md": {
+    "mtime": 1787850670.7516851,
+    "ast_hash": "3cc047ff3bc428703029d2c2e6e42639",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/ntfy.md": {
+    "mtime": 1785933523.832202,
+    "ast_hash": "8ba3f75b8ed7d3d49b145b8d5cd6ae2f",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/raspb_jmja.md": {
+    "mtime": 1787848850.919363,
+    "ast_hash": "ec3e4d05f49920c175951ab5b0b32401",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/raspi4.md": {
+    "mtime": 1788023112.2365723,
+    "ast_hash": "f0a7a4291d7f0b3322e255459b39684e",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/raspi5.md": {
+    "mtime": 1788263725.56396,
+    "ast_hash": "7b2e759595f30b70a557af897005d969",
+    "semantic_hash": ""
+  },
+  "domains/infraestructura/soft-sh \u2014 Updates.md": {
+    "mtime": 1781365611.85252,
+    "ast_hash": "036de75a5298dce1034c2f126cbecadb",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Alerts and Automation.md": {
+    "mtime": 1787934169.3175108,
+    "ast_hash": "ee6f48931b06eb74e27b7a25de571902",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Arquitectura \u2014 Revisi\u00f3n Consejo de Sabios (19 Jun 2026).md": {
+    "mtime": 1781877485.918371,
+    "ast_hash": "a62fcc260432dc097e413b777834fd79",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/CORE \u2014 Reglas activas.md": {
+    "mtime": 1787869850.021717,
+    "ast_hash": "71de61c4f6accc22a9c3adec396ab5e5",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Auditoria contenido vida 20 Jun 2026.md": {
+    "mtime": 1781980644.3992083,
+    "ast_hash": "053aa55e25d37a30cf3f560dcdd459f6",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Auditoria sistema 20 Jun 2026.md": {
+    "mtime": 1781977858.6861706,
+    "ast_hash": "0b38439555077d15614503776f6cd962",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Auditor\u00eda lectura conversaciones 20 Jun 2026.md": {
+    "mtime": 1781954956.1420412,
+    "ast_hash": "0ed48c7a654b08c5fb74c22903794d5b",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Harness Review 1 Jul 2026.md": {
+    "mtime": 1783110272.9179187,
+    "ast_hash": "748fe91d07ee54d42e163b577a31a726",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Revisi\u00f3n skill vida 21 Jul 2026.md": {
+    "mtime": 1784887013.3066301,
+    "ast_hash": "f3efcc20f0c753ceabd478b84e63752b",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Telegram Startup Architecture 19 Aug 2026.md": {
+    "mtime": 1787144482.9152112,
+    "ast_hash": "650776a16d75e146c95b621c2ac0e699",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios \u2014 Telegram reply 21 Jun 2026.md": {
+    "mtime": 1782050082.6136632,
+    "ast_hash": "f147f61142b2a7b4e4df775ca8437570",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Consejo de Sabios.md": {
+    "mtime": 1787738316.5003629,
+    "ast_hash": "5f87a852323cfc55661aaed8d4c0d40b",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Graphify.md": {
+    "mtime": 1788223842.7671218,
+    "ast_hash": "182ba2327a5ec96098c602933acaafe1",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Harness Engineering \u2014 Prompt for a Coding Agent.md": {
+    "mtime": 1782980819.1594505,
+    "ast_hash": "d5a5bc4dcf948a15fdd3df1982f983b3",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Maricarmen \u2014 Behavior Prompt.md": {
+    "mtime": 1781509071.0943546,
+    "ast_hash": "cfacaf98efa62b0102620d7cf876b744",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Maricarmen \u2014 Identity.md": {
+    "mtime": 1783372314.982011,
+    "ast_hash": "4890d6dc8c98a99f158783ed96bff774",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Maricarmen \u2014 Memory System.md": {
+    "mtime": 1781365611.855157,
+    "ast_hash": "da6f5aa8d8b6003cdfcc37ae7e82dfeb",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Maricarmen \u2014 Tools.md": {
+    "mtime": 1787319241.096114,
+    "ast_hash": "658a34864027138c634402fc3c058276",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Miguel \u2014 Replication Playbook.md": {
+    "mtime": 1781365823.1822643,
+    "ast_hash": "b28d4fec614dffe0fb0d7d2256273441",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Miguel \u2014 Telegram Command Style.md": {
+    "mtime": 1781365824.1879396,
+    "ast_hash": "20b0895a5ed98a6d0323f752505369b4",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Miguel \u2014 Voice Profile.md": {
+    "mtime": 1787323185.1577973,
+    "ast_hash": "5971581b8233d864b42e5ee3e233b7c9",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Operational Reference.md": {
+    "mtime": 1787934181.6726072,
+    "ast_hash": "99c4961c613cebb3fdccfd3c49693e5c",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Plan arreglos vida-auto \u2014 20 Jun 2026.md": {
+    "mtime": 1781955586.2128038,
+    "ast_hash": "302a04327dcb4ec09b58b58999c238b9",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Scripts Inventory.md": {
+    "mtime": 1787934181.6731064,
+    "ast_hash": "e1e09bcf3bc272a167917a9710c8c433",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Sesion multidominio \u2014 dise\u00f1o.md": {
+    "mtime": 1788043869.0752783,
+    "ast_hash": "c3de9377026c0f9778c07caa7f44dc0c",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/Tussam.md": {
+    "mtime": 1781365611.855416,
+    "ast_hash": "e4d950c7e96456c6cb0464df703c31ff",
+    "semantic_hash": ""
+  },
+  "domains/maricarmen/WhatsApp Attribution Fix \u2014 Consejo 15 Jul.md": {
+    "mtime": 1784630970.954191,
+    "ast_hash": "1a852d452c4c0e8d4d56d0c588b2c9f4",
+    "semantic_hash": ""
+  },
+  "domains/miguel/17 Stirling Road.md": {
+    "mtime": 1781557241.997946,
+    "ast_hash": "f89dd58bad84157e088912dcd2a84467",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Apple Health.md": {
+    "mtime": 1781293584.6544704,
+    "ast_hash": "41eadc72d80061da4dfcc2fec3278c67",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Apple Music History.md": {
+    "mtime": 1788258761.760236,
+    "ast_hash": "69b8020c9b43988b9950ed23af7450cf",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Apple Music Library.md": {
+    "mtime": 1781551878.3144162,
+    "ast_hash": "8a9ccb3bb83774178f6b3df72a7b843f",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Apple Music \u2014 2026.md": {
+    "mtime": 1781365611.8442116,
+    "ast_hash": "fe00c24099276418206e164e8e95a68a",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Apple Music \u2014 Top Tracks.md": {
+    "mtime": 1784668175.5591974,
+    "ast_hash": "aa4ff5f5219ba3347be0fe0ff1866b23",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Blog \u2014 miguelangelantolin.com.md": {
+    "mtime": 1788260140.6328592,
+    "ast_hash": "d074b2027f7800797d80814786ea578b",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Consejo de Sabios \u2014 Flowable vs Parser 21 Jul 2026.md": {
+    "mtime": 1784651289.0267487,
+    "ast_hash": "4b5441f075a3caf328cf8dfff5328bb2",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Consejo de Sabios \u2014 Personalidad 19 Jun 2026.md": {
+    "mtime": 1781891826.02294,
+    "ast_hash": "3d3971aaeca0acec52523dec69e620a0",
+    "semantic_hash": ""
+  },
+  "domains/miguel/DNA \u2014 AncestryDNA Analysis.md": {
+    "mtime": 1781551975.4209502,
+    "ast_hash": "4eea1b9e8e90b0d0acdae2223037b4b3",
+    "semantic_hash": ""
+  },
+  "domains/miguel/DNA \u2014 Deep Dive (PGx, Carrier, Traits, Structure).md": {
+    "mtime": 1781886380.1015382,
+    "ast_hash": "b288a4aa4c1dca63a0cb7d7397d540e6",
+    "semantic_hash": ""
+  },
+  "domains/miguel/DNA \u2014 Imputation (1000G).md": {
+    "mtime": 1781543857.2354338,
+    "ast_hash": "5875f91836fda399daf3cf666b65e872",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Education and Qualifications.md": {
+    "mtime": 1788251751.0136197,
+    "ast_hash": "073b588bce268396ecd94039ab06c35a",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Family.md": {
+    "mtime": 1783095204.9419403,
+    "ast_hash": "7d7d21d1057e92b826ea68da76926d0d",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Finances and Services.md": {
+    "mtime": 1787321741.6985471,
+    "ast_hash": "9adee66a259f7cd4b8be2b67b3479053",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Flowable \u2014 Work.md": {
+    "mtime": 1786702535.8765168,
+    "ast_hash": "96996224d0012a3e987861e174237efc",
+    "semantic_hash": ""
+  },
+  "domains/miguel/History with Joshua.md": {
+    "mtime": 1788180967.4602637,
+    "ast_hash": "4dd6c5b171cb6c7ac87cd15b3505b3e9",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Instagram DMs.md": {
+    "mtime": 1787146584.4473202,
+    "ast_hash": "2773a8337e083cf81049fb65d8e17b84",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Miguel.md": {
+    "mtime": 1788251751.0139573,
+    "ast_hash": "6ea596fe65844ebf7e412d4cc111dfd5",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Personality.md": {
+    "mtime": 1784665150.1123683,
+    "ast_hash": "588b4b3da1dab7fb5a3542a51110ae37",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Plan Financiero \u2014 Miguel (Ago 2026).md": {
+    "mtime": 1785722836.9744992,
+    "ast_hash": "666199940de5c84245581defea175ba7",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Profile \u2014 Complete Review Jun 2026.md": {
+    "mtime": 1782946108.1252987,
+    "ast_hash": "9a2345633c95758701bbd9b623a704f5",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Receipts from Photos.md": {
+    "mtime": 1787321732.8286676,
+    "ast_hash": "dfa83f9514c370e16656edf52d94f5a0",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Salary History.md": {
+    "mtime": 1783542479.278491,
+    "ast_hash": "8da6fcd06d6903e00860e81d66d3de43",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Social Circle.md": {
+    "mtime": 1788043712.8277688,
+    "ast_hash": "18363c93f9016f819bc5d39b448db00a",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Taxes \u2014 IRPF.md": {
+    "mtime": 1782043901.5512042,
+    "ast_hash": "525382d0627e8d99539035f6f05b6501",
+    "semantic_hash": ""
+  },
+  "domains/miguel/WhatsApp LID Map.md": {
+    "mtime": 1788267205.4964948,
+    "ast_hash": "42725ba57aef60a18a938081739c1c80",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style \u2014 Corpus Stats.md": {
+    "mtime": 1788253619.4887786,
+    "ast_hash": "9b4789ffe579db5f77238bf572c0bbdf",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style \u2014 Email Register.md": {
+    "mtime": 1781541388.000535,
+    "ast_hash": "6208ddb4ba2fa3e952d332ded4e3cdcc",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style \u2014 Instagram.md": {
+    "mtime": 1781365830.1353788,
+    "ast_hash": "68b4472da56fdfe32f0fe0725c0d8dd1",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style \u2014 Private Notes.md": {
+    "mtime": 1781543879.3617265,
+    "ast_hash": "d8f95b17f61c72580ef2aa4a8a4d86e7",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style \u2014 Recent Patterns.md": {
+    "mtime": 1781507544.7565901,
+    "ast_hash": "d4d34bf025918d7b8410b6261102851b",
+    "semantic_hash": ""
+  },
+  "domains/miguel/Writing Style.md": {
+    "mtime": 1783296861.2079275,
+    "ast_hash": "f299ca25af1384c708da000e16235337",
+    "semantic_hash": ""
+  },
+  "domains/miguel/iCloud Drive.md": {
+    "mtime": 1781543111.9633358,
+    "ast_hash": "d5c206a8e9fe69c30ffb91f1861e1504",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/ADS-B Dashboard.md": {
+    "mtime": 1787053627.4860868,
+    "ast_hash": "945ceb5279f333d4a2dedce6587f3503",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/AZ-104 \u2014 Certificaci\u00f3n.md": {
+    "mtime": 1783529436.3405442,
+    "ast_hash": "fc7b75b15f83c7f0ac65b237232f9007",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/Mac App Toggle.md": {
+    "mtime": 1788165185.0670154,
+    "ast_hash": "1b9876b433356ad98674a77ee39686bb",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/Photos Library Cleanup.md": {
+    "mtime": 1787321953.971261,
+    "ast_hash": "9bba2304012d4c2ad99540c640be081e",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/Telegram Claude \u2014 Personal Bot.md": {
+    "mtime": 1787326595.633531,
+    "ast_hash": "c15c8495edacd3dba36a22eb526cf927",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/WireGuard Failover \u2014 Plan (Aug 2026).md": {
+    "mtime": 1787959002.0062206,
+    "ast_hash": "65e16703972321878cdf989258cfeeb6",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/WordPress Blog Audit \u2014 Aug 2026.md": {
+    "mtime": 1787696287.1693957,
+    "ast_hash": "85c9f8f052b1e662138c10e6452e67c2",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/WordPress Blog Performance \u2014 Aug 2026.md": {
+    "mtime": 1787940770.38892,
+    "ast_hash": "539a219333ac31f91173c5aba802d1a0",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/Zap \u2014 App Uninstaller.md": {
+    "mtime": 1787771238.1399083,
+    "ast_hash": "d3bef2b7bf151618c7c239687a770efd",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/Zap \u2014 prompt para reconstruirlo.md": {
+    "mtime": 1787741549.789329,
+    "ast_hash": "d43abc1b67280b3c2f35784b7d840902",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/email-to-calendar.md": {
+    "mtime": 1779133375.6517923,
+    "ast_hash": "205876cd633f0c23b6aa4d11d69c16a2",
+    "semantic_hash": ""
+  },
+  "domains/proyectos/maricarmen-mem \u2014 Wiki.md": {
+    "mtime": 1781551870.726463,
+    "ast_hash": "ff6f6f59ccf16cbc6c0b71318db15ac5",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Bash.md": {
+    "mtime": 1780230098.732708,
+    "ast_hash": "9df0bd803b805ab1b8d08b1bc57a2e87",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Bitwarden CLI.md": {
+    "mtime": 1781433659.726785,
+    "ast_hash": "b9e3522c32609b06b2b84ae48598aee2",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Claude Code.md": {
+    "mtime": 1781552026.2489474,
+    "ast_hash": "9b142612692f73b22d875b56df08d2b6",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Flipper Zero \u2014 Backup.md": {
+    "mtime": 1781990722.893369,
+    "ast_hash": "54a40b35bc3432c5e863c4b1d3088f95",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Flipper Zero \u2014 Build Pipeline.md": {
+    "mtime": 1783173529.3565593,
+    "ast_hash": "e5487c3818f182b99cf566bb21757aef",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Flipper Zero \u2014 Customizaci\u00f3n & Oficial vs RogueMaster.md": {
+    "mtime": 1783173458.4388974,
+    "ast_hash": "57c8bd8067e02eec4c5434d31d2ca89f",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Flipper Zero.md": {
+    "mtime": 1782033985.67775,
+    "ast_hash": "2eef5ce2cf96f1bca10f4689d7ac3385",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Infrastructure as Code.md": {
+    "mtime": 1780355467.0900807,
+    "ast_hash": "8d04309f2f68de9cff6497a93629b3f7",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Mac.md": {
+    "mtime": 1784670574.6260757,
+    "ast_hash": "c51876d8e7c799eaf4ce7c254d3bfb33",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Node-js.md": {
+    "mtime": 1781507519.9623919,
+    "ast_hash": "a2f819ffd8a97c669ab79e9f13bdb4c6",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Observability.md": {
+    "mtime": 1781543885.182418,
+    "ast_hash": "d57f3f9863a6c9c35a36ca999b35d16d",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Obsidian LLM Wiki.md": {
+    "mtime": 1777123958.7187538,
+    "ast_hash": "1a93e683a3c897ea96d82e29261a6e63",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Python.md": {
+    "mtime": 1780230100.3288393,
+    "ast_hash": "e321c621fca7d1ae0bc42af72fd62e3c",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/SRE Principles.md": {
+    "mtime": 1781552042.6871054,
+    "ast_hash": "f1abb018a1ba03f15de47b872681a09c",
+    "semantic_hash": ""
+  },
+  "domains/tecnologia/Secrets and API Keys.md": {
+    "mtime": 1779968559.3531532,
+    "ast_hash": "de1003c7f2c4a948e58a66576e9c4502",
+    "semantic_hash": ""
+  },
+  "domains/vida/Arras \u2014 Av de Andalucia 6.md": {
+    "mtime": 1787325979.9340997,
+    "ast_hash": "c048517531e83cf4bcca35940d5a30ca",
+    "semantic_hash": ""
+  },
+  "domains/vida/CEE \u2014 Av de Andalucia 6.md": {
+    "mtime": 1782044098.1480334,
+    "ast_hash": "f80efd42cd75d7139f7ff9a1877104b6",
+    "semantic_hash": ""
+  },
+  "domains/vida/Calendar \u2014 Jun 2025 to Dec 2026.md": {
+    "mtime": 1782946131.2360313,
+    "ast_hash": "b61e0e25156ccd8c82d478c4522931f0",
+    "semantic_hash": ""
+  },
+  "domains/vida/Casa Nueva \u2014 Proveedores (Luz, Cama, Sofa).md": {
+    "mtime": 1788091322.1003287,
+    "ast_hash": "c1c7fc4e352b42c7eb4771df59115d24",
+    "semantic_hash": ""
+  },
+  "domains/vida/Catastro \u2014 Av de Andalucia 6.md": {
+    "mtime": 1784106287.2052712,
+    "ast_hash": "e58c026591621b6393355fee502e57a9",
+    "semantic_hash": ""
+  },
+  "domains/vida/Cert Comunidad \u2014 Av de Andalucia 6.md": {
+    "mtime": 1787951685.8213234,
+    "ast_hash": "8f8f74c72434f70b01deed1d1f569263",
+    "semantic_hash": ""
+  },
+  "domains/vida/Cert Tributario \u2014 Isaac Leon Ruiz.md": {
+    "mtime": 1781365611.8465624,
+    "ast_hash": "cba8f651a95820ab9a2ff021ff7eb20b",
+    "semantic_hash": ""
+  },
+  "domains/vida/Consejo de Sabios \u2014 Vida 19 Jun 2026.md": {
+    "mtime": 1781890520.9251153,
+    "ast_hash": "c70eb00a3634a58a5a89de1d444a47a1",
+    "semantic_hash": ""
+  },
+  "domains/vida/Cuenta Unicaja Vendedor \u2014 Av de Andalucia 6.md": {
+    "mtime": 1781542996.0201159,
+    "ast_hash": "9510ec95797a52f9383971f1a5a2e348",
+    "semantic_hash": ""
+  },
+  "domains/vida/Donacion \u2014 Av de Andalucia 6.md": {
+    "mtime": 1781543450.747159,
+    "ast_hash": "cd7a18274c1840c222c48a70257c6905",
+    "semantic_hash": ""
+  },
+  "domains/vida/Electricity \u2014 Av Andalucia 6.md": {
+    "mtime": 1788006755.2945645,
+    "ast_hash": "42b520bb3d05448f92cd116ae878d987",
+    "semantic_hash": ""
+  },
+  "domains/vida/Empadronamiento \u2014 Sevilla.md": {
+    "mtime": 1783090438.2724917,
+    "ast_hash": "cc8f1f4d075730a5f49a7e12ac0770ac",
+    "semantic_hash": ""
+  },
+  "domains/vida/Estrategia \u2014 Entrega y Alquiler Av de Andalucia 6.md": {
+    "mtime": 1787325752.0824742,
+    "ast_hash": "e44e0aba40bcdf1ff121d097fe9700cc",
+    "semantic_hash": ""
+  },
+  "domains/vida/Facturas Luz \u2014 Ram\u00f3n Resa.md": {
+    "mtime": 1781507525.423523,
+    "ast_hash": "0dcf8e4a160936ab2df94184dbfcb68b",
+    "semantic_hash": ""
+  },
+  "domains/vida/Flat Decoration \u2014 Av Andalucia 6.md": {
+    "mtime": 1788172021.9589217,
+    "ast_hash": "b58dd06fc4db90aedb9bb6ea26c06196",
+    "semantic_hash": ""
+  },
+  "domains/vida/Flat Search \u2014 Marqu\u00e9s de Pickman.md": {
+    "mtime": 1782946004.6338139,
+    "ast_hash": "147f07b4fdfbac74c684340b1f5e9ec7",
+    "semantic_hash": ""
+  },
+  "domains/vida/Frequent Flights.md": {
+    "mtime": 1782946104.8468277,
+    "ast_hash": "b1d0b73324b569a8c03a33b8d08f1b6a",
+    "semantic_hash": ""
+  },
+  "domains/vida/Hipoteca \u2014 Av de Andalucia 6.md": {
+    "mtime": 1788043712.8274138,
+    "ast_hash": "53b9508b5aba474983ea99f05d33ba2c",
+    "semantic_hash": ""
+  },
+  "domains/vida/ITE \u2014 Av de Andalucia 6.md": {
+    "mtime": 1781365611.8496246,
+    "ast_hash": "3e809d8ec8018876aeb1c2caae8130ac",
+    "semantic_hash": ""
+  },
+  "domains/vida/Kit B\u00e1sico Viaje.md": {
+    "mtime": 1781365611.850739,
+    "ast_hash": "7ca8684253f2a379537ee5f5fc80bb6b",
+    "semantic_hash": ""
+  },
+  "domains/vida/London \u2014 Joshua.md": {
+    "mtime": 1781552129.4833722,
+    "ast_hash": "c7d133f29798c1faf720a67b335e6091",
+    "semantic_hash": ""
+  },
+  "domains/vida/Maleta \u2014 Zurich 22-25 Jun 2026.md": {
+    "mtime": 1782086812.7958784,
+    "ast_hash": "ea71cb32cdda941ea0ed91b43f6baad6",
+    "semantic_hash": ""
+  },
+  "domains/vida/Nota Simple \u2014 Av de Andalucia 6.md": {
+    "mtime": 1782834064.97744,
+    "ast_hash": "8283c693b535035624ee137832726db7",
+    "semantic_hash": ""
+  },
+  "domains/vida/Oferta Hipoteca \u2014 BBVA.md": {
+    "mtime": 1783095290.7736685,
+    "ast_hash": "e03807a7cb856259f20d5f4144842655",
+    "semantic_hash": ""
+  },
+  "domains/vida/Oferta Hipoteca \u2014 CaixaBank.md": {
+    "mtime": 1781542943.7009575,
+    "ast_hash": "be13bed69a34e2a6d20b00d32aef22f0",
+    "semantic_hash": ""
+  },
+  "domains/vida/Oferta Hipoteca \u2014 IberCaja.md": {
+    "mtime": 1781542519.458791,
+    "ast_hash": "7eb688ead2507f8e411ee159ce07f1ce",
+    "semantic_hash": ""
+  },
+  "domains/vida/Oferta Hipoteca \u2014 Santander.md": {
+    "mtime": 1781543910.6285694,
+    "ast_hash": "3a6a72c5e455be6e0df06c5492b5f825",
+    "semantic_hash": ""
+  },
+  "domains/vida/Piso \u2014 Gemelo Digital (proyecto).md": {
+    "mtime": 1787773085.5561998,
+    "ast_hash": "d6ce46dc3a80eb48942c7935ca0095e9",
+    "semantic_hash": ""
+  },
+  "domains/vida/Restaurants.md": {
+    "mtime": 1781507556.115253,
+    "ast_hash": "f7701c16feab2012dd98dcfa6617e183",
+    "semantic_hash": ""
+  },
+  "domains/vida/Seguro Hogar \u2014 Av de Andalucia 6.md": {
+    "mtime": 1782044071.9594674,
+    "ast_hash": "825459b2933de5278e18f06d0a65d4ba",
+    "semantic_hash": ""
+  },
+  "domains/vida/Seguro Vida \u2014 Hipoteca Av de Andalucia 6.md": {
+    "mtime": 1782946216.018372,
+    "ast_hash": "e503c585d3a1d27603b53459350b0133",
+    "semantic_hash": ""
+  },
+  "domains/vida/Seville \u2014 Home.md": {
+    "mtime": 1782946079.1328719,
+    "ast_hash": "d7125810bf16de0e4b48ed575d188222",
+    "semantic_hash": ""
+  },
+  "domains/vida/Switzerland Trip June 2026.md": {
+    "mtime": 1783343378.4224505,
+    "ast_hash": "934b327142713a72fe30dfff788706f6",
+    "semantic_hash": ""
+  },
+  "domains/vida/Switzerland Trip Sep 2026.md": {
+    "mtime": 1781307070.8730142,
+    "ast_hash": "f017e204f7ebe8d7c293e0e2e85a8794",
+    "semantic_hash": ""
+  },
+  "domains/vida/Tasacion \u2014 Av de Andalucia 6.md": {
+    "mtime": 1783259804.0636768,
+    "ast_hash": "5b1aee141bf908e6c2216f49ed3cf8a2",
+    "semantic_hash": ""
+  },
+  "domains/vida/Timeline.md": {
+    "mtime": 1788178139.5095613,
+    "ast_hash": "64f63fc4634e3133f2765a7b02dc9452",
+    "semantic_hash": ""
+  },
+  "domains/vida/Transferencia Arras \u2014 Av de Andalucia 6.md": {
+    "mtime": 1781543029.9040256,
+    "ast_hash": "cb42a36c85430c4e6f066ac50104f3f2",
+    "semantic_hash": ""
+  },
+  "domains/vida/Travel Insurance \u2014 Josh (HSBC).md": {
+    "mtime": 1782044401.933995,
+    "ast_hash": "fe1623cb6ec7b7e71bd8b4f1ed842a08",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Algarve Hen Party Mar 2025.md": {
+    "mtime": 1781510480.3926804,
+    "ast_hash": "2c027ce1c1d4edb77d54f5ec7a05bcdb",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Bali Feb 2026.md": {
+    "mtime": 1782946110.3014266,
+    "ast_hash": "e1021bc7ae0b91062ebc79bc8bbd86c7",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Flowable Team Event Eindhoven Feb 2025.md": {
+    "mtime": 1781646423.447839,
+    "ast_hash": "1b582a7bde1e76812128569725bdee2a",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Japan Feb\u2013Mar 2024.md": {
+    "mtime": 1781365611.850171,
+    "ast_hash": "d8517975799e24b4e95f3ce1c4edd975",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 London York Jun 2026.md": {
+    "mtime": 1781510428.2669563,
+    "ast_hash": "f2b366e4a5dc4b3388e7dd528af9aae3",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Maldives Apr\u2013May 2023.md": {
+    "mtime": 1781365611.8453171,
+    "ast_hash": "8dbdc756aeb2934c9e7ae94fec33f05a",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Qatar Abu Dhabi Dubai Jul 2025.md": {
+    "mtime": 1784670636.9538496,
+    "ast_hash": "1bc13897be65c56a4aeb9edafbb0b275",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Qatar Dubai Muscat Sep\u2013Oct 2025.md": {
+    "mtime": 1784670666.8129106,
+    "ast_hash": "8177ef2e9a8914bf17250612f1691a92",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Thailand Jul 2024.md": {
+    "mtime": 1781365611.8490174,
+    "ast_hash": "8b6a0d0f081ab1f4a9c094ee5709a60a",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 Turkey Nov 2025.md": {
+    "mtime": 1781552180.5858846,
+    "ast_hash": "b52c903186b76e2f6a2794324daacce3",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trip \u2014 USA Jan\u2013Feb 2025.md": {
+    "mtime": 1784670658.345606,
+    "ast_hash": "3f25a95ff70ba7cb20ff56c183e05bd3",
+    "semantic_hash": ""
+  },
+  "domains/vida/Trips.md": {
+    "mtime": 1782946034.3429503,
+    "ast_hash": "57ae52e02d917b7f5532536335d04a2d",
+    "semantic_hash": ""
+  },
+  "domains/vida/Vida \u2014 Cursor & Cobertura.md": {
+    "mtime": 1781640641.7273812,
+    "ast_hash": "0cfb22b85deb9c1f54232a4c06933ff2",
+    "semantic_hash": ""
+  },
+  "domains/vida/Vida \u2014 Session Log.md": {
+    "mtime": 1788264572.467459,
+    "ast_hash": "b78a450a9666092038d31c1d18ea3b19",
+    "semantic_hash": ""
+  },
+  "domains/vida/Water Heater \u2014 Junkers HydroPower.md": {
+    "mtime": 1788172007.0426888,
+    "ast_hash": "0904fb56c130bd000b20cf8a4666180e",
+    "semantic_hash": ""
+  },
+  "entities/Agim Emruli.md": {
+    "mtime": 1781712474.6061196,
+    "ast_hash": "94010eb502ff1ae8c6fbbd9049198e3f",
+    "semantic_hash": ""
+  },
+  "entities/Agustina Berm\u00fadez Castillo.md": {
+    "mtime": 1788091322.0728796,
+    "ast_hash": "5a5c51db1a1ca26539e688291b58487d",
+    "semantic_hash": ""
+  },
+  "entities/Alvaro Vecino.md": {
+    "mtime": 1781541678.659048,
+    "ast_hash": "302df8764400af39d85f59349e361067",
+    "semantic_hash": ""
+  },
+  "entities/Ana Antol\u00edn.md": {
+    "mtime": 1781356606.5440025,
+    "ast_hash": "0c2eb3bfd7f87946db8c6699f3edc141",
+    "semantic_hash": ""
+  },
+  "entities/Ana Lucero.md": {
+    "mtime": 1781712478.0700185,
+    "ast_hash": "22fbe8c88002d267b2c7f0b90f7067f2",
+    "semantic_hash": ""
+  },
+  "entities/Appian.md": {
+    "mtime": 1783093955.7746637,
+    "ast_hash": "ea0da4baf9fcdd908710b68b75c35364",
+    "semantic_hash": ""
+  },
+  "entities/Belen.md": {
+    "mtime": 1784668156.9275196,
+    "ast_hash": "461eb71d6ac67a5a49bfbf9e5e013d10",
+    "semantic_hash": ""
+  },
+  "entities/Bert.md": {
+    "mtime": 1781542999.259555,
+    "ast_hash": "b220436540af86b67f4a2d1102bd962b",
+    "semantic_hash": ""
+  },
+  "entities/Candelorra.md": {
+    "mtime": 1781541528.4908633,
+    "ast_hash": "8a20f6f65b88eda617caa0237fd2106d",
+    "semantic_hash": ""
+  },
+  "entities/Carlos Enrique L\u00f3pez Catal\u00e1n.md": {
+    "mtime": 1781541498.6837747,
+    "ast_hash": "4a2a0ea2a806d3ac7519bf9e34ba19ff",
+    "semantic_hash": ""
+  },
+  "entities/Carmen Berm\u00fadez Castillo.md": {
+    "mtime": 1788219499.8699727,
+    "ast_hash": "bf5a4634163feac4ba86506886dae11f",
+    "semantic_hash": ""
+  },
+  "entities/Carmen Cohen.md": {
+    "mtime": 1781552248.4663248,
+    "ast_hash": "fc65091dde4be0a2a662e3873138cc92",
+    "semantic_hash": ""
+  },
+  "entities/Catalina Guerrero.md": {
+    "mtime": 1781317118.8764317,
+    "ast_hash": "ed92ee68e92445ec03d238decee5d212",
+    "semantic_hash": ""
+  },
+  "entities/Cetelem.md": {
+    "mtime": 1786974517.6570208,
+    "ast_hash": "57d1e4559a7a88a60cd725344d5fd819",
+    "semantic_hash": ""
+  },
+  "entities/Chema.md": {
+    "mtime": 1785528193.5491436,
+    "ast_hash": "c4478e0a810115e36de5cf6d31c497a7",
+    "semantic_hash": ""
+  },
+  "entities/Ciro L\u00f3pez.md": {
+    "mtime": 1784670707.2285283,
+    "ast_hash": "cc995bb9bf87e841bdc385e74f1740cd",
+    "semantic_hash": ""
+  },
+  "entities/Clara Moreno.md": {
+    "mtime": 1784670673.856762,
+    "ast_hash": "96fb76da09795f81dd9ddfe230fb7748",
+    "semantic_hash": ""
+  },
+  "entities/Curro Molina.md": {
+    "mtime": 1781313725.7682233,
+    "ast_hash": "2b7408064dd7814092269f75042921d5",
+    "semantic_hash": ""
+  },
+  "entities/Daniel Galindo.md": {
+    "mtime": 1781317160.8622506,
+    "ast_hash": "f1fc164fb34841d8ba2d77e74adbe67b",
+    "semantic_hash": ""
+  },
+  "entities/Deeno.md": {
+    "mtime": 1781541590.0580316,
+    "ast_hash": "bd0a46573829cf1ac7b4140aae941640",
+    "semantic_hash": ""
+  },
+  "entities/Eduardo D\u00edaz.md": {
+    "mtime": 1781317149.3984437,
+    "ast_hash": "48727b219c343144a713980ee71e031d",
+    "semantic_hash": ""
+  },
+  "entities/Elena Bravo Arche.md": {
+    "mtime": 1788014660.9449959,
+    "ast_hash": "21a993d0c8dfad282734125b56848323",
+    "semantic_hash": ""
+  },
+  "entities/Elena Rodr\u00edguez Burgos.md": {
+    "mtime": 1785154936.1154487,
+    "ast_hash": "d5ca06f00dd8a830f34a6b6bbed369ea",
+    "semantic_hash": ""
+  },
+  "entities/Flowable.md": {
+    "mtime": 1783093956.880629,
+    "ast_hash": "ec824ad236985afeee1c4ad1c90548c8",
+    "semantic_hash": ""
+  },
+  "entities/Gabriel de Almodovar.md": {
+    "mtime": 1781543026.4954164,
+    "ast_hash": "6433a929747b9e7c2ca0c2dd073d31f2",
+    "semantic_hash": ""
+  },
+  "entities/Garc\u00eda-Carpintero.md": {
+    "mtime": 1781552234.5248795,
+    "ast_hash": "1a4470dc91ff883885c608504dc7a150",
+    "semantic_hash": ""
+  },
+  "entities/Gemilla Alexander.md": {
+    "mtime": 1781798664.1731608,
+    "ast_hash": "f03627311d9bc3ac7e33f2e69abbae81",
+    "semantic_hash": ""
+  },
+  "entities/Gerardo \"Gerardito\" Berm\u00fadez Rangel.md": {
+    "mtime": 1786471414.92354,
+    "ast_hash": "545bfe38b8d0658f20c866d764ce6368",
+    "semantic_hash": ""
+  },
+  "entities/Gerardo Berm\u00fadez Castillo.md": {
+    "mtime": 1781541622.675046,
+    "ast_hash": "e3049e9d615cf2ab79868e4e7e99deb4",
+    "semantic_hash": ""
+  },
+  "entities/Gerardo Berm\u00fadez Gallardo.md": {
+    "mtime": 1783090406.4683573,
+    "ast_hash": "4a13badbb21a416e2bd0c0259051431a",
+    "semantic_hash": ""
+  },
+  "entities/Guille.md": {
+    "mtime": 1784668150.7809837,
+    "ast_hash": "ff6084be88ad61e30483af25dd343eaf",
+    "semantic_hash": ""
+  },
+  "entities/Indian CrossFit.md": {
+    "mtime": 1781714855.8052197,
+    "ast_hash": "47b22f2b6e32f6184e71657600ebc566",
+    "semantic_hash": ""
+  },
+  "entities/Isaac Calamonte.md": {
+    "mtime": 1781712499.9778466,
+    "ast_hash": "589243bef71445ab3953d1fa1e453376",
+    "semantic_hash": ""
+  },
+  "entities/Isabel Arroyo Berm\u00fadez.md": {
+    "mtime": 1786102924.5747895,
+    "ast_hash": "4449b044e1f1f4aff334df780826c607",
+    "semantic_hash": ""
+  },
+  "entities/Isabel Berm\u00fadez Castillo.md": {
+    "mtime": 1784195618.3722506,
+    "ast_hash": "ca94df843f1b5663b7122fd14b11a02e",
+    "semantic_hash": ""
+  },
+  "entities/Isabel Castillo Peguero.md": {
+    "mtime": 1782431344.034727,
+    "ast_hash": "6580d7426c3f211635e327631dd61115",
+    "semantic_hash": ""
+  },
+  "entities/I\u00f1igo.md": {
+    "mtime": 1782220773.8455122,
+    "ast_hash": "44795b9e86e582e48388f5e13a9aa857",
+    "semantic_hash": ""
+  },
+  "entities/Jan Ohlhoff.md": {
+    "mtime": 1783296660.2811556,
+    "ast_hash": "3e4e741474e9e84626c0737b44db7923",
+    "semantic_hash": ""
+  },
+  "entities/Javier Esteban.md": {
+    "mtime": 1781317144.7565928,
+    "ast_hash": "af26382ba519859b2d5c79a574ed90d3",
+    "semantic_hash": ""
+  },
+  "entities/Javier Fabre.md": {
+    "mtime": 1785614558.1140685,
+    "ast_hash": "90cf5c4dcf73d32a463ca27ca7bbe6fe",
+    "semantic_hash": ""
+  },
+  "entities/Javier Guerra.md": {
+    "mtime": 1781357580.1123424,
+    "ast_hash": "349c413dd38ae1a8ed84b5abb3add7fc",
+    "semantic_hash": ""
+  },
+  "entities/Javier Mart\u00edn Mart\u00edn.md": {
+    "mtime": 1781361126.501271,
+    "ast_hash": "9e536b87322f4905f67fa90a6a8e58e1",
+    "semantic_hash": ""
+  },
+  "entities/Joaqu\u00edn Becerra.md": {
+    "mtime": 1784196151.2778952,
+    "ast_hash": "3b495a33b585676a7353e9b4280a34e7",
+    "semantic_hash": ""
+  },
+  "entities/John Pearson.md": {
+    "mtime": 1781712515.80248,
+    "ast_hash": "7010455239f965952292ee3852d9dc32",
+    "semantic_hash": ""
+  },
+  "entities/Joram.md": {
+    "mtime": 1781543004.07743,
+    "ast_hash": "03fe65c6cd6d1cb5623ae083438128e6",
+    "semantic_hash": ""
+  },
+  "entities/Jos So.md": {
+    "mtime": 1781543364.0390892,
+    "ast_hash": "c5f86ddf369f77cdbb982ac65d97a8d7",
+    "semantic_hash": ""
+  },
+  "entities/Joshua Alexander.md": {
+    "mtime": 1788219410.6196861,
+    "ast_hash": "153bb7e382ca1ba9e7391f8642021b13",
+    "semantic_hash": ""
+  },
+  "entities/Josito.md": {
+    "mtime": 1781356606.5452447,
+    "ast_hash": "029337b3642eed35bd578fd3a4ce6a29",
+    "semantic_hash": ""
+  },
+  "entities/Jos\u00e9 Arroyo Garc\u00eda.md": {
+    "mtime": 1781356606.545376,
+    "ast_hash": "6171aa8da852a2aa791b6bf267ad78a0",
+    "semantic_hash": ""
+  },
+  "entities/Jos\u00e9 Gabriel Calvache Mart\u00ednez.md": {
+    "mtime": 1782378428.9319487,
+    "ast_hash": "860d6459a34640ea0d53b9da095f54df",
+    "semantic_hash": ""
+  },
+  "entities/Jos\u00e9 Ram\u00f3n Sol\u00eds.md": {
+    "mtime": 1783369397.2742999,
+    "ast_hash": "434af33d360c201b9e37d406b750a0c7",
+    "semantic_hash": ""
+  },
+  "entities/Jos\u00e9 S\u00e1nchez.md": {
+    "mtime": 1784670712.9775178,
+    "ast_hash": "31ff22e3b99861d6b6496528fa4c37e8",
+    "semantic_hash": ""
+  },
+  "entities/Juan Carlos Prieto.md": {
+    "mtime": 1782945980.64038,
+    "ast_hash": "91de5d1716ae80d17c575baaa0d628d4",
+    "semantic_hash": ""
+  },
+  "entities/Juan Luis Rodr\u00edguez.md": {
+    "mtime": 1781356606.5460334,
+    "ast_hash": "5f0d2f173ab3bb57bc8190be891d7762",
+    "semantic_hash": ""
+  },
+  "entities/Loles Vecina.md": {
+    "mtime": 1782946010.6556704,
+    "ast_hash": "53c2cb67de31c3464e605f2a23bcccea",
+    "semantic_hash": ""
+  },
+  "entities/Lourdes Lir\u00f3.md": {
+    "mtime": 1784670698.7702684,
+    "ast_hash": "24d20c8111012fd9c1f8598dba777c66",
+    "semantic_hash": ""
+  },
+  "entities/Lourdes Romero.md": {
+    "mtime": 1784670703.0645719,
+    "ast_hash": "1ef45551b5ed3a5368755f5c83e01262",
+    "semantic_hash": ""
+  },
+  "entities/Luc\u00eda Fern\u00e1ndez Sarria.md": {
+    "mtime": 1781361126.5009406,
+    "ast_hash": "d29ec638054a1e0bada5b72d598cbfea",
+    "semantic_hash": ""
+  },
+  "entities/M. \u00c1ngeles Burgos S\u00e1nchez.md": {
+    "mtime": 1781952446.9360485,
+    "ast_hash": "c9f6411159a6348051840eb0e037a67c",
+    "semantic_hash": ""
+  },
+  "entities/Manuel Antol\u00edn.md": {
+    "mtime": 1781317168.0957851,
+    "ast_hash": "4c1731614926f9c925e9a9612baf8009",
+    "semantic_hash": ""
+  },
+  "entities/Manuel Berm\u00fadez Rangel.md": {
+    "mtime": 1784195895.334123,
+    "ast_hash": "e3ae095da7884a226647e0fef4a79635",
+    "semantic_hash": ""
+  },
+  "entities/Marcos.md": {
+    "mtime": 1784670593.7661865,
+    "ast_hash": "23d1735b8ac0eab83a957525f758f6e9",
+    "semantic_hash": ""
+  },
+  "entities/Mari\u00e1ngeles Carde\u00f1o Mart\u00edn.md": {
+    "mtime": 1781552354.8056095,
+    "ast_hash": "b771d525ae73958fa498aacdd8fb8e1f",
+    "semantic_hash": ""
+  },
+  "entities/Mark Kent.md": {
+    "mtime": 1781797977.4046178,
+    "ast_hash": "ecaf4028f03764999e8d0da5f1a19ad0",
+    "semantic_hash": ""
+  },
+  "entities/Marta Edu.md": {
+    "mtime": 1781356606.5467467,
+    "ast_hash": "6050ce9439948627dbab9a59b8475653",
+    "semantic_hash": ""
+  },
+  "entities/Marta Rubia Riso.md": {
+    "mtime": 1784196151.2529128,
+    "ast_hash": "f8cfdd2b489eca2b32a320ebd56adbc0",
+    "semantic_hash": ""
+  },
+  "entities/Mar\u00eda Arroyo Berm\u00fadez.md": {
+    "mtime": 1781510538.727476,
+    "ast_hash": "ab09771ad38e74e5063a6db53f9ee749",
+    "semantic_hash": ""
+  },
+  "entities/Mar\u00eda Barrantes.md": {
+    "mtime": 1781557280.7846625,
+    "ast_hash": "499d2923bb4c1a41bd3f9ca49099f438",
+    "semantic_hash": ""
+  },
+  "entities/Matt Fischetti.md": {
+    "mtime": 1784194727.9843142,
+    "ast_hash": "37a250738d14d4300c0234462012ee71",
+    "semantic_hash": ""
+  },
+  "entities/Maxine Alexander.md": {
+    "mtime": 1781797972.8699434,
+    "ast_hash": "f9808d0ee5d0bc33a061300f51b7641a",
+    "semantic_hash": ""
+  },
+  "entities/Mayte Acu\u00f1a.md": {
+    "mtime": 1781714876.9585865,
+    "ast_hash": "82880dffa9208a5da235a54aa8bca812",
+    "semantic_hash": ""
+  },
+  "entities/Miguel Aguirre.md": {
+    "mtime": 1781797941.151756,
+    "ast_hash": "0ece3c8885a51e6f8311885a744fa026",
+    "semantic_hash": ""
+  },
+  "entities/Miguel \u00c1ngel Antol\u00edn L\u00f3pez.md": {
+    "mtime": 1781544311.8181427,
+    "ast_hash": "fbdc4f179853265f655a0312bd979c53",
+    "semantic_hash": ""
+  },
+  "entities/Miguel \u00c1ngel Antol\u00edn Siffredi.md": {
+    "mtime": 1781643988.2148745,
+    "ast_hash": "e13cfbcef39c7393673843037a5af99c",
+    "semantic_hash": ""
+  },
+  "entities/Morritos Gonz\u00e1lez.md": {
+    "mtime": 1783276416.7987506,
+    "ast_hash": "ab4fd1ec05f28540095ddb20a67ca62b",
+    "semantic_hash": ""
+  },
+  "entities/Niklas Teichmann.md": {
+    "mtime": 1781552393.184426,
+    "ast_hash": "123a45d8c53316ac9055fe8bfe65018f",
+    "semantic_hash": ""
+  },
+  "entities/Niovi.md": {
+    "mtime": 1781361126.4999578,
+    "ast_hash": "86959feafb77ebf08a71029801b1304e",
+    "semantic_hash": ""
+  },
+  "entities/Noralba Silene Ramirez Hernandez.md": {
+    "mtime": 1787951887.3230255,
+    "ast_hash": "fbca2b6028fcecec66cde5293a8f249a",
+    "semantic_hash": ""
+  },
+  "entities/Parser (consultora).md": {
+    "mtime": 1784886987.1803207,
+    "ast_hash": "45e0425c33ccaecff9b60946ccd68072",
+    "semantic_hash": ""
+  },
+  "entities/Paul Turner.md": {
+    "mtime": 1781361126.4915895,
+    "ast_hash": "349a0bdf098461b317d8fea6f70c0be0",
+    "semantic_hash": ""
+  },
+  "entities/Pedro Vesi.md": {
+    "mtime": 1781541615.1620283,
+    "ast_hash": "a19d28028a8217c431e22818098869e3",
+    "semantic_hash": ""
+  },
+  "entities/Petra L\u00f3pez.md": {
+    "mtime": 1781361126.50035,
+    "ast_hash": "f1691bd324281c0df596c75f213faeb5",
+    "semantic_hash": ""
+  },
+  "entities/Pilar N\u00fa\u00f1ez Porr\u00f3n.md": {
+    "mtime": 1781361126.4940302,
+    "ast_hash": "7aadb717cea7c59b6e05b82535d2d558",
+    "semantic_hash": ""
+  },
+  "entities/Puri.md": {
+    "mtime": 1784196339.0202544,
+    "ast_hash": "850b5fed264aedea86ff7cadf3c41571",
+    "semantic_hash": ""
+  },
+  "entities/Qipert.md": {
+    "mtime": 1783093955.1268559,
+    "ast_hash": "480397eed93b32a34dede3dc68d362e5",
+    "semantic_hash": ""
+  },
+  "entities/ROMA.md": {
+    "mtime": 1781543338.8514106,
+    "ast_hash": "672643b8478020e715a1524adcf538b6",
+    "semantic_hash": ""
+  },
+  "entities/Rafael Pueyo Gonz\u00e1lez.md": {
+    "mtime": 1781541658.7817945,
+    "ast_hash": "019c793e3f527ffe1d4e107f03762353",
+    "semantic_hash": ""
+  },
+  "entities/Roger Villars.md": {
+    "mtime": 1781541305.2162323,
+    "ast_hash": "28333f2ef46b4b031007c3a9c443b75c",
+    "semantic_hash": ""
+  },
+  "entities/Soul.md": {
+    "mtime": 1781361126.5007312,
+    "ast_hash": "2700c7acba9752a8d54f9cef0b6d7231",
+    "semantic_hash": ""
+  },
+  "entities/TAMDIS.md": {
+    "mtime": 1784670693.9546168,
+    "ast_hash": "0ffea833f11295d152c05defc8412834",
+    "semantic_hash": ""
+  },
+  "entities/Tetas.md": {
+    "mtime": 1785528226.3180478,
+    "ast_hash": "208164bc1b17a9ca55ddd4125a0a6034",
+    "semantic_hash": ""
+  },
+  "entities/Teticias.md": {
+    "mtime": 1784195895.3072512,
+    "ast_hash": "26c881f4fa0ccfdd1e1d554873fd95a0",
+    "semantic_hash": ""
+  },
+  "entities/Tiger Data.md": {
+    "mtime": 1787943180.6713738,
+    "ast_hash": "d8b343aacfa749ca0b9768cd277e0b1d",
+    "semantic_hash": ""
+  },
+  "entities/Tijs.md": {
+    "mtime": 1781712522.8303707,
+    "ast_hash": "823d2838fe61e948138502c385398d90",
+    "semantic_hash": ""
+  },
+  "entities/Toni Rangel.md": {
+    "mtime": 1781540586.7715292,
+    "ast_hash": "b39334533b8f57902cd5ddf4395ba44d",
+    "semantic_hash": ""
+  },
+  "entities/Trioteca.md": {
+    "mtime": 1781508892.4315948,
+    "ast_hash": "5a29b9ce447fef0aac60bd165823dbd3",
+    "semantic_hash": ""
+  },
+  "entities/Ugo Mbagwu.md": {
+    "mtime": 1782945979.025643,
+    "ast_hash": "00515d67d9b405681204be5d8e78ec39",
+    "semantic_hash": ""
+  },
+  "entities/Vendedor \u2014 Isaac Leon Ruiz.md": {
+    "mtime": 1783374950.9578865,
+    "ast_hash": "e81ca092ac86805b472cdc25de5172e7",
+    "semantic_hash": ""
+  },
+  "entities/Ver\u00f3nica Cano Ram\u00edrez.md": {
+    "mtime": 1782891228.6749306,
+    "ast_hash": "8159f717729eaac3dffc0aa1cf94c450",
+    "semantic_hash": ""
+  },
+  "entities/Vesi Flaca.md": {
+    "mtime": 1784196151.22748,
+    "ast_hash": "c67638fd38dbf29e9f0a32f23c7dc83d",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Alexander Palace N22 visit.md": {
+    "mtime": 1783296660.2781749,
+    "ast_hash": "8fd75bc9d53da3bfdc72156700b579d7",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Cumple Joaqui.md": {
+    "mtime": 1783296660.2813323,
+    "ast_hash": "5087539f18f95e47afea4ebfc820da17",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Cumple p chos.md": {
+    "mtime": 1783296660.2827072,
+    "ast_hash": "fc681821f42e3181baf292184ca55711",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 DXB UAE crew.md": {
+    "mtime": 1783296660.277765,
+    "ast_hash": "e5411428871bcc8b30609f5d64bfe616",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 FAML.md": {
+    "mtime": 1783296660.2797256,
+    "ast_hash": "e424575374e109c1af65b332c976f74e",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Familia Antol\u00edn Berm\u00fadez.md": {
+    "mtime": 1783296660.277427,
+    "ast_hash": "acf7633603ee4adadd954b6649b6b17e",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Familia Berm\u00fadez.md": {
+    "mtime": 1787820806.3397262,
+    "ast_hash": "17e24b64cf2754f560e614c381e3d0e8",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Period (flatmates).md": {
+    "mtime": 1783296660.2807171,
+    "ast_hash": "8f80f9cdcabc63b45ec51a0f536cb0b5",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 SE Oneroso Draconiano.md": {
+    "mtime": 1783296660.2794523,
+    "ast_hash": "27dfe4802cb79204f8ba5fbb1492db4d",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Tontacos.md": {
+    "mtime": 1783296660.282479,
+    "ast_hash": "51a684d7dff8ae4444960398572d0c67",
+    "semantic_hash": ""
+  },
+  "entities/WA Group \u2014 Yallah Yallah habibe.md": {
+    "mtime": 1783296660.278971,
+    "ast_hash": "3f58e98764050cc51004bac8a4826d18",
+    "semantic_hash": ""
+  },
+  "hot.md": {
+    "mtime": 1788264572.4686158,
+    "ast_hash": "22a8857be60f6f28dda55a2fcabd4cc8",
+    "semantic_hash": ""
+  },
+  "index.md": {
+    "mtime": 1783296825.6291678,
+    "ast_hash": "249e8c70fc8de2f0d41bb38e29e7223d",
+    "semantic_hash": ""
+  },
+  "log-archive-2026.md": {
+    "mtime": 1784107328.010837,
+    "ast_hash": "98a62c188186c26f8cf3cacde3cc7288",
+    "semantic_hash": ""
+  },
+  "log.md": {
+    "mtime": 1788264517.099267,
+    "ast_hash": "239312ae4849de1ee026452c2c357eca",
+    "semantic_hash": ""
+  },
+  "meta/archive/Draft \u2014 Email Mar\u00eda Barrantes Santander.md": {
+    "mtime": 1781543384.5828953,
+    "ast_hash": "1ee9ae085c84536c5e3fbd01cc1cfc66",
+    "semantic_hash": ""
+  },
+  "meta/archive/coherence-audit-2026-06-15.md": {
+    "mtime": 1784107328.016014,
+    "ast_hash": "9d115137a3768339e06c566938cebd7e",
+    "semantic_hash": ""
+  },
+  "meta/archive/integrity-audit-2026-06-15.md": {
+    "mtime": 1781544128.8761387,
+    "ast_hash": "53a98fe4fa3f9ca03ad8fc6a4a420c0e",
+    "semantic_hash": ""
+  },
+  "meta/archive/nodes-audit-wave1-2026-06-15.md": {
+    "mtime": 1781555534.9148664,
+    "ast_hash": "793089e6a17ea6bdc288534af7c6068a",
+    "semantic_hash": ""
+  },
+  "meta/archive/single-source-audit-2026-06-15.md": {
+    "mtime": 1781543609.242861,
+    "ast_hash": "9bc3d0afbd6cedeb56b8c0344f6fbe1e",
+    "semantic_hash": ""
+  },
+  "meta/archive/transclusion-plan-2026-06-13.md": {
+    "mtime": 1781508900.388079,
+    "ast_hash": "991df6b2262e8ac3f83ea7e1a609290a",
+    "semantic_hash": ""
+  },
+  "meta/codigos-ambiguos.md": {
+    "mtime": 1788097909.0530334,
+    "ast_hash": "c607720f65486105159487f56c4c1b8e",
+    "semantic_hash": ""
+  },
+  "meta/coherence-audit-2026-07-03.md": {
+    "mtime": 1783090013.3674486,
+    "ast_hash": "baf6f85b5133550921a31bd892db628e",
+    "semantic_hash": ""
+  },
+  "meta/coherence-dedup-review-2026-07-06.md": {
+    "mtime": 1783302469.6769323,
+    "ast_hash": "c9a3f6056fed7039cef2fb23c90a7c0d",
+    "semantic_hash": ""
+  },
+  "meta/coherence-dfs-bfs-audit-2026-07-21.md": {
+    "mtime": 1784663535.5720756,
+    "ast_hash": "14cd3d2d7e8f1b600c6ea559d90d0ba3",
+    "semantic_hash": ""
+  },
+  "meta/coherence-dfs-bfs-audit-2026-08-28.md": {
+    "mtime": 1787872336.8182387,
+    "ast_hash": "e53d66a76e15bdb496dd1316a5d9186a",
+    "semantic_hash": ""
+  },
+  "meta/coherence-dup-audit-2026-06-30.md": {
+    "mtime": 1782834120.1976583,
+    "ast_hash": "672332ad441b1af42b983c0b288071a3",
+    "semantic_hash": ""
+  },
+  "meta/coherence-reverify-2026-07-03.md": {
+    "mtime": 1783095003.9276757,
+    "ast_hash": "191ff3d16a5add0452a3f5cac40be5c5",
+    "semantic_hash": ""
+  },
+  "meta/consejo-sabios-audit-2026-08-26.md": {
+    "mtime": 1787735262.96915,
+    "ast_hash": "25aa607d6198eb9abffd2966ddc423a0",
+    "semantic_hash": ""
+  },
+  "meta/consejo-sabios-audit-2026-08-28.md": {
+    "mtime": 1787869881.486831,
+    "ast_hash": "f24aae03e64ae7273e9fab795b97c1a3",
+    "semantic_hash": ""
+  },
+  "meta/consejo-sabios-grafo-capas-2026-08-30.md": {
+    "mtime": 1788251787.534558,
+    "ast_hash": "2fbb0df5b562081bf08f2c44e796cb80",
+    "semantic_hash": ""
+  },
+  "meta/consejo-sabios-homebridge-ha-2026-08-27.md": {
+    "mtime": 1787855944.2900171,
+    "ast_hash": "4d7b2824794ad2d04c638d8b655334df",
+    "semantic_hash": ""
+  },
+  "meta/consejo-sabios-ledger-2026-08-30.md": {
+    "mtime": 1788043211.7607467,
+    "ast_hash": "c6ed31a1c3ed80f8ba571fbe8f77f0c1",
+    "semantic_hash": ""
+  },
+  "meta/contact-graph.md": {
+    "mtime": 1787322285.2618608,
+    "ast_hash": "7822e644514c6b0a74739556a67fa133",
+    "semantic_hash": ""
+  },
+  "meta/error-ledger.md": {
+    "mtime": 1788263295.5891194,
+    "ast_hash": "c9ff342f3331562a05eb36ba1875de3d",
+    "semantic_hash": ""
+  },
+  "meta/harness-audit-2026-07-04.md": {
+    "mtime": 1783161511.0437417,
+    "ast_hash": "0f5a8312ca31e4f7aa5d4a4f2d4cfef0",
+    "semantic_hash": ""
+  },
+  "meta/identity-corrections.md": {
+    "mtime": 1781307521.6349485,
+    "ast_hash": "f67f57a015ee3511f78e1e6c6ffc08b7",
+    "semantic_hash": ""
+  },
+  "meta/memoria-indice.md": {
+    "mtime": 1788044231.1906393,
+    "ast_hash": "03e6d1ece5d0b05782dc02ab6ed62a0a",
+    "semantic_hash": ""
+  },
+  "meta/needs_review-archive.md": {
+    "mtime": 1783329899.7282407,
+    "ast_hash": "c7b6a68bc703f6ef4a37f3d5f8b102f0",
+    "semantic_hash": ""
+  },
+  "meta/needs_review.md": {
+    "mtime": 1786191998.2233336,
+    "ast_hash": "370a52c01494a3b633b308f3080aabd9",
+    "semantic_hash": ""
+  },
+  "meta/review-queue-weekly.md": {
+    "mtime": 1788055303.6230865,
+    "ast_hash": "8a274aa5bc504eda22c05576a699f87e",
+    "semantic_hash": ""
+  },
+  "meta/review-queue.md": {
+    "mtime": 1788224400.7482624,
+    "ast_hash": "88f6b320426c25601299ebe387fadf41",
+    "semantic_hash": ""
+  },
+  "meta/singlesource-audit-2026-07-03.md": {
+    "mtime": 1788251787.506908,
+    "ast_hash": "22c2444ad13e696158cbddac37f3cbfd",
+    "semantic_hash": ""
+  },
+  "meta/triple-audit-2026-07-03.md": {
+    "mtime": 1783092674.801036,
+    "ast_hash": "fb65276b2c8296eba4963a946aa9d1f5",
+    "semantic_hash": ""
+  },
+  "meta/vault-organization-review-2026-07-06.md": {
+    "mtime": 1783296969.348995,
+    "ast_hash": "04ab8f34124049446ac7e2c90943fcbd",
+    "semantic_hash": ""
+  },
+  "overview.md": {
+    "mtime": 1787325775.3178804,
+    "ast_hash": "28da3ba5b292c7e98bf9677951eb47c4",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-bitbucket-server-on-raspberry-pi.md": {
+    "mtime": 1781648502.259795,
+    "ast_hash": "c2d1591b21110bcdeb1c6ba3e6753e75",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-claude-code-hooks-automate-your-development-workfl.md": {
+    "mtime": 1781648489.6221447,
+    "ast_hash": "cecd6ed1891a75b80f7bf843c2ebf457",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-claude-code-mac-setup-the-complete-guide-miguel-ng.md": {
+    "mtime": 1781648493.81241,
+    "ast_hash": "fecbd96e31cf9239a903db797068761d",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-docker-raspberry-pi-arm-running-containers-on-arm6.md": {
+    "mtime": 1781648500.1493924,
+    "ast_hash": "bc738c0b8cc0cd72ccbcbead8200bff6",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-git-workflow-solo-developer-the-guide-that-actuall.md": {
+    "mtime": 1781648496.0031135,
+    "ast_hash": "1d5a305a55a308d4aaafd6f07625ce55",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-google-assistant-raspberry-pi.md": {
+    "mtime": 1781648506.274795,
+    "ast_hash": "1d69ac1c6e1034f86ec099113a805447",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-home-automation-with-raspberry-pi-and-a-relay.md": {
+    "mtime": 1781648516.395664,
+    "ast_hash": "33cf4f6c913f67ccae19d0d6d36c26b5",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-passwordless-ssh-authentication-the-complete-setup.md": {
+    "mtime": 1781648512.1371267,
+    "ast_hash": "17be661b09aab522493a3d8fe3168be9",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-pi-hole-vpn-to-block-ads-anywhere-with-raspberry-p.md": {
+    "mtime": 1781648504.1292877,
+    "ast_hash": "5e46e76a3ed55fb56acb0b97a8596501",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-portainer-raspberry-pi-manage-docker-from-your-bro.md": {
+    "mtime": 1781648514.3219032,
+    "ast_hash": "55ce6173cbbccde5792c2dac3db27500",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-raspberry-3b-overclock.md": {
+    "mtime": 1781648508.213702,
+    "ast_hash": "8abb6aa7c2b2e5559813296a11e9e6d1",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-raspberry-pi-4-overclock-guide-config-txt-settings.md": {
+    "mtime": 1781648510.2523038,
+    "ast_hash": "eabd99c18acd6fe6017ccde78dfad565",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-self-host-vaultwarden-vps-the-complete-guide-migue.md": {
+    "mtime": 1781648491.8514655,
+    "ast_hash": "057f59e8fba9799d6a9c32de24dd57d1",
+    "semantic_hash": ""
+  },
+  "sources/2026-06-17-article-wireguard-vpn-raspberry-pi-replace-openvpn-in-15-m.md": {
+    "mtime": 1781648498.0017862,
+    "ast_hash": "803918c8f6def542288b4f23c44157d6",
+    "semantic_hash": ""
+  },
+  "sources/2026-08-26-code-zap-full-source.md": {
+    "mtime": 1787739073.0,
+    "ast_hash": "1d7f681f02c8cb441adb5aa0fae32bfb",
+    "semantic_hash": ""
+  },
+  "sources/AZ-104 Prep Kit.md": {
+    "mtime": 1783529520.2193828,
+    "ast_hash": "c95b0ec309ffea2d04b50ab40be89a01",
+    "semantic_hash": ""
+  },
+  "sources/Apple Notes \u2014 Jun 2026.md": {
+    "mtime": 1781357664.6580744,
+    "ast_hash": "805eb2f6f5fff9911978b0cdc050c7f9",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Aqua Debito Card Contract.md": {
+    "mtime": 1781283750.746496,
+    "ast_hash": "5fea4f5d513c08be86f989923ab8aabb",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Final Contract Jun2026.md": {
+    "mtime": 1781254976.5553734,
+    "ast_hash": "c12c27af806377f5c9db0db806b7f3ee",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Plan Estar Seguro Contract.md": {
+    "mtime": 1781306726.9464295,
+    "ast_hash": "d295eab0b77c3f0f6b29f6906b8becca",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Poliza Anexos Jun2026.md": {
+    "mtime": 1781254991.1351726,
+    "ast_hash": "6dfa3baf543d6e2628f6b6a2a6b0a6bd",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Provision Fondos Jun2026.md": {
+    "mtime": 1783095303.3263116,
+    "ast_hash": "d857dce30cb04c1f6c3c1b516a287176",
+    "semantic_hash": ""
+  },
+  "sources/BBVA Solicitud Operacion Jun2026.md": {
+    "mtime": 1781254926.6290903,
+    "ast_hash": "9dd072d668c25005bf50c559cb1c9e2c",
+    "semantic_hash": ""
+  },
+  "sources/Documentaci\u00f3n Notarial Santander \u2014 Av de Andalucia 6.md": {
+    "mtime": 1780439961.1983933,
+    "ast_hash": "c2f469154a2cc1893433211e496929cd",
+    "semantic_hash": ""
+  },
+  "sources/Donacion Completada \u2014 Av Andalucia 6.md": {
+    "mtime": 1781363757.2580578,
+    "ast_hash": "f9913426fa5b30798b240855200b1b2e",
+    "semantic_hash": ""
+  },
+  "sources/FEIN BBVA \u2014 Hipoteca Av Andalucia 6.md": {
+    "mtime": 1781693871.9050565,
+    "ast_hash": "b41f44936e3e57a055537614b8f5ced9",
+    "semantic_hash": ""
+  },
+  "sources/WA Documents \u2014 Flat & Mortgage 2026-06.md": {
+    "mtime": 1782945993.1115956,
+    "ast_hash": "e08654d3f845258d865fe9849521a72b",
+    "semantic_hash": ""
+  },
+  "sources/apple-health-export-2026-06-12.md": {
+    "mtime": 1781292124.3371933,
+    "ast_hash": "a76e687e61d39191dee29c30773bb9ae",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato Arrendamiento Temporada \u2014 Av Andalucia 6 (26jun-25jul 2026).pdf": {
+    "mtime": 1782115188.0834029,
+    "ast_hash": "4147481fd184dfd901a9ee1f4038f616",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato Arrendamiento Temporada \u2014 Av Andalucia 6 (26jun-31jul 2026).pdf": {
+    "mtime": 1781808623.877329,
+    "ast_hash": "2896e301ba9e036e8f866ec13627168b",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato Arrendamiento Temporada \u2014 Av Andalucia 6 (v3 reforzado).pdf": {
+    "mtime": 1781810801.4299664,
+    "ast_hash": "88174ba655828fab95a4c24ad8748a51",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato Arrendamiento Temporada \u2014 Av Andalucia 6 (v4).pdf": {
+    "mtime": 1781811040.5435107,
+    "ast_hash": "96b564bb613c507705f1d321ac7d8dfd",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato Arrendamiento Temporada \u2014 Av Andalucia 6 (v5 formato formal).pdf": {
+    "mtime": 1781811508.761053,
+    "ast_hash": "078dfa16734da92c7d760e8ee49ca19b",
+    "semantic_hash": ""
+  },
+  "_attachments/Contrato de Arrendamiento de Temporada \u2014 Av Andalucia 6.pdf": {
+    "mtime": 1781812474.65043,
+    "ast_hash": "65a899ea4e7eb194b0bbeb24aabe95ee",
+    "semantic_hash": ""
+  },
+  "_attachments/MagicPlan Estad\u00edsticas \u2014 Av Andalucia 6 (18-06-2026 v2).pdf": {
+    "mtime": 1781740798.191493,
+    "ast_hash": "92f36ec55d8795cbb773eaab511e0758",
+    "semantic_hash": ""
+  },
+  "_attachments/Plan Internet Casa Nueva \u2014 Av Andalucia 6.pdf": {
+    "mtime": 1781782262.3044994,
+    "ast_hash": "c725b65f26364e32fcd656cff8acda35",
+    "semantic_hash": ""
+  },
+  "_attachments/Plano MagicPlan DEFINITIVO Sketch \u2014 Av Andalucia 6 (18-06-2026 v2).pdf": {
+    "mtime": 1781739967.8435957,
+    "ast_hash": "8c3cec357fcda63989d7b6a1edca80f9",
+    "semantic_hash": ""
+  },
+  "_attachments/Topologia Red \u2014 Av Andalucia 6.png": {
+    "mtime": 1781781159.585366,
+    "ast_hash": "05f6f6fe8834948d4e2ba31e220af1e8",
+    "semantic_hash": ""
+  },
+  "domains/miguel/plano_av_andalucia_6_2.jpg": {
+    "mtime": 1778541338.0175433,
+    "ast_hash": "75d7956e587ea9ea9c9abb67c5250e73",
+    "semantic_hash": ""
+  }
+}
