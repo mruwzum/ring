@@ -28,43 +28,43 @@ test('la imagen fija viaja con el plugin y no hay que generarla', async () => {
 })
 
 test('getSnapshot devuelve la imagen del plugin, no una generada', async () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg')
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg')
   const snap = await cam.getSnapshot()
   const bundled = await readFile(join(PLUGIN, 'media', 'intercom-still.jpg'))
   assert.deepEqual(snap, bundled, 'deberia servir el fichero incluido tal cual')
 })
 
 test('getSnapshot cachea: la segunda llamada no vuelve a leer disco', async () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg')
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg')
   const a = await cam.getSnapshot()
   const b = await cam.getSnapshot()
   assert.equal(a, b, 'deberia devolver la MISMA instancia en memoria')
 })
 
 test('getSnapshotPath apunta al fichero del plugin', async () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg')
-  const p = await cam.getSnapshotPath()
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg')
+  const p = cam.getSnapshotPath()
   assert.ok(p.endsWith('media/intercom-still.jpg'), `ffmpeg necesita el fichero incluido, recibio ${p}`)
 })
 
 test('las ganancias tienen valor por defecto sensato', () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg')
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg')
   assert.equal(cam.micGainDb, 12)
   assert.equal(cam.speakerGainDb, 10)
 })
 
 test('las ganancias se pueden configurar, incluido el 0', () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg', 18, 20)
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg', 18, 20)
   assert.equal(cam.speakerGainDb, 18)
   assert.equal(cam.micGainDb, 20)
   // 0 es un valor legitimo (dejar el volumen original) y no debe caer al por defecto
-  const sinGanancia = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg', 0, 0)
+  const sinGanancia = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg', 0, 0)
   assert.equal(sinGanancia.speakerGainDb, 0, 'un 0 explicito no puede convertirse en el valor por defecto')
   assert.equal(sinGanancia.micGainDb, 0)
 })
 
 test('una ganancia invalida no rompe: cae al valor por defecto', () => {
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', '/usr/bin/ffmpeg', 'mucho', null)
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/usr/bin/ffmpeg', 'mucho', null)
   assert.equal(cam.speakerGainDb, 10)
   assert.equal(cam.micGainDb, 12)
 })
@@ -73,7 +73,7 @@ test('ffmpegPath nunca queda undefined', () => {
   // getFfmpegPath() de ring-client-api devuelve undefined si no se configura, y spawn
   // revienta con «The file argument must be of type string». Paso el 1 Sep 2026 y dejo
   // el accesorio como "no responde".
-  const cam = new IntercomCamera(fakeIntercom, fakeRest, '/tmp', undefined)
+  const cam = new IntercomCamera(fakeIntercom, fakeRest, undefined)
   assert.equal(typeof cam.ffmpegPath, 'string')
   assert.ok(cam.ffmpegPath.length > 0)
 })

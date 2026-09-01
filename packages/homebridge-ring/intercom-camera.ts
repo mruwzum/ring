@@ -1,4 +1,4 @@
-import type { RingIntercom, RingRestClient } from 'ring-client-api'
+import type { RingIntercom } from 'ring-client-api'
 import { StreamingSession } from 'ring-client-api/streaming/streaming-session'
 import { logInfo } from 'ring-client-api/util'
 import { readFile } from 'fs/promises'
@@ -58,13 +58,20 @@ export class IntercomCamera {
     import.meta.url,
   ).pathname
 
+  // Los campos se declaran aparte: el tsconfig del repo usa `erasableSyntaxOnly`,
+  // que prohíbe los parámetros-propiedad (`private readonly x` en el constructor).
+  private readonly intercom: RingIntercom
+  public readonly restClient: { request: <T>(options: any) => Promise<T> }
+
   constructor(
-    private readonly intercom: RingIntercom,
-    public readonly restClient: RingRestClient,
+    intercom: RingIntercom,
+    restClient: { request: <T>(options: any) => Promise<T> },
     ffmpegPath?: string,
     speakerGainDb?: number,
     micGainDb?: number,
   ) {
+    this.intercom = intercom
+    this.restClient = restClient
     this.ffmpegPath = ffmpegPath || 'ffmpeg'
     // OJO con Number(): Number(null) es 0 y Number('') también, así que un valor
     // vacío en la config se colaba como «ganancia 0 dB» en vez de caer al valor por

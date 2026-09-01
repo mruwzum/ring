@@ -1,4 +1,4 @@
-import type { RingCamera } from 'ring-client-api'
+
 // Copia adaptada de camera-source.ts SOLO para el Ring Intercom.
 //
 // Se copia en vez de heredar porque la clase que hay que cambiar
@@ -383,11 +383,11 @@ class IntercomStreamingSessionWrapper {
 
 export class IntercomCameraSource implements CameraStreamingDelegate {
   public controller
-  private sessions: { [sessionKey: string]: StreamingSessionWrapper } = {}
+  private sessions: { [sessionKey: string]: IntercomStreamingSessionWrapper } = {}
   private cachedSnapshot?: Buffer
   private ringCamera
 
-  constructor(ringCamera: RingCamera) {
+  constructor(ringCamera: IntercomCamera) {
     this.ringCamera = ringCamera
     this.controller = new hap.CameraController({
       cameraStreamCount: 10,
@@ -464,7 +464,9 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
 
     try {
       const previousSnapshot = this.cachedSnapshot,
-        newSnapshot = await this.ringCamera.getSnapshot({ uuid: imageUuid })
+        // El intercom no tiene cámara: la imagen es siempre la misma y no hay
+        // uuid de snapshot que pedirle a Ring.
+        newSnapshot = await this.ringCamera.getSnapshot()
       this.cachedSnapshot = newSnapshot
 
       if (previousSnapshot !== newSnapshot) {

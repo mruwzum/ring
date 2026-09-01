@@ -9,3 +9,6 @@ yarn.lock
 .hoobs
 .turbo
 .gitattributes
+
+# artefactos de compilacion del fork
+packages/*/lib/
