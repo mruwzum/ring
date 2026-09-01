@@ -23,6 +23,22 @@ export interface RingPlatformConfig extends RingApiOptions {
   onlyDeviceTypes?: string[]
   showPanicButtons?: boolean
   disableLogs?: boolean
+
+  // ── Ring Intercom (fork de Miguel Ángel Antolín) ────────────────────────────
+  /** Sensor de contacto que avisa si el Intercom pierde la conexión. */
+  showOfflineSensor?: boolean
+  /** Interruptor que da de baja los avisos de llamada en el servidor de Ring. */
+  showDoNotDisturbSwitch?: boolean
+  /** Registra cada llamada y apertura del Intercom en un JSONL, sin throttle. */
+  logIntercomDings?: boolean
+  /** Carpeta del registro. Por defecto, la de Homebridge. */
+  intercomDingLogPath?: string
+  /** Accesorio de cámara con imagen fija y audio bidireccional para el Intercom. */
+  enableIntercomAudio?: boolean
+  /** dB que se suman a la voz que sale hacia el altavoz del portal. */
+  intercomSpeakerGainDb?: number
+  /** dB que se suman al audio que llega del portal. */
+  intercomMicGainDb?: number
 }
 
 export function updateHomebridgeConfig(

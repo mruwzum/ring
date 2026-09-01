@@ -1,3 +1,15 @@
+> ## 🔊 Fork con audio bidireccional para el Ring Intercom
+>
+> Este es un fork de [`dgreif/ring`](https://github.com/dgreif/ring) mantenido por
+> [**@mruwzum**](https://github.com/mruwzum).
+>
+> Añade al **Ring Intercom** lo que el plugin original no cubre: **escuchar el portal y hablar**
+> desde HomeKit, además de sensor de conexión, no molestar real y registro de llamadas.
+>
+> 👉 **[Documentación del fork: INTERCOM.md](packages/homebridge-ring/INTERCOM.md)**
+>
+> Todo lo demás es obra de **Dusty Greif** y conserva su licencia MIT. El mérito del plugin es suyo.
+
 # Ring
 
 This repo contains unofficial packages to enable interaction and automation with the majority of [Ring](https://ring.com/) products

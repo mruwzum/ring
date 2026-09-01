@@ -49,6 +49,8 @@ import { LocationModeSwitch } from './location-mode-switch.ts'
 import { Thermostat } from './thermostat.ts'
 import { UnknownZWaveSwitchSwitch } from './unknown-zwave-switch.ts'
 import { Intercom } from './intercom.ts'
+import { IntercomCamera } from './intercom-camera.ts'
+import { IntercomCameraSource } from './intercom-camera-source.ts'
 import { Valve } from './valve.ts'
 
 const ignoreHiddenDeviceTypes: string[] = [
@@ -355,6 +357,89 @@ export class RingPlatform implements DynamicPlatformPlugin {
             activeAccessoryIds.push(uuid)
           },
         )
+
+        // ── Audio del Ring Intercom ───────────────────────────────────────────
+        // Se publica como accesorio EXTERNO aparte, sin tocar el accesorio del
+        // intercom que ya existe: HomeKit exige que las cámaras vayan sin puente,
+        // y convertir el accesorio actual obligaría a re-emparejarlo y perder sus
+        // automatizaciones. Así el intercom de siempre sigue igual y el audio se
+        // añade al lado.
+        if (config.enableIntercomAudio && intercoms.length) {
+          intercoms.forEach((intercom) => {
+            const audioUuid = hap.uuid.generate(
+                debugPrefix + 'intercom-audio-' + intercom.id,
+              ),
+              audioName = debugPrefix + intercom.name + ' Audio'
+
+            if (activeAccessoryIds.includes(audioUuid)) {
+              return
+            }
+
+            try {
+              const audioAccessory =
+                  this.homebridgeAccessories[audioUuid] ||
+                  new api.platformAccessory(
+                    audioName,
+                    audioUuid,
+                    hap.Categories.CAMERA,
+                  ),
+                intercomCamera = new IntercomCamera(
+                  intercom,
+                  ringApi.restClient,
+                  config.ffmpegPath,
+                  config.intercomSpeakerGainDb,
+                  config.intercomMicGainDb,
+                ),
+                cameraSource = new IntercomCameraSource(intercomCamera)
+
+              audioAccessory.configureController(cameraSource.controller)
+
+              // Sin los servicios Microphone y Speaker, HomeKit NO dibuja el botón
+              // del micrófono: no basta con negociar audio bidireccional en el
+              // CameraController. camera.ts se los añade a las cámaras por esto mismo.
+              const { Characteristic, Service } = hap
+              for (const svcType of [Service.Microphone, Service.Speaker]) {
+                const svc =
+                  audioAccessory.getService(svcType) ||
+                  audioAccessory.addService(svcType, intercom.name)
+                svc.getCharacteristic(Characteristic.Mute).onGet(() => false)
+              }
+
+              // Doorbell en el propio accesorio de audio: así, cuando llaman al
+              // portal, la notificación lleva directamente a este stream en vez de
+              // dejar el audio en un accesorio aparte que hay que ir a buscar.
+              const doorbellSvc =
+                audioAccessory.getService(Service.Doorbell) ||
+                audioAccessory.addService(Service.Doorbell, intercom.name)
+              doorbellSvc
+                .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
+                .setProps({
+                  maxValue:
+                    Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+                })
+              intercom.onDing.subscribe(() => {
+                doorbellSvc
+                  .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
+                  .updateValue(
+                    Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+                  )
+              })
+
+              if (!this.homebridgeAccessories[audioUuid]) {
+                externalAccessories.push(audioAccessory)
+                logInfo(`Configured intercom audio ${audioUuid} ${audioName}`)
+              }
+              this.homebridgeAccessories[audioUuid] = audioAccessory
+              activeAccessoryIds.push(audioUuid)
+            } catch (e) {
+              // Que falle el audio no puede tumbar el resto del plugin: el intercom
+              // normal (abrir puerta, timbre) tiene que seguir vivo.
+              logError(
+                `No se pudo configurar el audio de ${intercom.name}: ${(e as Error).message}`,
+              )
+            }
+          })
+        }
       }),
     )
 

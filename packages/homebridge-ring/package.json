@@ -1,15 +1,16 @@
 {
   "name": "homebridge-ring",
   "displayName": "Ring",
-  "version": "14.3.0",
-  "description": "Homebridge plugin for Ring doorbells, cameras, security alarm system and smart lighting",
+  "version": "14.3.0-intercom.1",
+  "description": "Homebridge plugin for your Ring Doorbells, Cameras, Alarm System, and Smart Lighting. Fork de @mruwzum con soporte completo de audio bidireccional para el Ring Intercom.",
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc && cp -r ./homebridge-ui/public ./lib/homebridge-ui/public/",
     "lint": "eslint .",
     "dev": "bash ./dev-homebridge.sh",
-    "dev:run": "npm run dev"
+    "dev:run": "npm run dev",
+    "test:intercom": "node --test test/"
   },
   "dependencies": {
     "@homebridge/camera-utils": "^3.0.0",
@@ -71,5 +72,8 @@
     "category-video",
     "category-hubs",
     "category-outdoor"
+  ],
+  "contributors": [
+    "mruwzum (https://github.com/mruwzum)"
   ]
 }
