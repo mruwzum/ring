@@ -1,4 +1,3 @@
-
 // Adapted copy of camera-source.ts, for the Ring Intercom ONLY.
 //
 // Copied rather than subclassed because the class that needs changing
@@ -202,16 +201,13 @@ class IntercomStreamingSessionWrapper {
   }
 
   async activate(request: StartStreamRequest) {
-    let sentVideo = false
+    // No SRTP session for Ring's video here, unlike camera-source: that video is
+    // never forwarded, so there is nothing of Ring's to encrypt. ffmpeg encrypts the
+    // still-image track itself, via -srtp_out_params below.
     const {
-        targetAddress,
-        video: { port: videoPort },
-      } = this.prepareStreamRequest,
-      // use to encrypt Ring video to HomeKit
-      videoSrtpSession = new SrtpSession(getSessionConfig(this.videoSrtp))
-
-    void sentVideo
-    void videoSrtpSession
+      targetAddress,
+      video: { port: videoPort },
+    } = this.prepareStreamRequest
 
     // ── Open the intercom microphone ──────────────────────────────────────────
     // THIS is the piece that was missing in order to hear anything. The original only
@@ -238,16 +234,44 @@ class IntercomStreamingSessionWrapper {
         this.videoSrtp.srtpSalt,
       ]).toString('base64'),
       ffmpegArgs = [
-        '-hide_banner', '-loglevel', 'error',
-        '-re', '-loop', '1', '-i', snapshotFile,
-        '-c:v', 'libx264', '-preset', 'ultrafast', '-tune', 'stillimage',
-        '-pix_fmt', 'yuv420p', '-profile:v', 'baseline', '-level', '3.1',
-        '-r', '10', '-g', '30', '-b:v', '299k', '-bufsize', '299k',
-        '-payload_type', String(request.video.pt),
-        '-ssrc', String(this.videoSsrc),
-        '-f', 'rtp',
-        '-srtp_out_suite', 'AES_CM_128_HMAC_SHA1_80',
-        '-srtp_out_params', srtpParams,
+        '-hide_banner',
+        '-loglevel',
+        'error',
+        '-re',
+        '-loop',
+        '1',
+        '-i',
+        snapshotFile,
+        '-c:v',
+        'libx264',
+        '-preset',
+        'ultrafast',
+        '-tune',
+        'stillimage',
+        '-pix_fmt',
+        'yuv420p',
+        '-profile:v',
+        'baseline',
+        '-level',
+        '3.1',
+        '-r',
+        '10',
+        '-g',
+        '30',
+        '-b:v',
+        '299k',
+        '-bufsize',
+        '299k',
+        '-payload_type',
+        String(request.video.pt),
+        '-ssrc',
+        String(this.videoSsrc),
+        '-f',
+        'rtp',
+        '-srtp_out_suite',
+        'AES_CM_128_HMAC_SHA1_80',
+        '-srtp_out_params',
+        srtpParams,
         `srtp://${targetAddress}:${videoPort}?rtcpport=${videoPort}&pkt_size=1128`,
       ]
 
@@ -259,7 +283,9 @@ class IntercomStreamingSessionWrapper {
       logError(`Intercom video ffmpeg failed: ${e.message}`),
     )
     logInfo(
-      `Sent still image to HomeKit for ${this.ringCamera.name} (${getDurationSeconds(this.start)}s)`,
+      `Sent still image to HomeKit for ${
+        this.ringCamera.name
+      } (${getDurationSeconds(this.start)}s)`,
     )
 
     const transcodingPromise = this.streamingSession.startTranscoding({
@@ -267,12 +293,19 @@ class IntercomStreamingSessionWrapper {
       // inconsistent timestamps and ffmpeg warns "Queue input is backward in time".
       // With timestamps that go backwards, HomeKit discards the audio even though the
       // packets themselves arrive fine.
-      input: ['-vn', '-fflags', '+genpts+discardcorrupt', '-use_wallclock_as_timestamps', '1'],
+      input: [
+        '-vn',
+        '-fflags',
+        '+genpts+discardcorrupt',
+        '-use_wallclock_as_timestamps',
+        '1',
+      ],
       audio: [
         // volume boosts the audio coming from the intercom (its mic is quiet) and
         // alimiter keeps that boost from clipping on peaks, which is where the
         // consonants live.
-        '-af', `aresample=async=1:first_pts=0,volume=${this.ringCamera.micGainDb}dB,alimiter=limit=0.95`,
+        '-af',
+        `aresample=async=1:first_pts=0,volume=${this.ringCamera.micGainDb}dB,alimiter=limit=0.95`,
         '-acodec',
         'libopus',
         '-application',
@@ -385,7 +418,8 @@ class IntercomStreamingSessionWrapper {
 
 export class IntercomCameraSource implements CameraStreamingDelegate {
   public controller
-  private sessions: { [sessionKey: string]: IntercomStreamingSessionWrapper } = {}
+  private sessions: { [sessionKey: string]: IntercomStreamingSessionWrapper } =
+    {}
   private cachedSnapshot?: Buffer
   private ringCamera
 

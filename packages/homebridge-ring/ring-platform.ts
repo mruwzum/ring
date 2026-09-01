@@ -415,8 +415,7 @@ export class RingPlatform implements DynamicPlatformPlugin {
               doorbellSvc
                 .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
                 .setProps({
-                  maxValue:
-                    Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+                  maxValue: Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
                 })
               intercom.onDing.subscribe(() => {
                 doorbellSvc
@@ -436,7 +435,9 @@ export class RingPlatform implements DynamicPlatformPlugin {
               // A failure here must not take the rest of the plugin down: the
               // regular intercom (unlock, ding) has to keep working.
               logError(
-                `Failed to configure audio for ${intercom.name}: ${(e as Error).message}`,
+                `Failed to configure audio for ${intercom.name}: ${
+                  (e as Error).message
+                }`,
               )
             }
           })

@@ -19,7 +19,7 @@ const packageDir = fileURLToPath(new URL('..', import.meta.url)),
   stillPath = join(packageDir, 'media', 'intercom-still.jpg'),
   sourcePath = join(packageDir, 'intercom-camera-source.ts'),
   fakeIntercom = { id: 999, name: 'Test Intercom', isOffline: false, data: {} },
-  fakeRest = { request: async () => ({ ticket: 'x' }) },
+  fakeRest = { request: () => Promise.resolve({ ticket: 'x' }) },
   // The constructor only touches these two, so the fakes can stay this small
   makeCamera = (...gains: unknown[]) =>
     new IntercomCamera(
@@ -45,7 +45,9 @@ describe('Ring Intercom', () => {
     })
 
     it('serves the bundled file rather than a generated image', async () => {
-      expect(await makeCamera().getSnapshot()).toEqual(await readFile(stillPath))
+      expect(await makeCamera().getSnapshot()).toEqual(
+        await readFile(stillPath),
+      )
     })
 
     it('caches the snapshot instead of hitting the disk again', async () => {
@@ -54,7 +56,9 @@ describe('Ring Intercom', () => {
     })
 
     it('gives ffmpeg the path of the bundled file', () => {
-      expect(makeCamera().getSnapshotPath()).toMatch(/media\/intercom-still\.jpg$/)
+      expect(makeCamera().getSnapshotPath()).toMatch(
+        /media\/intercom-still\.jpg$/,
+      )
     })
   })
 

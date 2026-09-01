@@ -6,7 +6,7 @@
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
-    "build": "rm -rf lib && tsc && cp -r ./homebridge-ui/public ./lib/homebridge-ui/public/",
+    "build": "rm -rf lib && tsc && cp -r ./homebridge-ui/public ./lib/homebridge-ui/public/ && rm -rf ./lib/test",
     "lint": "eslint .",
     "dev": "bash ./dev-homebridge.sh",
     "dev:run": "npm run dev",
@@ -52,6 +52,7 @@
   "files": [
     "branding",
     "CHANGELOG.md",
+    "INTERCOM.md",
     "config.schema.json",
     "lib",
     "media",

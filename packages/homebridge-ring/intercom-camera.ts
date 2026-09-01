@@ -79,11 +79,7 @@ export class IntercomCamera {
   public readonly micGainDb: number
 
   private snapshot: Buffer | null = null
-  private readonly stillPath = join(
-    packageRoot,
-    'media',
-    'intercom-still.jpg',
-  )
+  private readonly stillPath = join(packageRoot, 'media', 'intercom-still.jpg')
 
   // Fields are declared separately: this repo's tsconfig sets `erasableSyntaxOnly`,
   // which forbids parameter properties (`private readonly x` in the constructor).
