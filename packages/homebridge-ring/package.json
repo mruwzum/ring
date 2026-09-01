@@ -53,7 +53,9 @@
     "CHANGELOG.md",
     "config.schema.json",
     "lib",
-    "media"
+    "media",
+    "INTERCOM.md",
+    "test"
   ],
   "keywords": [
     "homebridge",

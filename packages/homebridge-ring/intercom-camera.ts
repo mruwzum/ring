@@ -1,10 +1,22 @@
 import type { RingIntercom, RingRestClient } from 'ring-client-api'
 import { StreamingSession } from 'ring-client-api/streaming/streaming-session'
-// WebrtcConnection no está en el campo `exports` de ring-client-api, así que se
-// importa por ruta de fichero: las rutas de fichero no pasan por `exports`.
-import { WebrtcConnection } from '../../node_modules/ring-client-api/lib/streaming/webrtc-connection.js'
 import { logInfo } from 'ring-client-api/util'
 import { readFile } from 'fs/promises'
+import { createRequire } from 'module'
+import { dirname, join } from 'path'
+
+// WebrtcConnection NO está en el campo `exports` de ring-client-api, así que no se
+// puede importar por su nombre de paquete. Y una ruta relativa a node_modules
+// tampoco vale: según haya hoisting de npm workspaces o no, el paquete acaba en
+// sitios distintos (en la instalación real de Homebridge cuelga de
+// homebridge-ring/node_modules/, en un monorepo suele subir a la raíz).
+// Se resuelve preguntando a Node dónde está de verdad el paquete y navegando desde ahí.
+const ringClientApiLib = dirname(
+    createRequire(import.meta.url).resolve('ring-client-api'),
+  ),
+  { WebrtcConnection } = (await import(
+    join(ringClientApiLib, 'streaming', 'webrtc-connection.js')
+  )) as { WebrtcConnection: any }
 
 /**
  * Envuelve un RingIntercom para que pueda usarse como cámara en HomeKit.
