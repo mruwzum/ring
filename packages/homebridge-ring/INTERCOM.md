@@ -49,6 +49,9 @@ con stealth_mode:false → -42 -51 -53 -58 -64 -69   (señal continua)
 
 ## Configuración
 
+Desde la interfaz de Homebridge: sección **Ring Intercom** en los ajustes del plugin, con
+todas las opciones y la ruta de ffmpeg juntas. O a mano en `config.json`:
+
 ```json
 {
   "platform": "Ring",
@@ -84,7 +87,14 @@ Sin subida de temperatura y sin afectar al DNS local.
 ## Tests
 
 ```bash
-npm run test:intercom
+npm run build && npm run test:intercom
+```
+
+Corren contra el paquete **de este repo**, así que hay que construirlo antes. Para comprobar
+en cambio que lo desplegado en la raspi es lo que creemos:
+
+```bash
+RING_PLUGIN_DIR=/var/lib/homebridge/node_modules/homebridge-ring npm run test:intercom
 ```
 
 13 casos. Cinco son **regresiones** de fallos reales: los fps, el `stealth_mode`, los timestamps, el reenvío de vídeo y la ruta de ffmpeg — todos ellos dejaban al usuario sin audio **sin dar ningún error visible**.

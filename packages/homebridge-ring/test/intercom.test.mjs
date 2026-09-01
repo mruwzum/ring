@@ -1,17 +1,21 @@
 // Tests del fork para el Ring Intercom.
 //
-// Se ejecutan EN LA RASPI (`node --test`) porque los modulos importan ring-client-api
-// y hap, que solo existen dentro de la instalacion de Homebridge.
-//
 // No son tests de relleno: cada uno cubre algo que YA se rompio el 1 Sep 2026 o que,
 // si se rompe, deja al usuario sin audio sin dar ningun error visible.
+//
+// Corren contra el paquete construido. Por defecto el de ESTE repo (`npm run build`
+// primero), que es lo que hace falta para verificar un cambio antes de desplegarlo.
+// Con RING_PLUGIN_DIR se apunta a la instalacion real de la raspi para comprobar que
+// lo que corre alli es lo que creemos que corre.
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import { join } from 'path'
+import { fileURLToPath } from 'url'
 
-const PLUGIN = '/var/lib/homebridge/node_modules/homebridge-ring'
+const PLUGIN =
+  process.env.RING_PLUGIN_DIR || fileURLToPath(new URL('..', import.meta.url))
 const { IntercomCamera } = await import(`${PLUGIN}/lib/intercom-camera.js`)
 
 const fakeIntercom = { id: 999, name: 'Portal de prueba', isOffline: false, data: {} }
