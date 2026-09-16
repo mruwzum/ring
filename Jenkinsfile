@@ -144,6 +144,7 @@ pipeline {
             when { expression { params.DEPLOY } }
             steps {
                 sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}"'
+                script { env.DEPLOYED = 'true' }
             }
         }
     }
@@ -156,13 +157,20 @@ pipeline {
             script {
                 def behind = fileExists('.upstream-behind') ? readFile('.upstream-behind').trim() : '?'
                 def log = fileExists('.upstream-changelog') ? readFile('.upstream-changelog').trim() : ''
-                def msg
-                if (behind == '0') {
-                    msg = "Ring: sin novedades en dgreif/ring esta semana. Build, tests y lint en verde. No he tocado la raspi."
-                } else {
-                    def deployed = params.DEPLOY ? "Desplegado en homebridge de la raspi5." : "No he desplegado, la pipeline iba en dry run."
-                    msg = "Ring: ${behind} commits nuevos de dgreif/ring mergeados en tu fork. Build, tests y lint en verde. ${deployed}\n\n${log}"
-                }
+
+                // Whether the raspi was touched depends on the Deploy stage having run,
+                // NOT on whether upstream moved. The first version tied the two together
+                // and told Miguel "no he tocado la raspi" on a run that had just deployed.
+                def raspi = (env.DEPLOYED == 'true')
+                    ? "Desplegado en homebridge de la raspi5."
+                    : "No he tocado la raspi."
+
+                def head = (behind == '0')
+                    ? "Ring: sin novedades en dgreif/ring esta semana."
+                    : "Ring: ${behind} commits nuevos de dgreif/ring mergeados en tu fork."
+
+                def msg = "${head} Build, tests y lint en verde. ${raspi}"
+                if (log) { msg += "\n\n${log}" }
                 telegram(msg)
             }
         }
