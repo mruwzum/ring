@@ -158,4 +158,33 @@ describe('Ring Intercom', () => {
       expect(activate).not.toMatch(/onVideoRtp\.subscribe/)
     })
   })
+
+  describe('the audio accessory doorbell', () => {
+    // Both accessories carry a Doorbell, so a ding notifies twice. The option has to
+    // reach the platform AND the Homebridge UI, or it cannot be turned off.
+    const platformPath = join(packageDir, 'ring-platform.ts'),
+      readPlatform = () => readFile(platformPath, 'utf8')
+
+    it('is only registered when hideIntercomAudioDoorbell is off', async () => {
+      const source = await readPlatform(),
+        guard = source.indexOf('if (!config.hideIntercomAudioDoorbell) {'),
+        doorbell = source.indexOf('audioAccessory.addService(Service.Doorbell')
+
+      expect(guard).toBeGreaterThan(-1)
+      expect(doorbell).toBeGreaterThan(guard)
+    })
+
+    it('is offered in the Homebridge UI, next to the other intercom options', async () => {
+      const schema = JSON.parse(
+        await readFile(join(packageDir, 'config.schema.json'), 'utf8'),
+      )
+      expect(schema.schema.properties.hideIntercomAudioDoorbell).toMatchObject({
+        type: 'boolean',
+        default: false,
+      })
+      expect(JSON.stringify(schema.layout)).toContain(
+        'hideIntercomAudioDoorbell',
+      )
+    })
+  })
 })

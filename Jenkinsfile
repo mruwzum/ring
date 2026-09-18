@@ -134,7 +134,7 @@ pipeline {
                     # Exactly what the plugin needs at runtime. lib/ is the tsc output,
                     # rebuilt from scratch by `npm run build`, so it cannot carry stale
                     # files from a previous revision.
-                    tar czf "${STAGE_TARBALL}" lib config.schema.json package.json homebridge-ui
+                    tar czf "${STAGE_TARBALL}" lib media config.schema.json package.json homebridge-ui
                     ls -l "${STAGE_TARBALL}"
                 '''
             }

@@ -84,6 +84,12 @@
         "maximum": 25,
         "description": "How much to boost your voice on its way out through the door speaker."
       },
+      "hideIntercomAudioDoorbell": {
+        "title": "Ring Intercom: Hide the Audio Accessory's Doorbell",
+        "type": "boolean",
+        "default": false,
+        "description": "The two-way audio accessory carries its own doorbell so a ding takes you straight to the stream, but the regular intercom accessory has one too, which means two notifications per ring. Turn this on to keep only the regular one."
+      },
       "showOfflineSensor": {
         "title": "Ring Intercom: Connectivity Sensor",
         "type": "boolean",
@@ -300,6 +306,7 @@
         "ffmpegPath",
         "intercomMicGainDb",
         "intercomSpeakerGainDb",
+        "hideIntercomAudioDoorbell",
         "showOfflineSensor",
         "showDoNotDisturbSwitch",
         "logIntercomDings",

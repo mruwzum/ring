@@ -417,21 +417,26 @@ export class RingPlatform implements DynamicPlatformPlugin {
               // Doorbell on the audio accessory itself: that way, when someone
               // rings, the notification leads straight to this stream instead of
               // leaving the audio on a separate accessory the user has to go find.
-              const doorbellSvc =
-                audioAccessory.getService(Service.Doorbell) ||
-                audioAccessory.addService(Service.Doorbell, intercom.name)
-              doorbellSvc
-                .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
-                .setProps({
-                  maxValue: Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
-                })
-              intercom.onDing.subscribe(() => {
+              // The regular intercom accessory has a Doorbell too, so this means two
+              // notifications per ding -- hideIntercomAudioDoorbell drops this one.
+              if (!config.hideIntercomAudioDoorbell) {
+                const doorbellSvc =
+                  audioAccessory.getService(Service.Doorbell) ||
+                  audioAccessory.addService(Service.Doorbell, intercom.name)
                 doorbellSvc
                   .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
-                  .updateValue(
-                    Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
-                  )
-              })
+                  .setProps({
+                    maxValue:
+                      Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+                  })
+                intercom.onDing.subscribe(() => {
+                  doorbellSvc
+                    .getCharacteristic(Characteristic.ProgrammableSwitchEvent)
+                    .updateValue(
+                      Characteristic.ProgrammableSwitchEvent.SINGLE_PRESS,
+                    )
+                })
+              }
 
               if (!this.homebridgeAccessories[audioUuid]) {
                 externalAccessories.push(audioAccessory)

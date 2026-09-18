@@ -39,6 +39,9 @@ export interface RingPlatformConfig extends RingApiOptions {
   intercomSpeakerGainDb?: number
   /** dB added to the audio coming in from the intercom. */
   intercomMicGainDb?: number
+  /** Leaves the audio accessory without its own Doorbell, so only the regular
+   * intercom notifies a ding. */
+  hideIntercomAudioDoorbell?: boolean
 }
 
 export function updateHomebridgeConfig(
