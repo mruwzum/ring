@@ -147,6 +147,35 @@ describe('Ring Intercom', () => {
       expect(filters![0]).toContain('alimiter')
     })
 
+    it('starts ffmpeg without probing or buffering the incoming audio', async () => {
+      // Every one of these is delay the user hears between the street and the phone:
+      // ffmpeg's default probe waits for enough input to analyse before emitting.
+      const source = await readSource()
+      expect(source).toMatch(/'-probesize',\s*\n\s*'32'/)
+      expect(source).toMatch(/'-analyzeduration',\s*\n\s*'0'/)
+      expect(source).toMatch(/\+genpts\+discardcorrupt\+nobuffer/)
+      expect(source).toMatch(/'\+low_delay'/)
+    })
+
+    it('sends return audio in 20 ms packets, not 60', async () => {
+      // A packet is only sent once full, so frame_duration is the floor of the
+      // outgoing delay.
+      const source = await readSource(),
+        returnAudio = source.slice(source.indexOf('outputArgs: ['))
+      expect(returnAudio).toMatch(/'-frame_duration',\s*\n\s*'20'/)
+    })
+
+    it('declares two-way audio so HAP builds the Speaker service', async () => {
+      // HAP only creates the Speaker when this flag is set, and without a Speaker
+      // HomeKit never sends the user's voice: the return-audio ffmpeg then waits on
+      // an input nobody writes to and times out having encoded 0 KiB.
+      // Anchored to the start of a line so a mention in a comment cannot satisfy it:
+      // the first version of this test passed with the flag commented out.
+      const source = await readSource(),
+        streamingOptions = source.slice(source.indexOf('streamingOptions: {'))
+      expect(streamingOptions).toMatch(/^\s*twoWayAudio: true,$/m)
+    })
+
     it('does not forward the video Ring sends for an intercom', async () => {
       // That channel carries no valid H.264 for an intercom. Forwarding it made
       // HomeKit tear down the whole session, audio included.

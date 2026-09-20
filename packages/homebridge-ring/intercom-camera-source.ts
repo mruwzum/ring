@@ -295,8 +295,20 @@ class IntercomStreamingSessionWrapper {
       // packets themselves arrive fine.
       input: [
         '-vn',
+        // Latency, not CPU, is what is felt here: ffmpeg otherwise probes the input
+        // and fills a buffer before emitting anything, which shows up as delay
+        // between the street and the phone. nobuffer/low_delay with a minimal probe
+        // makes it start on the first packets instead.
+        '-probesize',
+        '32',
+        '-analyzeduration',
+        '0',
+        '-max_delay',
+        '0',
         '-fflags',
-        '+genpts+discardcorrupt',
+        '+genpts+discardcorrupt+nobuffer',
+        '-flags',
+        '+low_delay',
         '-use_wallclock_as_timestamps',
         '1',
       ],
@@ -318,8 +330,10 @@ class IntercomStreamingSessionWrapper {
         `${request.audio.sample_rate}k`,
         '-b:a',
         `${request.audio.max_bit_rate}k`,
+        // One frame's worth of rate-control buffer: 4x let the encoder hold back up to
+        // four times as much audio before sending it.
         '-bufsize',
-        `${request.audio.max_bit_rate * 4}k`,
+        `${request.audio.max_bit_rate}k`,
         '-ac',
         `${request.audio.channel}`,
         '-payload_type',
@@ -369,8 +383,10 @@ class IntercomStreamingSessionWrapper {
           'libopus',
           '-application',
           'lowdelay',
+          // Each packet is only sent once it is full, so the frame duration IS the
+          // floor of the outgoing delay. 20 ms is opus's normal voice framing.
           '-frame_duration',
-          '60',
+          '20',
           '-flags',
           '+global_header',
           '-ar',
@@ -449,6 +465,12 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
           },
         },
         audio: {
+          // Without this, HAP builds the Microphone service but not the Speaker one
+          // (CameraController: `if (this.streamingOptions.audio.twoWayAudio)`), so
+          // HomeKit has nowhere to send your voice. Hearing the street worked; talking
+          // back silently produced an ffmpeg that waited on an input nobody ever wrote
+          // to, and timed out with 0 KiB encoded.
+          twoWayAudio: true,
           codecs: [
             {
               type: AudioStreamingCodecType.OPUS,
