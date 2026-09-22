@@ -12,3 +12,6 @@ yarn.lock
 
 # artefactos de compilacion del fork
 packages/*/lib/
+
+# salida del grafo, no pinta nada en el repo del plugin (22 Sep 2026)
+graphify-out/
