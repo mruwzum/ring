@@ -49,6 +49,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 checkout([
                     $class: 'GitSCM',
                     branches: [[name: 'main']],
@@ -59,6 +60,7 @@ pipeline {
 
         stage('Sync upstream') {
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sshagent(['mruwzum_git']) {
                     sh '''
                         set -e
@@ -99,6 +101,7 @@ pipeline {
 
         stage('Build, test, lint') {
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
                     set -e
                     node -v
@@ -119,6 +122,7 @@ pipeline {
                 }
             }
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sshagent(['mruwzum_git']) {
                     sh 'git push origin HEAD:main'
                 }
@@ -128,6 +132,7 @@ pipeline {
         stage('Package') {
             when { expression { params.DEPLOY } }
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
                     set -e
                     cd packages/homebridge-ring
@@ -143,6 +148,7 @@ pipeline {
         stage('Deploy to Homebridge') {
             when { expression { params.DEPLOY } }
             steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}"'
                 script { env.DEPLOYED = 'true' }
             }
@@ -175,12 +181,16 @@ pipeline {
             }
         }
         failure {
+            // env.STAGE_NAME dentro de post{} vale siempre 'Declarative: Post Actions',
+            // no la etapa que rompio: el 23 Sep 2026 un fallo de lint se notifico como
+            // fallo de post-acciones y el mensaje no servia para nada. Cada etapa graba
+            // su nombre en env.CURRENT_STAGE al entrar, y aqui se usa ese.
             script {
                 def msg
                 if (fileExists('.merge-conflict')) {
                     msg = "Ring: el merge de dgreif/ring da CONFLICTO con tus cambios del intercom. He abortado el merge, no he tocado nada ni en el repo ni en la raspi. Lo resuelvo yo a mano cuando me digas."
                 } else {
-                    msg = "Ring: la pipeline semanal ha fallado en la fase '${env.STAGE_NAME}'. Si llegó a desplegar, el script de deploy ya ha hecho rollback solo. Consola: http://192.168.1.240:9123/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"
+                    msg = "Ring: la pipeline semanal ha fallado en la fase '${env.CURRENT_STAGE ?: env.STAGE_NAME}'. Si llegó a desplegar, el script de deploy ya ha hecho rollback solo. Consola: http://192.168.1.240:9123/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"
                 }
                 telegram(msg)
             }
