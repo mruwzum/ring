@@ -527,7 +527,12 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
         newSnapshot = await this.ringCamera.getSnapshot()
       this.cachedSnapshot = newSnapshot
 
-      if (previousSnapshot !== newSnapshot) {
+      // The intercom has no camera: its snapshot is a still file that ships with the
+      // plugin, and IntercomCamera sets snapshotLifeTime to 0 because the image never
+      // changes. This timer was therefore evicting it two minutes after every load, so
+      // the next HomeKit request found an empty cache, returned no image and the
+      // accessory showed as "Not Responding". A lifetime of 0 means "never expires".
+      if (previousSnapshot !== newSnapshot && this.ringCamera.snapshotLifeTime > 0) {
         // Keep the snapshots in cache 2 minutes longer than their lifetime
         // This allows users on LTE with wired camera to get snapshots each 60 second pull even though the cached snapshot is out of date
         setTimeout(
