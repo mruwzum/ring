@@ -14,19 +14,19 @@
   },
   "dependencies": {
     "@homebridge/camera-utils": "^3.0.0",
-    "@homebridge/plugin-ui-utils": "^2.2.4",
+    "@homebridge/plugin-ui-utils": "^2.2.6",
     "ring-client-api": "14.3.0",
-    "werift": "0.23.0"
+    "werift": "0.24.4"
   },
   "devDependencies": {
     "eslint-config-shared": "*",
-    "homebridge": "2.0.2",
+    "homebridge": "2.4.0",
     "tsconfig": "*",
-    "typescript": "6.0.3",
-    "vitest": "^4.1.8"
+    "typescript": "7.0.2",
+    "vitest": "^5.0.1"
   },
   "engines": {
-    "node": "^20 || ^22 || ^24 || ^26",
+    "node": "^22.19.0 || ^24 || ^26",
     "homebridge": ">=1.4.0 || ^2.0.0-beta.0"
   },
   "repository": {
@@ -55,9 +55,7 @@
     "INTERCOM.md",
     "config.schema.json",
     "lib",
-    "media",
-    "INTERCOM.md",
-    "test"
+    "media"
   ],
   "keywords": [
     "homebridge",
