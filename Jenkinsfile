@@ -135,11 +135,34 @@ pipeline {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
                     set -e
-                    cd packages/homebridge-ring
+                    PKG_STAGE=$(mktemp -d)
+                    trap 'rm -rf "$PKG_STAGE"' EXIT
+
+                    # ring-client-api goes in from this repo's own build, not from npm:
+                    # it is what the tests just ran against, and upstream fixes to it
+                    # reach the raspi without waiting for dgreif to publish.
+                    npm pack -w ring-client-api --pack-destination "$PKG_STAGE" >/dev/null
+                    RCA=$(cd "$PKG_STAGE" && ls ring-client-api-*.tgz)
+
                     # Exactly what the plugin needs at runtime. lib/ is the tsc output,
                     # rebuilt from scratch by `npm run build`, so it cannot carry stale
                     # files from a previous revision.
-                    tar czf "${STAGE_TARBALL}" lib media config.schema.json package.json homebridge-ui
+                    mkdir "$PKG_STAGE/plugin"
+                    cd packages/homebridge-ring
+                    cp -a lib media config.schema.json package.json homebridge-ui "$PKG_STAGE/plugin/"
+
+                    # Its production dependencies, installed here on the Pi so native and
+                    # arch-specific ones (the ffmpeg binary) are the right build. The deploy
+                    # used to swap lib/ only, so the raspi kept whatever npm had installed
+                    # months ago: werift 0.22.4 against a declared 0.24.4 (24 Sep 2026).
+                    cd "$PKG_STAGE/plugin"
+                    npm pkg set "dependencies.ring-client-api=file:../$RCA"
+                    npm install --omit=dev --no-audit --no-fund --no-package-lock
+                    cp -a "$WORKSPACE/packages/homebridge-ring/package.json" package.json
+                    test -x node_modules/ffmpeg-for-homebridge/ffmpeg
+                    node --input-type=module -e "await import('$PKG_STAGE/plugin/lib/index.js')"
+
+                    tar czf "${STAGE_TARBALL}" lib media config.schema.json package.json homebridge-ui node_modules
                     ls -l "${STAGE_TARBALL}"
                 '''
             }
