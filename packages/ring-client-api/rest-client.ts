@@ -25,7 +25,9 @@ interface RequestOptions extends RequestInit {
   dispatcher?: Agent
 }
 
-const fetchAgent = new Agent({
+const builtInFetchTakesAgent =
+    Number(process.versions.undici?.split('.')[0]) >= 8,
+  fetchAgent = new Agent({
     connections: 6,
     pipelining: 1,
     keepAliveTimeout: 115000,
@@ -123,7 +125,10 @@ async function requestWithRetry<T>(
     const options = {
       ...defaultRequestOptions,
       ...requestOptions,
-      dispatcher: fetchAgent,
+      // Node's built-in fetch rejects an undici 8 Agent when it bundles undici 7
+      // (Node 22 and 24): every request fails with "invalid onRequestStart
+      // method". There the default dispatcher is used instead.
+      ...(builtInFetchTakesAgent ? { dispatcher: fetchAgent } : {}),
     }
 
     // If a timeout is provided, create an AbortSignal for it
