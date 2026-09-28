@@ -33,9 +33,7 @@ interface RequestOptions extends Omit<RequestInit, 'dispatcher'> {
   dispatcher?: Agent
 }
 
-const builtInFetchTakesAgent =
-    Number(process.versions.undici?.split('.')[0]) >= 8,
-  fetchAgent = new Agent({
+const fetchAgent = new Agent({
     connections: 6,
     pipelining: 1,
     keepAliveTimeout: 115000,
@@ -127,10 +125,11 @@ async function requestWithRetry<T>(
     const options = {
       ...defaultRequestOptions,
       ...requestOptions,
-      // Node's built-in fetch rejects an undici 8 Agent when it bundles undici 7
-      // (Node 22 and 24): every request fails with "invalid onRequestStart
-      // method". There the default dispatcher is used instead.
-      ...(builtInFetchTakesAgent ? { dispatcher: fetchAgent } : {}),
+      // Always pair our own undici Agent with undici's own fetch (imported
+      // above as undiciFetch), never Node's global fetch. That pairing is
+      // what makes the Agent safe regardless of the undici version Node
+      // happens to bundle (see import comment) — no version check needed.
+      dispatcher: fetchAgent,
     }
 
     // If a timeout is provided, create an AbortSignal for it
