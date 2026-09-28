@@ -99,6 +99,27 @@ pipeline {
             }
         }
 
+        stage('Check deploy marker') {
+            // Package/Deploy used to run every week regardless of whether HEAD had
+            // moved since the last successful deploy — a needless Homebridge restart
+            // on weeks with nothing new (28 Sep 2026, Miguel: "si no hay cambios...
+            // no hace falta redesplegar"). The marker is the SHA deploy-ring-fork.sh
+            // actually deployed last time, written by itself on success, not
+            // ".upstream-behind": that only tracks upstream sync and would have
+            // skipped today's fix, which was a manual push with BEHIND=0.
+            steps {
+                script { env.CURRENT_STAGE = env.STAGE_NAME }
+                sh 'git rev-parse HEAD > .head-sha'
+                script {
+                    def headSha = readFile('.head-sha').trim()
+                    def marker = '/var/tmp/ring-fork-deployed-sha'
+                    def deployedSha = fileExists(marker) ? readFile(marker).trim() : ''
+                    env.NEEDS_DEPLOY = (headSha == deployedSha) ? 'false' : 'true'
+                    echo "HEAD ${headSha} vs last deployed ${deployedSha ?: '(none)'} -> NEEDS_DEPLOY=${env.NEEDS_DEPLOY}"
+                }
+            }
+        }
+
         stage('Build, test, lint') {
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
@@ -130,7 +151,7 @@ pipeline {
         }
 
         stage('Package') {
-            when { expression { params.DEPLOY } }
+            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
@@ -169,10 +190,10 @@ pipeline {
         }
 
         stage('Deploy to Homebridge') {
-            when { expression { params.DEPLOY } }
+            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
-                sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}"'
+                sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}" "$(cat .head-sha)"'
                 script { env.DEPLOYED = 'true' }
             }
         }
@@ -192,7 +213,9 @@ pipeline {
                 // and told Miguel "no he tocado la raspi" on a run that had just deployed.
                 def raspi = (env.DEPLOYED == 'true')
                     ? "Desplegado en homebridge de la raspi5."
-                    : "No he tocado la raspi."
+                    : (params.DEPLOY && env.NEEDS_DEPLOY == 'false')
+                        ? "No he tocado la raspi: ya tiene esto mismo desplegado, nada que redesplegar."
+                        : "No he tocado la raspi."
 
                 def head = (behind == '0')
                     ? "Ring: sin novedades en dgreif/ring esta semana."
