@@ -537,6 +537,17 @@ export class CameraSource implements CameraStreamingDelegate {
         } (${getDurationSeconds(start)}s)`,
       )
       logError(e)
+      // HomeKit may never send 'stop' for a stream that failed to prepare, so the Ring
+      // call and the sockets would stay open. Tear down whatever got created.
+      const session = this.sessions[request.sessionID]
+      if (session) {
+        delete this.sessions[request.sessionID]
+        try {
+          session.stop()
+        } catch (stopError) {
+          logError(stopError)
+        }
+      }
       callback(e)
     }
   }
