@@ -19,7 +19,9 @@ interface TokenRequest {
 }
 
 class PluginUiServer extends HomebridgePluginUiServer {
-  restClient?: RingRestClient
+  // One client per account being linked: a single shared client let two overlapping
+  // logins swap it between "send code" and "token", checking the code on the wrong one.
+  private clients = new Map<string, RingRestClient>()
 
   constructor() {
     super()
@@ -32,24 +34,27 @@ class PluginUiServer extends HomebridgePluginUiServer {
 
   generateCode = async ({ email, password }: LoginRequest) => {
     console.log(`Logging in with email '${email}'`)
-    const storagePath = this.homebridgeStoragePath
-    this.restClient = new RingRestClient({
-      email,
-      password,
-      controlCenterDisplayName,
-      systemId: storagePath ? getSystemId(storagePath) : undefined,
-    })
+    const storagePath = this.homebridgeStoragePath,
+      restClient = new RingRestClient({
+        email,
+        password,
+        controlCenterDisplayName,
+        systemId: storagePath ? getSystemId(storagePath) : undefined,
+      })
+    this.clients.set(email, restClient)
 
     try {
-      const { refresh_token } = await this.restClient.getCurrentAuth()
+      const { refresh_token } = await restClient.getCurrentAuth()
+      this.clients.delete(email)
 
       // If we get here, 2fa was not required.  I'm not sure this is possible anymore, but it's here just in case
       return { refreshToken: refresh_token }
     } catch (e: any) {
-      if (this.restClient.promptFor2fa) {
-        console.log(this.restClient.promptFor2fa)
-        return { codePrompt: this.restClient.promptFor2fa }
+      if (restClient.promptFor2fa) {
+        console.log(restClient.promptFor2fa)
+        return { codePrompt: restClient.promptFor2fa }
       }
+      this.clients.delete(email)
 
       console.error(e)
       throw new RequestError(e.message, e)
@@ -58,11 +63,13 @@ class PluginUiServer extends HomebridgePluginUiServer {
 
   generateToken = async ({ email, password, code }: TokenRequest) => {
     // use the existing restClient to avoid sending a token again
-    this.restClient = this.restClient || new RingRestClient({ email, password })
+    const restClient =
+      this.clients.get(email) || new RingRestClient({ email, password })
     console.log(`Getting token for ${email}`)
 
     try {
-      const authResponse = await this.restClient.getAuth(code)
+      const authResponse = await restClient.getAuth(code)
+      this.clients.delete(email)
 
       return { refreshToken: authResponse.refresh_token }
     } catch (e: any) {
