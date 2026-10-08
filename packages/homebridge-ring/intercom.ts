@@ -104,11 +104,15 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
     lockService.setPrimaryService(true)
 
     // Doorbell Service
-    this.registerObservableCharacteristic({
-      characteristicType: ProgrammableSwitchEvent,
-      serviceType: Service.Doorbell,
-      onValue: onDoorbellPressed,
-    })
+    // Skipped with hideIntercomDoorbell when the audio accessory carries the
+    // doorbell instead, so a ding notifies once and opens the stream.
+    if (!config.hideIntercomDoorbell) {
+      this.registerObservableCharacteristic({
+        characteristicType: ProgrammableSwitchEvent,
+        serviceType: Service.Doorbell,
+        onValue: onDoorbellPressed,
+      })
+    }
 
     // Programmable Switch Service
     // `hideDoorbellSwitch` is honored in camera.ts, but here the switch was always

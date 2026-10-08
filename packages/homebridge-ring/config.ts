@@ -42,6 +42,9 @@ export interface RingPlatformConfig extends RingApiOptions {
   /** Leaves the audio accessory without its own Doorbell, so only the regular
    * intercom notifies a ding. */
   hideIntercomAudioDoorbell?: boolean
+  /** Leaves the regular intercom accessory without its Doorbell, so only the audio
+   * accessory notifies a ding (its notification opens the stream). */
+  hideIntercomDoorbell?: boolean
 }
 
 export function updateHomebridgeConfig(

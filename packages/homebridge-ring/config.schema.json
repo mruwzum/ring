@@ -90,6 +90,12 @@
         "default": false,
         "description": "The two-way audio accessory carries its own doorbell so a ding takes you straight to the stream, but the regular intercom accessory has one too, which means two notifications per ring. Turn this on to keep only the regular one."
       },
+      "hideIntercomDoorbell": {
+        "title": "Ring Intercom: Hide the Regular Accessory's Doorbell",
+        "type": "boolean",
+        "default": false,
+        "description": "The opposite of the option above: keep the doorbell only on the two-way audio accessory, so the ding notification opens the stream (and, with the lock in the same room, offers to unlock). Turn the option above off when using this one."
+      },
       "showOfflineSensor": {
         "title": "Ring Intercom: Connectivity Sensor",
         "type": "boolean",
@@ -307,6 +313,7 @@
         "intercomMicGainDb",
         "intercomSpeakerGainDb",
         "hideIntercomAudioDoorbell",
+        "hideIntercomDoorbell",
         "showOfflineSensor",
         "showDoNotDisturbSwitch",
         "logIntercomDings",

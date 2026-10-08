@@ -217,6 +217,15 @@ describe('Ring Intercom', () => {
       expect(doorbell).toBeGreaterThan(guard)
     })
 
+    it('can replace the regular accessory doorbell (hideIntercomDoorbell)', async () => {
+      const source = await readFile(join(packageDir, 'intercom.ts'), 'utf8'),
+        guard = source.indexOf('if (!config.hideIntercomDoorbell) {'),
+        doorbell = source.indexOf('serviceType: Service.Doorbell')
+
+      expect(guard).toBeGreaterThan(-1)
+      expect(doorbell).toBeGreaterThan(guard)
+    })
+
     it('is offered in the Homebridge UI, next to the other intercom options', async () => {
       const schema = JSON.parse(
         await readFile(join(packageDir, 'config.schema.json'), 'utf8'),
@@ -228,6 +237,11 @@ describe('Ring Intercom', () => {
       expect(JSON.stringify(schema.layout)).toContain(
         'hideIntercomAudioDoorbell',
       )
+      expect(schema.schema.properties.hideIntercomDoorbell).toMatchObject({
+        type: 'boolean',
+        default: false,
+      })
+      expect(JSON.stringify(schema.layout)).toContain('hideIntercomDoorbell')
     })
   })
 })
