@@ -112,6 +112,20 @@ describe('Ring Intercom', () => {
   })
 
   describe('streaming regressions', () => {
+    it('waits for the first snapshot load instead of failing the request', async () => {
+      // With an empty cache (after start-up, or once it expires) the request answered
+      // "No Snapshot Cached" at once, and Apple Home marked the intercom as
+      // "No Response" (8 Oct 2026) although the still image loads in 5 ms.
+      const source = await readSource(),
+        getter = source.slice(
+          source.indexOf('private async getCurrentSnapshot('),
+          source.indexOf('async handleSnapshotRequest('),
+        )
+      expect(getter).toMatch(
+        /if \(!this\.cachedSnapshot\) \{[\s\S]*await Promise\.race/,
+      )
+    })
+
     it('encodes video at no less than 10 fps', async () => {
       // 5 fps was tried to save CPU. HomeKit started cutting the session after a few
       // seconds and the audio went with it: ~25 KiB down to 2 KiB per session. The

@@ -447,7 +447,7 @@ export class CameraSource implements CameraStreamingDelegate {
     }
   }
 
-  private getCurrentSnapshot() {
+  private async getCurrentSnapshot() {
     if (this.ringCamera.isOffline) {
       return readFileAsync(cameraOfflinePath)
     }
@@ -463,7 +463,16 @@ export class CameraSource implements CameraStreamingDelegate {
     )
 
     if (!this.ringCamera.hasSnapshotWithinLifetime) {
-      this.loadSnapshot().catch(logError)
+      const loading = this.loadSnapshot().catch(logError)
+
+      if (!this.cachedSnapshot) {
+        // Nothing to serve yet: wait briefly for the load instead of failing the
+        // request, which Apple Home shows as "No Response" (HAP warns at 5 s)
+        await Promise.race([
+          loading,
+          new Promise((resolve) => setTimeout(resolve, 4000)),
+        ])
+      }
     }
 
     // may or may not have a snapshot cached
