@@ -83,6 +83,13 @@ export class Lock extends BaseDeviceAccessory {
   }
 
   getTargetState(data: RingDeviceData) {
-    return this.targetState || getCurrentState(data)
+    // `??`, not `||`: UNSECURED is 0. And a target is only ever SECURED or
+    // UNSECURED; JAMMED/UNKNOWN belong to LockCurrentState alone.
+    return (
+      this.targetState ??
+      (getCurrentState(data) === hap.Characteristic.LockCurrentState.UNSECURED
+        ? hap.Characteristic.LockTargetState.UNSECURED
+        : hap.Characteristic.LockTargetState.SECURED)
+    )
   }
 }

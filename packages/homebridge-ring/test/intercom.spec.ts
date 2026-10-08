@@ -126,6 +126,23 @@ describe('Ring Intercom', () => {
       )
     })
 
+    it('releases the session when START fails and still answers a failing STOP', async () => {
+      const source = await readSource(),
+        handler = source.slice(source.indexOf('async handleStreamRequest('))
+      expect(handler).toMatch(
+        /Failed to activate stream'\)\s*logError\(e\)[\s\S]*?delete this\.sessions\[sessionID\][\s\S]*?callback\(new Error/,
+      )
+      expect(handler).toMatch(
+        /delete this\.sessions\[sessionID\]\s*try \{\s*session\.stop\(\)/,
+      )
+    })
+
+    it('brackets an IPv6 target in the SRTP URL', async () => {
+      expect(await readSource()).toContain(
+        'isIP(targetAddress) === 6 ? `[${targetAddress}]` : targetAddress',
+      )
+    })
+
     it('encodes video at no less than 10 fps', async () => {
       // 5 fps was tried to save CPU. HomeKit started cutting the session after a few
       // seconds and the audio went with it: ~25 KiB down to 2 KiB per session. The

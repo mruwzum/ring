@@ -13,6 +13,7 @@
 // still image and sends it over SRTP, while the audio takes its normal path.
 import { hap } from './hap.ts'
 import { spawn, type ChildProcess } from 'child_process'
+import { isIP } from 'net'
 import type { IntercomCamera } from './intercom-camera.ts'
 import type { SrtpOptions } from '@homebridge/camera-utils'
 import {
@@ -272,7 +273,9 @@ class IntercomStreamingSessionWrapper {
         'AES_CM_128_HMAC_SHA1_80',
         '-srtp_out_params',
         srtpParams,
-        `srtp://${targetAddress}:${videoPort}?rtcpport=${videoPort}&pkt_size=1128`,
+        `srtp://${
+          isIP(targetAddress) === 6 ? `[${targetAddress}]` : targetAddress
+        }:${videoPort}?rtcpport=${videoPort}&pkt_size=1128`,
       ]
 
     this.videoFfmpeg = spawn(this.ringCamera.ffmpegPath, ffmpegArgs)
@@ -710,6 +713,14 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
       } catch (e) {
         logError('Failed to activate stream')
         logError(e)
+        // HAP may drop its session without sending STOP after a failed START,
+        // so release ours here or its sockets and ffmpeg stay behind
+        delete this.sessions[sessionID]
+        try {
+          session.stop()
+        } catch (stopError) {
+          logError(stopError)
+        }
         callback(new Error('Failed to activate stream'))
 
         return
@@ -721,8 +732,13 @@ export class IntercomCameraSource implements CameraStreamingDelegate {
       )
     } else if (requestType === 'stop') {
       logInfo(`Stopped Live Stream for ${this.ringCamera.name}`)
-      session.stop()
       delete this.sessions[sessionID]
+      try {
+        session.stop()
+      } catch (e) {
+        // still answer HAP: an unanswered STOP keeps the stream slot busy
+        logError(e)
+      }
     }
 
     callback()

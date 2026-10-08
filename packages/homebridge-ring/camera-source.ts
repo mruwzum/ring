@@ -585,6 +585,14 @@ export class CameraSource implements CameraStreamingDelegate {
       } catch (e) {
         logError('Failed to activate stream')
         logError(e)
+        // HAP may drop its session without sending STOP after a failed START,
+        // so release ours here or its sockets and ffmpeg stay behind
+        delete this.sessions[sessionID]
+        try {
+          session.stop()
+        } catch (stopError) {
+          logError(stopError)
+        }
         callback(new Error('Failed to activate stream'))
 
         return
@@ -596,8 +604,13 @@ export class CameraSource implements CameraStreamingDelegate {
       )
     } else if (requestType === 'stop') {
       logInfo(`Stopped Live Stream for ${this.ringCamera.name}`)
-      session.stop()
       delete this.sessions[sessionID]
+      try {
+        session.stop()
+      } catch (e) {
+        // still answer HAP: an unanswered STOP keeps the stream slot busy
+        logError(e)
+      }
     }
 
     callback()
