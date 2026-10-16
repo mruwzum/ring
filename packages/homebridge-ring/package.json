@@ -1,7 +1,7 @@
 {
   "name": "homebridge-ring",
   "displayName": "Ring",
-  "version": "14.3.0-intercom.1",
+  "version": "14.3.0-intercom.2",
   "description": "Homebridge plugin for your Ring Doorbells, Cameras, Alarm System, and Smart Lighting. Fork de @mruwzum con soporte completo de audio bidireccional para el Ring Intercom.",
   "type": "module",
   "main": "lib/index.js",

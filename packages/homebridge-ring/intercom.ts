@@ -3,6 +3,7 @@ import { hap } from './hap.ts'
 import type { RingPlatformConfig } from './config.ts'
 import type { PlatformAccessory } from 'homebridge'
 import { BaseDataAccessory } from './base-data-accessory.ts'
+import { FIRMWARE, MANUFACTURER, mruwzumSerial } from './mruwzum-branding.ts'
 import { logError, logInfo } from 'ring-client-api/util'
 import { distinctUntilChanged, map, throttleTime } from 'rxjs/operators'
 import { appendFile } from 'fs'
@@ -240,21 +241,26 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
       })
     }
 
-    // Accessory Information Service
+    // Accessory Information Service (branded: this accessory is built by the fork)
     this.registerCharacteristic({
       characteristicType: Characteristic.Manufacturer,
       serviceType: Service.AccessoryInformation,
-      getValue: () => 'Ring',
+      getValue: () => MANUFACTURER,
     })
     this.registerCharacteristic({
       characteristicType: Characteristic.Model,
       serviceType: Service.AccessoryInformation,
-      getValue: () => 'Intercom Handset Audio',
+      getValue: () => 'Portal Intercom',
     })
     this.registerCharacteristic({
       characteristicType: Characteristic.SerialNumber,
       serviceType: Service.AccessoryInformation,
-      getValue: (data) => data.device_id || 'Unknown',
+      getValue: (data) => mruwzumSerial('PTL', data.device_id),
+    })
+    this.registerCharacteristic({
+      characteristicType: Characteristic.FirmwareRevision,
+      serviceType: Service.AccessoryInformation,
+      getValue: () => FIRMWARE,
     })
   }
 

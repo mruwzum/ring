@@ -8,6 +8,7 @@ import {
   RingIntercom,
 } from 'ring-client-api'
 import { hap } from './hap.ts'
+import { brandAccessory, mruwzumSerial } from './mruwzum-branding.ts'
 import type {
   API,
   DynamicPlatformPlugin,
@@ -393,6 +394,11 @@ export class RingPlatform implements DynamicPlatformPlugin {
                 cameraSource = new IntercomCameraSource(intercomCamera)
 
               audioAccessory.configureController(cameraSource.controller)
+              brandAccessory(
+                audioAccessory,
+                'Portal Intercom Audio',
+                mruwzumSerial('PTA', intercom.data.device_id),
+              )
 
               // Without the Microphone and Speaker services, HomeKit does NOT draw
               // the microphone button: negotiating two-way audio on the
