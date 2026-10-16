@@ -187,7 +187,7 @@ export class RingPlatform implements DynamicPlatformPlugin {
     this.api.on('didFinishLaunching', () => {
       this.log.debug('didFinishLaunching')
       if (config.refreshToken) {
-        this.connectToApi().catch((e) => {
+        this.connectToApiWithRetry().catch((e) => {
           this.log.error('Error connecting to API')
           this.log.error(e)
         })
@@ -207,6 +207,29 @@ export class RingPlatform implements DynamicPlatformPlugin {
     )
     this.log.debug('%j', accessory)
     this.homebridgeAccessories[accessory.UUID] = accessory
+  }
+
+  // Device discovery must survive a temporary outage: cached accessories only
+  // come back to life once connectToApi succeeds. Real auth errors (bad or
+  // revoked refresh token) are not retried, so we never hammer Ring.
+  async connectToApiWithRetry() {
+    for (let attempt = 0; ; attempt++) {
+      try {
+        return await this.connectToApi()
+      } catch (e: any) {
+        const status = e?.response?.status
+        if (status === 400 || status === 401 || status === 403) {
+          throw e
+        }
+        const delayMs = Math.min(5000 * 2 ** attempt, 300000)
+        this.log.error(
+          `Error connecting to API, retrying in ${Math.round(
+            delayMs / 1000,
+          )} seconds: ${e?.message ?? e}`,
+        )
+        await new Promise((resolve) => setTimeout(resolve, delayMs))
+      }
+    }
   }
 
   async connectToApi() {

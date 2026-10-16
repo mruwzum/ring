@@ -13,7 +13,7 @@ import type {
   AuthTokenResponse,
   SessionResponse,
 } from './ring-types.ts'
-import { ReplaySubject } from 'rxjs'
+import { ReplaySubject, Subject } from 'rxjs'
 import assert from 'assert'
 import type { Credentials } from '@eneris/push-receiver/dist/types.d.js'
 // Import fetch from the same undici package as Agent. Node's global fetch is
@@ -104,6 +104,34 @@ async function responseToError(response: Response) {
   return error
 }
 
+const retryBaseDelayMs = 5000,
+  retryMaxDelayMs = 60000
+
+// Emits (outage duration in ms) the first time any request succeeds after one
+// or more network failures, so long-lived connections (push) can be re-checked
+export const onRingReachable = new Subject<number>()
+let outageStartedAt: number | undefined
+
+// 5s, 10s, 20s, 40s, then 60s forever. Never gives up on network errors.
+export function getRetryDelayMs(retryCount: number) {
+  return Math.min(retryBaseDelayMs * 2 ** retryCount, retryMaxDelayMs)
+}
+
+function markReachable() {
+  if (outageStartedAt === undefined) {
+    return
+  }
+  const outageMs = Date.now() - outageStartedAt
+  outageStartedAt = undefined
+  logInfo(
+    `Ring reachable again after ${Math.max(
+      1,
+      Math.round(outageMs / 60000),
+    )} min`,
+  )
+  onRingReachable.next(outageMs)
+}
+
 async function requestWithRetry<T>(
   requestOptions: RequestOptions & { url: string; allowNoResponse?: boolean },
   retryCount = 0,
@@ -174,17 +202,30 @@ async function requestWithRetry<T>(
         data.timeMillis = Number(xTime)
       }
     }
+    markReachable()
     return data
   } catch (e: any) {
-    if (!e.response && !requestOptions.allowNoResponse) {
+    const isServerError =
+        (e.response?.status ?? 0) >= 500 &&
+        (requestOptions.method ?? 'GET') === 'GET',
+      noResponse = !e.response && !requestOptions.allowNoResponse
+    if (noResponse || isServerError) {
+      outageStartedAt ??= Date.now()
+      const retryDelayMs = getRetryDelayMs(retryCount)
       if (retryCount > 0) {
-        let detailedError = `Error: ${e.message}`
+        let detailedError = e.response
+          ? `Error: HTTP ${e.response.status}`
+          : `Error: ${e.message}`
         detailedError += e.cause?.message ? `, Cause: ${e.cause.message}` : ''
         detailedError += e.cause?.code ? `, Code: ${e.cause.code}` : ''
         logError(
-          `Retry #${retryCount} failed to reach Ring server at ${requestOptions.url}.  ${detailedError}.  Trying again in 5 seconds...`,
+          `Retry #${retryCount} failed to reach Ring server at ${
+            requestOptions.url
+          }.  ${detailedError}.  Trying again in ${Math.round(
+            retryDelayMs / 1000,
+          )} seconds...`,
         )
-        if (e.message.includes('NGHTTP2_ENHANCE_YOUR_CALM')) {
+        if (e.message?.includes('NGHTTP2_ENHANCE_YOUR_CALM')) {
           logError(
             `There is a known issue with your current NodeJS version (${process.version}).  Please see https://github.com/dgreif/ring/wiki/NGHTTP2_ENHANCE_YOUR_CALM-Error for details`,
           )
@@ -192,7 +233,7 @@ async function requestWithRetry<T>(
         logDebug(e)
       }
 
-      await delay(5000)
+      await delay(retryDelayMs)
       return requestWithRetry(requestOptions, retryCount + 1)
     }
     throw e

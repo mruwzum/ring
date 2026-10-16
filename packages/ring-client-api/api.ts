@@ -1,5 +1,10 @@
 import type { RefreshTokenAuth, SessionOptions } from './rest-client.ts'
-import { clientApi, deviceApi, RingRestClient } from './rest-client.ts'
+import {
+  clientApi,
+  deviceApi,
+  onRingReachable,
+  RingRestClient,
+} from './rest-client.ts'
 import { Location } from './location.ts'
 import type {
   BaseStation,
@@ -18,7 +23,7 @@ import { PushNotificationAction, RingDeviceType } from './ring-types.ts'
 import type { AnyCameraData } from './ring-camera.ts'
 import { RingCamera } from './ring-camera.ts'
 import { RingChime } from './ring-chime.ts'
-import { combineLatest, EMPTY, merge, Subject } from 'rxjs'
+import { combineLatest, EMPTY, interval, merge, Subject } from 'rxjs'
 import {
   debounceTime,
   startWith,
@@ -27,6 +32,7 @@ import {
 } from 'rxjs/operators'
 import {
   clearTimeouts,
+  delay,
   enableDebug,
   logDebug,
   logError,
@@ -308,11 +314,70 @@ export class RingApi extends Subscribed {
       })
     })
 
+    // @eneris/push-receiver reschedules itself with an un-awaited connect(),
+    // so a single failed re-registration (network down) kills its retry loop
+    // for good. Supervise it: if the socket is not up, reconnect with backoff
+    // forever, and also whenever Ring becomes reachable again after an outage.
+    let pushConnected = false,
+      pushDisconnectedAt: number | undefined = Date.now(),
+      pushReconnecting = false
+    pushReceiver.on('ON_CONNECT', () => {
+      pushConnected = true
+      pushDisconnectedAt = undefined
+    })
+    pushReceiver.on('ON_DISCONNECT', () => {
+      pushConnected = false
+      pushDisconnectedAt ??= Date.now()
+    })
+
+    const reconnectPush = async () => {
+      if (pushReconnecting || pushConnected) {
+        return
+      }
+      pushReconnecting = true
+      try {
+        for (let attempt = 0; !pushConnected; attempt++) {
+          try {
+            // destroy() also clears the library's own pending retry timer
+            pushReceiver.destroy()
+            await pushReceiver.connect()
+            pushConnected = true
+            pushDisconnectedAt = undefined
+            logInfo('Push notification receiver reconnected')
+          } catch (e) {
+            logError(
+              `Failed to connect push notification receiver, retrying: ${
+                e instanceof Error ? e.message : e
+              }`,
+            )
+            await delay(Math.min(5000 * 2 ** attempt, 300000))
+          }
+        }
+      } finally {
+        pushReconnecting = false
+      }
+    }
+
+    this.addSubscriptions(
+      onRingReachable.subscribe(() => {
+        // give the library's own retry a moment before taking over
+        delay(10000)
+          .then(() => reconnectPush())
+          .catch(logError)
+      }),
+      interval(60000).subscribe(() => {
+        if (pushDisconnectedAt && Date.now() - pushDisconnectedAt > 90000) {
+          reconnectPush().catch(logError)
+        }
+      }),
+    )
+
     try {
       await pushReceiver.connect()
     } catch (e) {
       logError('Failed to connect push notification receiver')
       logError(e)
+      reconnectPush().catch(logError)
     }
 
     const startTime = Date.now()

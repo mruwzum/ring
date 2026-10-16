@@ -1,6 +1,10 @@
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
-import { RingRestClient } from '../rest-client.ts'
+import {
+  getRetryDelayMs,
+  onRingReachable,
+  RingRestClient,
+} from '../rest-client.ts'
 import { clearTimeouts, getHardwareId, toBase64 } from '../util.ts'
 import { firstValueFrom } from 'rxjs'
 import {
@@ -410,5 +414,73 @@ describe('fetch', () => {
     })
 
     expect(response).toEqual([])
+  })
+
+  describe('network outage', () => {
+    afterEach(() => {
+      vi.useRealTimers()
+    })
+
+    it('should back off exponentially, cap the delay and never give up', () => {
+      expect([0, 1, 2, 3, 4].map(getRetryDelayMs)).toEqual([
+        5000, 10000, 20000, 40000, 60000,
+      ])
+      expect(getRetryDelayMs(500)).toBe(60000)
+    })
+
+    it('should keep retrying through network errors and 5xx, then recover', async () => {
+      let attempts = 0
+      server.use(
+        http.get('https://api.ring.com/clients_api/outage_endpoint', () => {
+          attempts++
+          if (attempts <= 5) {
+            return HttpResponse.error() // like ENETUNREACH / fetch failed
+          }
+          if (attempts <= 7) {
+            return HttpResponse.json({}, { status: 503 })
+          }
+          return HttpResponse.json({ ok: true })
+        }),
+      )
+      client = new RingRestClient({ refreshToken })
+      // warm up the session while timers are real
+      await client.request({
+        url: 'https://api.ring.com/clients_api/some_endpoint',
+      })
+
+      vi.useFakeTimers({ toFake: ['setTimeout'] })
+      const reachable = firstValueFrom(onRingReachable),
+        promise = client.request<{ ok: boolean }>({
+          url: 'https://api.ring.com/clients_api/outage_endpoint',
+        })
+      let done = false
+      promise.then(() => (done = true)).catch(() => {})
+
+      // 7 failures with backoff (5+10+20+40+60+60+60s) must not give up
+      for (let i = 0; i < 40 && !done; i++) {
+        await vi.advanceTimersByTimeAsync(30000)
+      }
+
+      expect((await promise).ok).toBe(true)
+      expect(attempts).toBe(8)
+      expect(await reachable).toBeGreaterThanOrEqual(0)
+    })
+
+    it('should not retry a 4xx response', async () => {
+      let attempts = 0
+      server.use(
+        http.get('https://api.ring.com/clients_api/bad_endpoint', () => {
+          attempts++
+          return HttpResponse.json({}, { status: 404 })
+        }),
+      )
+      client = new RingRestClient({ refreshToken })
+      await expect(
+        client.request({
+          url: 'https://api.ring.com/clients_api/bad_endpoint',
+        }),
+      ).rejects.toBeDefined()
+      expect(attempts).toBe(1)
+    })
   })
 })
