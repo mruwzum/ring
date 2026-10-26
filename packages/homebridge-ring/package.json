@@ -8,6 +8,7 @@
   "scripts": {
     "build": "rm -rf lib && tsc && cp -r ./homebridge-ui/public ./lib/homebridge-ui/public/ && rm -rf ./lib/test",
     "lint": "eslint .",
+    "test": "vitest run",
     "dev": "bash ./dev-homebridge.sh",
     "dev:run": "npm run dev",
     "test": "vitest run"
@@ -16,9 +17,10 @@
     "@homebridge/camera-utils": "^3.0.0",
     "@homebridge/plugin-ui-utils": "^2.2.6",
     "ring-client-api": "14.3.0",
-    "werift": "0.24.4"
+    "werift": "0.25.1"
   },
   "devDependencies": {
+    "@homebridge/hap-nodejs": "^2.2.2",
     "eslint-config-shared": "*",
     "homebridge": "2.4.0",
     "tsconfig": "*",

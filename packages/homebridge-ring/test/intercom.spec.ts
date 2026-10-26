@@ -14,6 +14,14 @@ import { existsSync } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
 import { IntercomCamera } from '../intercom-camera.ts'
+import { Intercom } from '../intercom.ts'
+import {
+  getCharacteristic,
+  hap,
+  initAccessory,
+  mockRingIntercom,
+  expectSet,
+} from './harness.ts'
 
 const packageDir = fileURLToPath(new URL('..', import.meta.url)),
   stillPath = join(packageDir, 'media', 'intercom-still.jpg'),
@@ -260,5 +268,30 @@ describe('Ring Intercom', () => {
       })
       expect(JSON.stringify(schema.layout)).toContain('hideIntercomDoorbell')
     })
+  })
+})
+
+// From upstream (dgreif/ring #1852): the lock side of the Intercom accessory.
+// Kept alongside our audio tests — different subject, same file name upstream chose.
+describe('Intercom', () => {
+  it('LockTargetState unlock → device.unlock()', async () => {
+    const device = mockRingIntercom(),
+      { platformAccessory } = initAccessory(
+        Intercom,
+        device,
+        'Lobby Intercom',
+        'intercom-1',
+      ),
+      target = getCharacteristic(
+        platformAccessory,
+        hap.Service.LockMechanism,
+        hap.Characteristic.LockTargetState,
+      )
+
+    await expectSet(
+      target,
+      hap.Characteristic.LockTargetState.UNSECURED,
+      device.unlock,
+    )
   })
 })

@@ -68,7 +68,7 @@ const ignoreHiddenDeviceTypes: string[] = [
 export const platformName = 'Ring'
 export const pluginName = 'homebridge-ring'
 
-function getAccessoryClass(
+export function getAccessoryClass(
   device: RingDevice,
 ): (new (...args: any[]) => BaseAccessory<RingDevice>) | null {
   const { deviceType } = device
