@@ -133,7 +133,12 @@ function markReachable() {
 }
 
 async function requestWithRetry<T>(
-  requestOptions: RequestOptions & { url: string; allowNoResponse?: boolean },
+  requestOptions: RequestOptions & {
+    url: string
+    allowNoResponse?: boolean
+    // never resend: for commands that are not idempotent (opening a door)
+    noRetry?: boolean
+  },
   retryCount = 0,
 ): Promise<T & ExtendedResponse> {
   try {
@@ -208,7 +213,10 @@ async function requestWithRetry<T>(
     const isServerError =
         (e.response?.status ?? 0) >= 500 &&
         (requestOptions.method ?? 'GET') === 'GET',
-      noResponse = !e.response && !requestOptions.allowNoResponse
+      noResponse =
+        !e.response &&
+        !requestOptions.allowNoResponse &&
+        !requestOptions.noRetry
     if (noResponse || isServerError) {
       outageStartedAt ??= Date.now()
       const retryDelayMs = getRetryDelayMs(retryCount)
@@ -548,7 +556,12 @@ export class RingRestClient {
   }
 
   async request<T = void>(
-    options: RequestOptions & { url: string; allowNoResponse?: boolean },
+    options: RequestOptions & {
+      url: string
+      allowNoResponse?: boolean
+      // never resend: for commands that are not idempotent (opening a door)
+      noRetry?: boolean
+    },
   ): Promise<T & ExtendedResponse> {
     const hardwareId = await this.hardwareIdPromise,
       url = options.url! as string,
@@ -575,7 +588,7 @@ export class RingRestClient {
         return this.request(options)
       }
 
-      if (response.status === 504) {
+      if (response.status === 504 && !options.noRetry) {
         // Gateway Timeout.  These should be recoverable, but wait a few seconds just to be on the safe side
         await delay(5000)
         return this.request(options)
@@ -583,6 +596,7 @@ export class RingRestClient {
 
       if (
         response.status === 404 &&
+        !options.noRetry &&
         response.body &&
         Array.isArray(response.body.errors)
       ) {

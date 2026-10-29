@@ -67,6 +67,10 @@ export class RingIntercom {
   unlock() {
     return this.restClient.request<unknown>({
       method: 'PUT',
+      // Opening the door is not idempotent: if Ring ran the command and the reply was lost,
+      // the generic retry-on-no-response would send it again and open the door twice.
+      // Fail instead and let the caller decide (mruwzum fork, 29 Oct 2026).
+      noRetry: true,
       url: commandsApi(`devices/${this.id}/device_rpc`),
       json: {
         command_name: 'device_rpc',

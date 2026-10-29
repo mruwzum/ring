@@ -13,6 +13,9 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
   private unlocking = false
   private doNotDisturb = false
   private unlockTimeout?: ReturnType<typeof setTimeout>
+  // HomeKit gets its SET answer before unlock() finishes, so a second tap could send a
+  // second PUT while the first is still in flight: only one at a time (29 Oct 2026)
+  private unlockInFlight = false
 
   public readonly device
   public readonly accessory
@@ -83,13 +86,31 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
         clearTimeout(this.unlockTimeout)
 
         if (state === LockTargetState.UNSECURED) {
+          if (this.unlockInFlight) {
+            logInfo(`Unlock of ${device.name} already in progress, ignoring`)
+            return
+          }
           logInfo(`Unlocking ${device.name}`)
           this.unlocking = true
+          this.unlockInFlight = true
 
-          const response = await device.unlock().catch((e) => {
+          let response: unknown
+          try {
+            response = await device.unlock()
+          } catch (e) {
+            // Unknown outcome (no reply) or a refusal: never show the door as open in Home.
+            // Put both states back to "locked". (Throwing would not reach HomeKit:
+            // base-accessory answers the SET callback before setValue finishes.)
+            logError(
+              `Unlock of ${device.name} failed, the door may or may not have opened`,
+            )
             logError(e)
             this.unlocking = false
-          })
+            syncLockState()
+            return
+          } finally {
+            this.unlockInFlight = false
+          }
           logInfo(`Unlock response: ${JSON.stringify(response)}`)
 
           markAsUnlocked()
