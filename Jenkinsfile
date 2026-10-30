@@ -250,11 +250,16 @@ pipeline {
 void telegram(String text) {
     withCredentials([string(credentialsId: 'telegram_bot_token', variable: 'TG_TOKEN')]) {
         withEnv(["TG_TEXT=${text}"]) {
-            sh(script: '''
-                curl -s -o /dev/null -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            // -f: an HTTP error from Telegram is a curl failure and marks the build UNSTABLE, instead
+            // of a green build whose notice never arrived (Codex review, 30 Oct 2026)
+            int rc = sh(returnStatus: true, script: '''
+                curl -fsS -o /dev/null -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
                      --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
                      --data-urlencode "text=${TG_TEXT}"
             ''', label: 'notify Telegram')
+            if (rc != 0) {
+                unstable("Telegram: aviso no entregado (curl ${rc})")
+            }
         }
     }
 }
