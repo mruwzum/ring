@@ -55,6 +55,10 @@ pipeline {
                     branches: [[name: 'main']],
                     userRemoteConfigs: [[credentialsId: 'mruwzum_git', url: 'git@github.com:mruwzum/ring.git']]
                 ])
+                // The workspace is reused between builds and these status files are untracked, so
+                // they survive. A `.merge-conflict` left by build #25 (26 Oct 2026) made every later
+                // failure notify as a merge conflict. Start each run without them.
+                sh 'rm -f .merge-conflict .upstream-behind .upstream-changelog .head-sha'
             }
         }
 
