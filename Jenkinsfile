@@ -11,11 +11,20 @@
 //
 // STABLE ONLY (Miguel, 16 Nov 2026). The fork follows upstream's stable releases. If the
 // `version` of packages/homebridge-ring/package.json at upstream/main is a prerelease
-// (contains "-", e.g. 15.0.0-beta.0) the run skips merge, build and deploy, finishes
-// SUCCESS and sends ONE Telegram note per new upstream version (the last notified version
-// is kept in /var/tmp/ring-fork-beta-notified).
+// (contains "-", e.g. 15.0.0-beta.0) the run skips ONLY the upstream merge: it still
+// builds, tests and lints main, and deploys the fork's own new commits when HEAD differs
+// from the deploy marker (so an intercom fix pushed during a long beta is not stuck).
+// It sends ONE Telegram note per new upstream version (the last notified version is kept
+// in /var/tmp/ring-fork-beta-notified).
 //
-// NEXT STEP when 15.0.0 stable lands: upstream moved from npm to pnpm (dgreif/ring#1900,
+// NEXT STEP when 15.0.0 stable lands, in this order:
+//   1. `git revert 4fc354a` on main. That commit reverted "Merge upstream/main ... adapt CI
+//      to pnpm" (6d9e1ca), so git thinks upstream is already merged: without reverting the
+//      revert, `git merge upstream/main` would bring only the commits after 152ea68 and leave
+//      the pnpm move and the rest of 15.x undone, i.e. an inconsistent tree.
+//   2. Then merge upstream (or the `upstream-15-beta` branch, see below).
+//
+// Upstream moved from npm to pnpm (dgreif/ring#1900,
 // pnpm-lock.yaml, no package-lock.json). This Jenkinsfile still uses npm, so the merge
 // would conflict and the build could not install. Branch `upstream-15-beta` of the fork
 // holds the merge plus a pnpm-adapted Jenkinsfile. Until main has pnpm-lock.yaml, the
@@ -90,14 +99,17 @@ pipeline {
                         fi
                         git fetch upstream --tags
 
-                        # Stable only (checked BEFORE the nothing-new exit, Codex 16 Nov 2026): a prerelease upstream is not merged, built or deployed.
+                        # Stable only (checked BEFORE the nothing-new exit, Codex 16 Nov 2026): a prerelease upstream is not MERGED.
+                        # The fork's own commits still go through build, test and deploy (decided by the deploy marker).
                         UP_VERSION=$(git show upstream/main:packages/homebridge-ring/package.json \
                             | node -e 'process.stdout.write(String(JSON.parse(require("fs").readFileSync(0,"utf8")).version))')
                         echo "upstream/main homebridge-ring version: ${UP_VERSION}"
                         case "${UP_VERSION}" in
                             *-*)
-                                echo "SKIP: upstream is at prerelease ${UP_VERSION}; nothing merged, built or deployed."
+                                echo "SKIP MERGE: upstream is at prerelease ${UP_VERSION}; the fork's own commits are still built and deployed."
                                 echo "${UP_VERSION}" > .upstream-beta
+                                echo 0 > .upstream-behind
+                                : > .upstream-changelog
                                 exit 0
                                 ;;
                         esac
@@ -136,7 +148,6 @@ pipeline {
         }
 
         stage('Check deploy marker') {
-            when { expression { !fileExists('.upstream-beta') } }
             // Package/Deploy used to run every week regardless of whether HEAD had
             // moved since the last successful deploy — a needless Homebridge restart
             // on weeks with nothing new (28 Sep 2026, Miguel: "si no hay cambios...
@@ -164,7 +175,6 @@ pipeline {
         }
 
         stage('Build, test, lint') {
-            when { expression { !fileExists('.upstream-beta') } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
@@ -182,7 +192,6 @@ pipeline {
         stage('Push merge') {
             when {
                 allOf {
-                    expression { !fileExists('.upstream-beta') }
                     expression { params.PUSH_MERGE }
                     expression { readFile('.upstream-behind').trim() != '0' }
                 }
@@ -196,7 +205,7 @@ pipeline {
         }
 
         stage('Package') {
-            when { allOf { expression { !fileExists('.upstream-beta') }; expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
+            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
@@ -235,7 +244,7 @@ pipeline {
         }
 
         stage('Deploy to Homebridge') {
-            when { allOf { expression { !fileExists('.upstream-beta') }; expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
+            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}" "$(cat .head-sha)"'
@@ -250,20 +259,22 @@ pipeline {
         }
         success {
             script {
-                if (fileExists('.upstream-beta')) {
+                def inBeta = fileExists('.upstream-beta')
+                if (inBeta) {
                     def betaVersion = readFile('.upstream-beta').trim()
                     def notified = '/var/tmp/ring-fork-beta-notified'
                     def last = fileExists(notified) ? readFile(notified).trim() : ''
-                    echo "Upstream is at prerelease ${betaVersion}: nothing merged, built or deployed."
+                    echo "Upstream is at prerelease ${betaVersion}: upstream not merged; the fork's own commits were still built (and deployed if new)."
                     if (last != betaVersion) {
                         // the marker only after Telegram accepted it, so a failed notice is retried next run (Codex 16 Nov 2026)
-                        if (telegram("Ring: dgreif/ring está en ${betaVersion} (beta). No he mergeado ni desplegado nada, Homebridge sigue como estaba. Solo mergeo versiones estables.")) {
+                        if (telegram("Ring: dgreif/ring está en ${betaVersion} (beta). No he mergeado nada de upstream, solo mergeo versiones estables. Lo propio de tu fork sí se compila y se despliega si hay cambios.")) {
                             writeFile file: notified, text: betaVersion + '\n'
                         }
                     } else {
                         echo "Telegram note for ${betaVersion} already sent, not repeating."
                     }
-                    return
+                    // Quiet weeks: in beta with nothing deployed there is nothing else to say.
+                    if (env.DEPLOYED != 'true') { return }
                 }
                 def behind = fileExists('.upstream-behind') ? readFile('.upstream-behind').trim() : '?'
                 def log = fileExists('.upstream-changelog') ? readFile('.upstream-changelog').trim() : ''
@@ -277,7 +288,9 @@ pipeline {
                         ? "No he tocado la raspi: ya tiene esto mismo desplegado, nada que redesplegar."
                         : "No he tocado la raspi."
 
-                def head = (behind == '0')
+                def head = inBeta
+                    ? "Ring: cambios propios del fork."
+                    : (behind == '0')
                     ? "Ring: sin novedades en dgreif/ring esta semana."
                     : "Ring: ${behind} commits nuevos de dgreif/ring mergeados en tu fork."
 
