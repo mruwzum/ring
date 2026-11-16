@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import { RingRestClient } from './rest-client.ts'
-import { requestHiddenInput, requestInput } from './util.ts'
+import { requestInput } from './util.ts'
 import type { AuthTokenResponse } from './ring-types.ts'
 
 export async function acquireRefreshToken() {
   const email = await requestInput('Email: '),
-    password = await requestHiddenInput('Password: '),
+    password = await requestInput('Password: '),
     restClient = new RingRestClient({ email, password }),
     getAuthWith2fa = async (): Promise<any> => {
       const code = await requestInput('2fa Code: ')

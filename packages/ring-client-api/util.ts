@@ -1,7 +1,6 @@
 import debug from 'debug'
 import colors from 'colors'
 import { createInterface } from 'readline'
-import { Writable } from 'stream'
 import { v4 as generateRandomUuid, v5 as generateUuidFromNamespace } from 'uuid'
 import { uuid as getSystemUuid } from 'systeminformation'
 import pushReceiverLogger from '@eneris/push-receiver/dist/utils/logger.js'
@@ -112,32 +111,6 @@ export async function requestInput(question: string) {
   return answer.trim()
 }
 
-export async function requestHiddenInput(question: string) {
-  const lineReader = createInterface({
-    input: process.stdin,
-    // Discard readline's echo of each keystroke so the input stays hidden
-    output: new Writable({
-      write(_chunk, _encoding, callback) {
-        callback()
-      },
-    }),
-    // Puts a TTY stdin in raw mode so the terminal doesn't echo the input either
-    terminal: true,
-  })
-
-  process.stdout.write(question)
-
-  const answer = await new Promise<string>((resolve) => {
-    lineReader.question('', resolve)
-  })
-
-  lineReader.close()
-  // The newline readline writes when enter is pressed was discarded with the echo
-  process.stdout.write('\n')
-
-  return answer.trim()
-}
-
 export function stringify(data: any) {
   if (typeof data === 'string') {
     return data
@@ -170,8 +143,8 @@ export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends Array<infer U>
     ? Array<DeepPartial<U>>
     : T[K] extends ReadonlyArray<infer U>
-      ? ReadonlyArray<DeepPartial<U>>
-      : DeepPartial<T[K]>
+    ? ReadonlyArray<DeepPartial<U>>
+    : DeepPartial<T[K]>
 }
 
 // Override push receiver logging to avoid ECONNRESET errors leaking

@@ -1,7 +1,7 @@
 import type { CharacteristicType, ServiceType } from './base-accessory.ts'
 import { BaseAccessory } from './base-accessory.ts'
 import type { Observable } from 'rxjs'
-import { merge, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 import type {
   RingCamera,
   RingChime,
@@ -47,8 +47,7 @@ export abstract class BaseDataAccessory<
   }) {
     const service = this.getService(serviceType, name, serviceSubType),
       characteristic = service.getCharacteristic(characteristicType),
-      { device } = this,
-      onValue = new Subject<CharacteristicValue>()
+      { device } = this
 
     if (requestUpdate) {
       // Only register for GET if an async request should be made to get an updated value
@@ -75,19 +74,12 @@ export abstract class BaseDataAccessory<
           newValue: CharacteristicValue,
           callback: CharacteristicSetCallback,
         ) => {
-          onValue.next(newValue)
           onValueToSet.next(newValue)
           callback()
         },
       )
 
-      onValueToSet
-        .pipe(debounceTime(setValueDebounceTime))
-        .subscribe((value) => {
-          Promise.resolve()
-            .then(() => setValue(value))
-            .catch(logError)
-        })
+      onValueToSet.pipe(debounceTime(setValueDebounceTime)).subscribe(setValue)
     } else if (setValue) {
       characteristic.on(
         CharacteristicEventTypes.SET,
@@ -101,14 +93,9 @@ export abstract class BaseDataAccessory<
       )
     }
 
-    merge(
-      (this.device.onData as Observable<T['data']>).pipe(map(getValue)),
-      onValue,
-    )
-      .pipe(distinctUntilChanged())
+    ;(this.device.onData as Observable<T['data']>)
+      .pipe(map(getValue), distinctUntilChanged())
       .subscribe((value) => characteristic.updateValue(value))
-
-    return (value: CharacteristicValue) => onValue.next(value)
   }
 
   registerLevelCharacteristic({
@@ -124,10 +111,9 @@ export abstract class BaseDataAccessory<
     setValue: (data: any) => any
     requestUpdate?: () => any
   }) {
-    let targetLevel: number | undefined,
-      levelRequestId = 0
+    let targetLevel: number | undefined
 
-    const updateValue = this.registerCharacteristic({
+    this.registerCharacteristic({
       characteristicType,
       serviceType,
       getValue: (data) => {
@@ -139,19 +125,9 @@ export abstract class BaseDataAccessory<
 
         return targetLevel === undefined ? newLevel : targetLevel
       },
-      setValue: async (level: number) => {
-        const requestId = ++levelRequestId
+      setValue: (level: number) => {
         targetLevel = level
-
-        try {
-          await setValue(level)
-        } catch (e) {
-          if (requestId === levelRequestId) {
-            targetLevel = undefined
-            updateValue(getValue(this.device.data))
-          }
-          throw e
-        }
+        setValue(level)
       },
       setValueDebounceTime: 500,
       requestUpdate,

@@ -130,14 +130,11 @@ pipeline {
                 sh '''
                     set -e
                     node -v
-                    PNPM_VERSION=$(node -p "require('./package.json').devEngines.packageManager.version")
-                    npm install --prefix "$WORKSPACE/.pnpm-tool" --no-audit --no-fund --no-package-lock "pnpm@${PNPM_VERSION}"
-                    export PATH="$WORKSPACE/.pnpm-tool/node_modules/.bin:$PATH"
-                    pnpm -v
-                    pnpm install --frozen-lockfile
-                    pnpm run build
-                    pnpm test
-                    pnpm run lint
+                    npm -v
+                    npm ci
+                    npm run build
+                    npm test
+                    npm run lint
                 '''
             }
         }
@@ -169,12 +166,11 @@ pipeline {
                     # ring-client-api goes in from this repo's own build, not from npm:
                     # it is what the tests just ran against, and upstream fixes to it
                     # reach the raspi without waiting for dgreif to publish.
-                    export PATH="$WORKSPACE/.pnpm-tool/node_modules/.bin:$PATH"
-                    pnpm --filter ring-client-api pack --pack-destination "$PKG_STAGE" >/dev/null
+                    npm pack -w ring-client-api --pack-destination "$PKG_STAGE" >/dev/null
                     RCA=$(cd "$PKG_STAGE" && ls ring-client-api-*.tgz)
 
                     # Exactly what the plugin needs at runtime. lib/ is the tsc output,
-                    # rebuilt from scratch by `pnpm run build`, so it cannot carry stale
+                    # rebuilt from scratch by `npm run build`, so it cannot carry stale
                     # files from a previous revision.
                     mkdir "$PKG_STAGE/plugin"
                     cd packages/homebridge-ring
@@ -185,16 +181,9 @@ pipeline {
                     # used to swap lib/ only, so the raspi kept whatever npm had installed
                     # months ago: werift 0.22.4 against a declared 0.24.4 (24 Sep 2026).
                     cd "$PKG_STAGE/plugin"
-                    # devDependencies use pnpm's workspace: protocol, which npm cannot resolve.
-                    # They are not installed here anyway, so drop them for the install.
-                    npm pkg delete devDependencies
                     npm pkg set "dependencies.ring-client-api=file:../$RCA"
                     npm install --omit=dev --no-audit --no-fund --no-package-lock
                     cp -a "$WORKSPACE/packages/homebridge-ring/package.json" package.json
-                    # ... and ring-client-api is "workspace:*" in the repo's package.json: ship the
-                    # real version instead, as it was before the pnpm switch.
-                    RCA_VERSION=$(node -p "require('$WORKSPACE/packages/ring-client-api/package.json').version")
-                    npm pkg set "dependencies.ring-client-api=${RCA_VERSION}"
                     test -x node_modules/ffmpeg-for-homebridge/ffmpeg
                     node --input-type=module -e "await import('$PKG_STAGE/plugin/lib/index.js')"
 

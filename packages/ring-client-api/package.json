@@ -1,40 +1,40 @@
 {
   "name": "ring-client-api",
-  "version": "15.0.0-beta.0",
+  "version": "14.3.0",
   "description": "Unofficial API for Ring doorbells, cameras, security alarm system and smart lighting",
   "main": "lib/index.js",
   "type": "module",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "ring-dev": "./index.ts",
+      "development": "./index.ts",
       "default": "./lib/index.js"
     },
     "./ffmpeg": {
       "types": "./lib/ffmpeg.d.ts",
-      "ring-dev": "./ffmpeg.ts",
+      "development": "./ffmpeg.ts",
       "default": "./lib/ffmpeg.js"
     },
     "./util": {
       "types": "./lib/util.d.ts",
-      "ring-dev": "./util.ts",
+      "development": "./util.ts",
       "default": "./lib/util.js"
     },
     "./rest-client": {
       "types": "./lib/rest-client.d.ts",
-      "ring-dev": "./rest-client.ts",
+      "development": "./rest-client.ts",
       "default": "./lib/rest-client.js"
     },
     "./streaming/streaming-session": {
       "types": "./lib/streaming/streaming-session.d.ts",
-      "ring-dev": "./streaming/streaming-session.ts",
+      "development": "./streaming/streaming-session.ts",
       "default": "./lib/streaming/streaming-session.js"
     }
   },
   "scripts": {
     "build": "rm -rf lib && tsc --declaration && chmod +x ./lib/ring-*-cli.js && rm -rf ./lib/test",
-    "auth-cli": "node --conditions=ring-dev --env-file-if-exists=../../.env ./ring-auth-cli.ts",
-    "device-data-cli": "node --conditions=ring-dev --env-file-if-exists=../../.env ./ring-device-data-cli.ts",
+    "auth-cli": "node --conditions=development --env-file=../../.env ./ring-auth-cli.ts",
+    "device-data-cli": "node --conditions=development --env-file=../../.env ./ring-device-data-cli.ts",
     "lint": "eslint .",
     "test": "vitest run"
   },
@@ -55,12 +55,11 @@
     "@types/json-bigint": "^1.0.4",
     "@types/node": "26.6.6",
     "@types/ws": "^8.18.2",
-    "eslint": "10.14.0",
-    "eslint-config-shared": "workspace:*",
+    "eslint-config-shared": "*",
     "msw": "^3.0.3",
-    "tsconfig": "workspace:*",
+    "tsconfig": "*",
     "typescript": "7.0.2",
-    "vitest": "^5.1.0"
+    "vitest": "^5.0.5"
   },
   "engines": {
     "node": "^22.19.0 || ^24 || ^26"

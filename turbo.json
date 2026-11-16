@@ -9,7 +9,6 @@
       "outputs": []
     },
     "test": {
-      "env": ["CI_NODE_VERSION"],
       "outputs": []
     },
     "dev": {

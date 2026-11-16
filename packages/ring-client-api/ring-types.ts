@@ -156,7 +156,10 @@ export const RingCameraModel: { readonly [P in RingCameraKind]: string } = {
 export type AlarmMode = 'all' | 'some' | 'none'
 export type ThermostatMode = 'heat' | 'cool' | 'off' | 'aux'
 export type MessageType =
-  'RoomGetList' | 'SessionInfo' | 'DeviceInfoDocGetList' | 'DeviceInfoSet'
+  | 'RoomGetList'
+  | 'SessionInfo'
+  | 'DeviceInfoDocGetList'
+  | 'DeviceInfoSet'
 export type MessageDataType =
   | 'RoomListV2Type'
   | 'SessionInfoType'
@@ -172,7 +175,10 @@ export interface SocketIoMessage {
 }
 
 export type AssetKind =
-  'base_station_v1' | 'beams_bridge_v1' | 'floodlight_v2' | string
+  | 'base_station_v1'
+  | 'beams_bridge_v1'
+  | 'floodlight_v2'
+  | string
 
 export interface AssetSession {
   assetUuid: string
@@ -878,7 +884,14 @@ export interface CameraDeviceSettingsData {
 }
 
 type HealthCategory =
-  'very_poor' | 'poor' | 'good' | 'very_good' | 'unknown' | 'NA' | string | null
+  | 'very_poor'
+  | 'poor'
+  | 'good'
+  | 'very_good'
+  | 'unknown'
+  | 'NA'
+  | string
+  | null
 
 export interface ChimeHealth {
   id: number

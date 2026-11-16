@@ -7,191 +7,39 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-permissions: {}
+permissions:
+  contents: write # needed for release PR creation
+  pull-requests: write # needed for version PR creation (changesets/action v2)
+  id-token: write # needed for provenance and publishing to npm
 
 jobs:
-  select-mode:
-    name: Select release mode
+  release:
+    name: Release
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-    outputs:
-      # Exit always needs a version PR, even if the cycle has no changesets.
-      mode: ${{ steps.state.outputs.exit == 'true' && 'version' || steps.select.outputs.mode }}
-      publish-plan-artifact-id: ${{ steps.select.outputs.publish-plan-artifact-id }}
+
+    env:
+      # Enable turbo remote caching
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      TURBO_CACHE: remote:w # Write-only to prevent cache poisoning during a release
 
     steps:
-      - name: Checkout repo
+      - name: Checkout Repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          persist-credentials: false
-
-      # Neither tool depends on the other, so set them up at the same time
-      - parallel:
-          - name: Setup pnpm
-            uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
-          - name: Setup Node.js
-            uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-            with:
-              node-version: 26.x
-              package-manager-cache: false
+          node-version: 26.x
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: npm ci
 
-      - name: Validate Changesets state
-        id: state
-        run: |
-          node --input-type=module <<'NODE'
-          import { appendFileSync, existsSync, readFileSync } from 'node:fs'
-
-          const path = '.changeset/pre.json'
-          const hasPre = existsSync(path)
-          const pre = hasPre ? JSON.parse(readFileSync(path, 'utf8')) : undefined
-          if (hasPre && (pre?.tag !== 'beta' || !['pre', 'exit'].includes(pre?.mode))) {
-            throw new Error('Expected Changesets beta prerelease or exit mode.')
-          }
-          appendFileSync(process.env.GITHUB_OUTPUT, `exit=${pre?.mode === 'exit'}\n`)
-          NODE
-
-      - name: Select Changesets mode
-        id: select
-        if: steps.state.outputs.exit != 'true'
-        uses: changesets/action/select-mode@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-
-  version:
-    name: Create version pull request
-    if: needs.select-mode.outputs.mode == 'version'
-    needs: select-mode
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      pull-requests: read
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Create Release Pull Request
+        uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
-          persist-credentials: false
-
-      # Neither tool depends on the other, so set them up at the same time
-      - parallel:
-          - name: Setup pnpm
-            uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
-          - name: Setup Node.js
-            uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-            with:
-              node-version: 26.x
-              package-manager-cache: false
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
-      - name: Create version pull request
-        uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
+          publish-script: npm run release
           github-token: ${{ secrets.GH_TOKEN_CHANGESETS }}
-          pr-base-branch: ${{ github.ref_name }}
-
-  pack:
-    name: Build and pack release
-    if: needs.select-mode.outputs.mode == 'publish'
-    needs: select-mode
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
-    outputs:
-      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      # Neither tool depends on the other, so set them up at the same time
-      - parallel:
-          - name: Setup pnpm
-            uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
-          - name: Setup Node.js
-            uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-            with:
-              node-version: 26.x
-              package-manager-cache: false
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
-      - name: Verify release versions match Changesets state
-        run: |
-          node --input-type=module <<'NODE'
-          import { existsSync, readFileSync } from 'node:fs'
-
-          const path = '.changeset/pre.json'
-          const hasPre = existsSync(path)
-          const pre = hasPre ? JSON.parse(readFileSync(path, 'utf8')) : undefined
-          if (hasPre && (pre?.mode !== 'pre' || pre.tag !== 'beta')) {
-            throw new Error('Only active beta mode can publish prereleases.')
-          }
-          for (const path of ['packages/ring-client-api/package.json', 'packages/homebridge-ring/package.json']) {
-            const { name, version } = JSON.parse(readFileSync(path, 'utf8'))
-            if (hasPre ? !/^\d+\.\d+\.\d+-beta\.\d+$/.test(version) : !/^\d+\.\d+\.\d+$/.test(version)) {
-              throw new Error(`${name}@${version} does not match the Changesets release state.`)
-            }
-          }
-          NODE
-
-      - name: Build, test, and lint
-        run: pnpm run release:verify
         env:
-          CI: true
-
-      - name: Pack packages
-        id: pack
-        uses: changesets/action/pack@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
-          publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
-
-  publish:
-    name: Publish to npm
-    if: needs.select-mode.outputs.mode == 'publish'
-    needs: [select-mode, pack]
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      # Neither tool depends on the other, so set them up at the same time
-      - parallel:
-          - name: Setup pnpm
-            uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
-
-          - name: Setup Node.js
-            uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-            with:
-              node-version: 26.x
-              registry-url: https://registry.npmjs.org
-              package-manager-cache: false
-
-      # This job can mint an npm OIDC token (id-token: write), so don't run
-      # dependency install scripts in it
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
-      - name: Publish packages
-        uses: changesets/action/publish@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
-        with:
-          github-token: ${{ secrets.GH_TOKEN_CHANGESETS }}
-          pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
-        env:
-          PNPM_CONFIG_PROVENANCE: true
+          NPM_CONFIG_PROVENANCE: true
