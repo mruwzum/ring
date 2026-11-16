@@ -21,3 +21,4 @@ graphify-out/
 .upstream-behind
 .upstream-changelog
 .head-sha
+.pnpm-tool/
