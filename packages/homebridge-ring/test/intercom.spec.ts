@@ -8,13 +8,14 @@
 // because the failures they guard against are ffmpeg/streaming arguments whose effect
 // only shows up on a real device. Asserting on the arguments is the part that can be
 // checked deterministically in CI.
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { readFile } from 'fs/promises'
 import { existsSync } from 'fs'
 import { join } from 'path'
 import { fileURLToPath } from 'url'
 import { IntercomCamera } from '../intercom-camera.ts'
 import { Intercom } from '../intercom.ts'
+import { useLogger } from 'ring-client-api/util'
 import {
   getCharacteristic,
   hap,
@@ -142,6 +143,19 @@ describe('Ring Intercom', () => {
       )
       expect(handler).toMatch(
         /delete this\.sessions\[sessionID\]\s*try \{\s*session\.stop\(\)/,
+      )
+    })
+
+    it('tears the wrapper down when the call ends without a STOP from HomeKit', async () => {
+      // Inactivity timeout or Ring hanging up only stopped the Ring side: the
+      // still-image ffmpeg and the three sockets stayed behind (16 Nov 2026).
+      const source = await readSource(),
+        constructorBody = source.slice(
+          source.indexOf('class IntercomStreamingSessionWrapper {'),
+          source.indexOf('private listenForAudioPackets('),
+        )
+      expect(constructorBody).toMatch(
+        /streamingSession\.onCallEnded\.pipe\(take\(1\)\)\.subscribe\(\(\) => this\.stop\(\)\)/,
       )
     })
 
@@ -293,5 +307,57 @@ describe('Intercom', () => {
       hap.Characteristic.LockTargetState.UNSECURED,
       device.unlock,
     )
+  })
+
+  describe('a failed unlock', () => {
+    const unlockAndGetErrors = async (error: unknown) => {
+      const device = mockRingIntercom(),
+        logError = vi.fn(),
+        { platformAccessory } = initAccessory(
+          Intercom,
+          device,
+          'Lobby Intercom',
+          'intercom-1',
+        ),
+        lock = hap.Service.LockMechanism,
+        target = getCharacteristic(
+          platformAccessory,
+          lock,
+          hap.Characteristic.LockTargetState,
+        )
+      device.unlock.mockRejectedValue(error)
+      useLogger({ logInfo: () => undefined, logError })
+
+      await target.setValue(hap.Characteristic.LockTargetState.UNSECURED)
+      await vi.waitFor(() => expect(logError).toHaveBeenCalledWith(error))
+
+      // never shown as open in Home, whatever the reason
+      expect(
+        getCharacteristic(
+          platformAccessory,
+          lock,
+          hap.Characteristic.LockCurrentState,
+        ).value,
+      ).toBe(hap.Characteristic.LockCurrentState.SECURED)
+
+      return logError.mock.calls.map(([message]) => message)
+    }
+
+    it('says the door did not open when Ring answers 4xx', async () => {
+      const errors = await unlockAndGetErrors({ response: { status: 403 } })
+
+      expect(errors[0]).toContain('rejected by Ring (HTTP 403)')
+      expect(errors[0]).toContain('the door did not open')
+      expect(errors[0]).not.toContain('may or may not')
+    })
+
+    it.each([
+      ['no reply', new Error('fetch failed')],
+      ['a 5xx', { response: { status: 502 } }],
+    ])('keeps the outcome unknown on %s', async (_, error) => {
+      const errors = await unlockAndGetErrors(error)
+
+      expect(errors[0]).toContain('may or may not have opened')
+    })
   })
 })

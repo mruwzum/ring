@@ -243,4 +243,33 @@ describe('RingPlatform', () => {
       '{"refreshToken":"new-token"}',
     )
   })
+
+  it('persists a token refreshed during a failed attempt and disconnects that RingApi', async () => {
+    const disconnect = vi.spyOn(RingApi.prototype, 'disconnect')
+    getLocations.mockImplementationOnce(function (this: RingApi) {
+      // Ring rotated the token while authenticating, then the request failed
+      this.restClient.onRefreshTokenUpdated.next({
+        oldRefreshToken: 'old-token',
+        newRefreshToken: 'rotated-token',
+      })
+      return Promise.reject(new Error('locations unavailable'))
+    })
+
+    const platform = createPlatform()
+    await expect(platform.connectToApi()).rejects.toThrow(
+      'locations unavailable',
+    )
+
+    expect(readFileSync(configPath, 'utf8')).toBe(
+      '{"refreshToken":"rotated-token"}',
+    )
+    expect(disconnect).toHaveBeenCalledTimes(1)
+    expect(disconnect.mock.contexts[0]).toBe(getLocations.mock.contexts[0])
+
+    // the retry must authenticate with the rotated token, not the replaced one
+    await platform.connectToApi()
+    expect(
+      (getLocations.mock.contexts[1] as RingApi).restClient.refreshToken,
+    ).toBe('rotated-token')
+  })
 })

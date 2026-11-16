@@ -102,6 +102,10 @@ class IntercomStreamingSessionWrapper {
     this.ringCamera = ringCamera
     this.start = start
 
+    // The call can end without HomeKit sending STOP (inactivity timeout just
+    // below, or Ring hanging up): release our ffmpeg and sockets then too
+    streamingSession.onCallEnded.pipe(take(1)).subscribe(() => this.stop())
+
     const {
         targetAddress,
         video: { port: videoPort },

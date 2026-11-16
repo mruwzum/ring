@@ -101,8 +101,14 @@ export class Intercom extends BaseDataAccessory<RingIntercom> {
             // Unknown outcome (no reply) or a refusal: never show the door as open in Home.
             // Put both states back to "locked". (Throwing would not reach HomeKit:
             // base-accessory answers the SET callback before setValue finishes.)
+            // A 4xx is Ring refusing the command: the door did not open. Anything
+            // else (no reply, 5xx) leaves the outcome unknown.
+            const status = (e as { response?: { status?: number } })?.response
+              ?.status
             logError(
-              `Unlock of ${device.name} failed, the door may or may not have opened`,
+              typeof status === 'number' && status >= 400 && status < 500
+                ? `Unlock of ${device.name} was rejected by Ring (HTTP ${status}), the door did not open`
+                : `Unlock of ${device.name} failed, the door may or may not have opened`,
             )
             logError(e)
             this.unlocking = false

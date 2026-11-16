@@ -23,7 +23,14 @@ import { PushNotificationAction, RingDeviceType } from './ring-types.ts'
 import type { AnyCameraData } from './ring-camera.ts'
 import { RingCamera } from './ring-camera.ts'
 import { RingChime } from './ring-chime.ts'
-import { combineLatest, EMPTY, interval, merge, Subject } from 'rxjs'
+import {
+  combineLatest,
+  EMPTY,
+  interval,
+  merge,
+  Subject,
+  Subscription,
+} from 'rxjs'
 import {
   debounceTime,
   startWith,
@@ -258,7 +265,35 @@ export class RingApi extends Subscribed {
       sendToDevice = (id: number, notification: PushNotification) => {
         devicesById[id]?.processPushNotification(notification)
       },
-      onPushNotificationToken = new Subject<string>()
+      onPushNotificationToken = new Subject<string>(),
+      // The library rejects `whenReady` with "Client destroyed" every time
+      // destroy() runs before the login completed, and then builds a new
+      // pending promise. Nobody awaits it (connect() is what we await), so
+      // each of those rejections was an unhandledRejection that killed the
+      // process: 6 child bridge exits, 0 successful reconnections.
+      ignoreWhenReadyRejection = () => {
+        pushReceiver.whenReady.catch(() => undefined)
+      },
+      destroyPushReceiver = pushReceiver.destroy,
+      connectPushReceiver = pushReceiver.connect
+
+    // destroy() is also called by the library itself (socket close, heartbeat
+    // timeout), so cover every caller: the promise about to be rejected and
+    // the fresh one that replaces it.
+    ignoreWhenReadyRejection()
+    pushReceiver.destroy = () => {
+      ignoreWhenReadyRejection()
+      destroyPushReceiver()
+      ignoreWhenReadyRejection()
+    }
+    // Same problem on the way back up: the library retries from a timer with
+    // an un-awaited connect(), which rejects when the registration cannot
+    // reach Google. Whoever does await it (we do) still sees the rejection.
+    pushReceiver.connect = () => {
+      const connecting = connectPushReceiver()
+      connecting.catch(() => undefined)
+      return connecting
+    }
 
     for (const camera of cameras) {
       devicesById[camera.id] = camera
@@ -320,8 +355,14 @@ export class RingApi extends Subscribed {
     // forever, and also whenever Ring becomes reachable again after an outage.
     let pushConnected = false,
       pushDisconnectedAt: number | undefined = Date.now(),
-      pushReconnecting = false
+      pushReconnecting = false,
+      pushStopped = false
     pushReceiver.on('ON_CONNECT', () => {
+      if (pushStopped) {
+        // a connect() that was still registering when disconnect() ran
+        pushReceiver.destroy()
+        return
+      }
       pushConnected = true
       pushDisconnectedAt = undefined
     })
@@ -331,16 +372,20 @@ export class RingApi extends Subscribed {
     })
 
     const reconnectPush = async () => {
-      if (pushReconnecting || pushConnected) {
+      if (pushReconnecting || pushConnected || pushStopped) {
         return
       }
       pushReconnecting = true
       try {
-        for (let attempt = 0; !pushConnected; attempt++) {
+        for (let attempt = 0; !pushConnected && !pushStopped; attempt++) {
           try {
             // destroy() also clears the library's own pending retry timer
             pushReceiver.destroy()
             await pushReceiver.connect()
+            if (pushStopped) {
+              pushReceiver.destroy()
+              return
+            }
             pushConnected = true
             pushDisconnectedAt = undefined
             logInfo('Push notification receiver reconnected')
@@ -359,6 +404,12 @@ export class RingApi extends Subscribed {
     }
 
     this.addSubscriptions(
+      // disconnect() must also close the FCM socket: a discarded RingApi that
+      // kept it open would fight the next one over the same credentials
+      new Subscription(() => {
+        pushStopped = true
+        pushReceiver.destroy()
+      }),
       onRingReachable.subscribe(() => {
         // give the library's own retry a moment before taking over
         delay(10000)

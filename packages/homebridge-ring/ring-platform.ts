@@ -239,7 +239,39 @@ export class RingPlatform implements DynamicPlatformPlugin {
         controlCenterDisplayName,
         ...config,
         systemId,
-      }),
+      })
+
+    // Subscribed before the first request: Ring rotates the refresh token on
+    // every auth, so a token issued during an attempt that later fails must
+    // still reach config.json, or the next start would use a dead one.
+    ringApi.onRefreshTokenUpdated.subscribe(
+      ({ oldRefreshToken, newRefreshToken }) => {
+        if (!oldRefreshToken) {
+          return
+        }
+
+        // the next attempt's RingApi is built from this object: it must start
+        // from the rotated token, not from the one Ring has just replaced
+        config.refreshToken = newRefreshToken
+
+        updateHomebridgeConfig(this.api, (configContents) => {
+          return configContents.replace(oldRefreshToken, newRefreshToken)
+        })
+      },
+    )
+
+    try {
+      await this.setUpAccessories(ringApi)
+    } catch (e) {
+      // connectToApiWithRetry builds a new RingApi for the next attempt:
+      // do not leave this one polling and holding its push connection
+      ringApi.disconnect()
+      throw e
+    }
+  }
+
+  private async setUpAccessories(ringApi: RingApi) {
+    const { api, config } = this,
       locations = await ringApi.getLocations(),
       cachedAccessoryIds = Object.keys(this.homebridgeAccessories),
       platformAccessories: PlatformAccessory[] = [],
@@ -516,17 +548,5 @@ export class RingPlatform implements DynamicPlatformPlugin {
         staleAccessories,
       )
     }
-
-    ringApi.onRefreshTokenUpdated.subscribe(
-      ({ oldRefreshToken, newRefreshToken }) => {
-        if (!oldRefreshToken) {
-          return
-        }
-
-        updateHomebridgeConfig(this.api, (configContents) => {
-          return configContents.replace(oldRefreshToken, newRefreshToken)
-        })
-      },
-    )
   }
 }

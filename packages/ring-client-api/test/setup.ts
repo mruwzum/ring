@@ -16,6 +16,7 @@ vi.mock('@eneris/push-receiver', () => ({
     connect() {
       return Promise.resolve()
     }
+    destroy = () => undefined
     whenReady = Promise.resolve()
   },
 }))
