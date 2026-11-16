@@ -90,6 +90,18 @@ pipeline {
                         fi
                         git fetch upstream --tags
 
+                        # Stable only (checked BEFORE the nothing-new exit, Codex 16 Nov 2026): a prerelease upstream is not merged, built or deployed.
+                        UP_VERSION=$(git show upstream/main:packages/homebridge-ring/package.json \
+                            | node -e 'process.stdout.write(String(JSON.parse(require("fs").readFileSync(0,"utf8")).version))')
+                        echo "upstream/main homebridge-ring version: ${UP_VERSION}"
+                        case "${UP_VERSION}" in
+                            *-*)
+                                echo "SKIP: upstream is at prerelease ${UP_VERSION}; nothing merged, built or deployed."
+                                echo "${UP_VERSION}" > .upstream-beta
+                                exit 0
+                                ;;
+                        esac
+
                         BEHIND=$(git rev-list --count HEAD..upstream/main)
                         echo "${BEHIND}" > .upstream-behind
                         echo "commits behind upstream/main: ${BEHIND}"
@@ -102,18 +114,6 @@ pipeline {
 
                         git log --oneline --no-merges HEAD..upstream/main > .upstream-changelog
                         cat .upstream-changelog
-
-                        # Stable only: a prerelease upstream is not merged, built or deployed.
-                        UP_VERSION=$(git show upstream/main:packages/homebridge-ring/package.json \
-                            | node -e 'process.stdout.write(String(JSON.parse(require("fs").readFileSync(0,"utf8")).version))')
-                        echo "upstream/main homebridge-ring version: ${UP_VERSION}"
-                        case "${UP_VERSION}" in
-                            *-*)
-                                echo "SKIP: upstream is at prerelease ${UP_VERSION}; nothing merged, built or deployed."
-                                echo "${UP_VERSION}" > .upstream-beta
-                                exit 0
-                                ;;
-                        esac
 
                         # Stable, but upstream is on pnpm and this fork's main is still on npm.
                         if git cat-file -e upstream/main:pnpm-lock.yaml 2>/dev/null && [ ! -f pnpm-lock.yaml ]; then
@@ -256,8 +256,10 @@ pipeline {
                     def last = fileExists(notified) ? readFile(notified).trim() : ''
                     echo "Upstream is at prerelease ${betaVersion}: nothing merged, built or deployed."
                     if (last != betaVersion) {
-                        telegram("Ring: dgreif/ring está en ${betaVersion} (beta). No he mergeado ni desplegado nada, Homebridge sigue como estaba. Solo mergeo versiones estables.")
-                        writeFile file: notified, text: betaVersion + '\n'
+                        // the marker only after Telegram accepted it, so a failed notice is retried next run (Codex 16 Nov 2026)
+                        if (telegram("Ring: dgreif/ring está en ${betaVersion} (beta). No he mergeado ni desplegado nada, Homebridge sigue como estaba. Solo mergeo versiones estables.")) {
+                            writeFile file: notified, text: betaVersion + '\n'
+                        }
                     } else {
                         echo "Telegram note for ${betaVersion} already sent, not repeating."
                     }
@@ -307,7 +309,9 @@ pipeline {
 // Telegram, never ntfy — ntfy is only for raspi5's own infra crons.
 // The text goes through the environment, never interpolated into the shell command:
 // a changelog line with a quote or a backtick in it would otherwise be run as code.
-void telegram(String text) {
+boolean telegram(String text) {
+    // a return inside the step closures would only leave the closure, so the result goes through a variable
+    boolean ok = false
     withCredentials([string(credentialsId: 'telegram_bot_token', variable: 'TG_TOKEN')]) {
         withEnv(["TG_TEXT=${text}"]) {
             // -f: an HTTP error from Telegram is a curl failure and marks the build UNSTABLE, instead
@@ -319,7 +323,10 @@ void telegram(String text) {
             ''', label: 'notify Telegram')
             if (rc != 0) {
                 unstable("Telegram: aviso no entregado (curl ${rc})")
+            } else {
+                ok = true
             }
         }
     }
+    return ok
 }
