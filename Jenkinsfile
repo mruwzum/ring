@@ -8,6 +8,19 @@
 // Deploy is done by /usr/local/bin/deploy-ring-fork.sh via sudo. That script owns the
 // backup, the atomic swap, the restart, the log check and the rollback. Jenkins only
 // hands it a tarball. Nothing else in this pipeline touches /var/lib/homebridge.
+//
+// STABLE ONLY (Miguel, 16 Nov 2026). The fork follows upstream's stable releases. If the
+// `version` of packages/homebridge-ring/package.json at upstream/main is a prerelease
+// (contains "-", e.g. 15.0.0-beta.0) the run skips merge, build and deploy, finishes
+// SUCCESS and sends ONE Telegram note per new upstream version (the last notified version
+// is kept in /var/tmp/ring-fork-beta-notified).
+//
+// NEXT STEP when 15.0.0 stable lands: upstream moved from npm to pnpm (dgreif/ring#1900,
+// pnpm-lock.yaml, no package-lock.json). This Jenkinsfile still uses npm, so the merge
+// would conflict and the build could not install. Branch `upstream-15-beta` of the fork
+// holds the merge plus a pnpm-adapted Jenkinsfile. Until main has pnpm-lock.yaml, the
+// sync stage fails early with an explicit message instead of a confusing merge conflict.
+// To move on: merge `upstream-15-beta` into main (refresh it against upstream first).
 
 pipeline {
     agent { label 'rpi' }
@@ -58,7 +71,7 @@ pipeline {
                 // The workspace is reused between builds and these status files are untracked, so
                 // they survive. A `.merge-conflict` left by build #25 (26 Oct 2026) made every later
                 // failure notify as a merge conflict. Start each run without them.
-                sh 'rm -f .merge-conflict .upstream-behind .upstream-changelog .head-sha'
+                sh 'rm -f .merge-conflict .upstream-behind .upstream-changelog .head-sha .upstream-beta .needs-pnpm'
             }
         }
 
@@ -90,6 +103,25 @@ pipeline {
                         git log --oneline --no-merges HEAD..upstream/main > .upstream-changelog
                         cat .upstream-changelog
 
+                        # Stable only: a prerelease upstream is not merged, built or deployed.
+                        UP_VERSION=$(git show upstream/main:packages/homebridge-ring/package.json \
+                            | node -e 'process.stdout.write(String(JSON.parse(require("fs").readFileSync(0,"utf8")).version))')
+                        echo "upstream/main homebridge-ring version: ${UP_VERSION}"
+                        case "${UP_VERSION}" in
+                            *-*)
+                                echo "SKIP: upstream is at prerelease ${UP_VERSION}; nothing merged, built or deployed."
+                                echo "${UP_VERSION}" > .upstream-beta
+                                exit 0
+                                ;;
+                        esac
+
+                        # Stable, but upstream is on pnpm and this fork's main is still on npm.
+                        if git cat-file -e upstream/main:pnpm-lock.yaml 2>/dev/null && [ ! -f pnpm-lock.yaml ]; then
+                            echo "STOP: upstream ${UP_VERSION} uses pnpm and this Jenkinsfile uses npm. Needs the pnpm Jenkinsfile, see branch upstream-15-beta."
+                            echo "${UP_VERSION}" > .needs-pnpm
+                            exit 4
+                        fi
+
                         # A conflicted merge stops the build here rather than half-applying.
                         # Miguel's intercom work and upstream touch the same files often
                         # enough that this is expected to happen sooner or later.
@@ -104,6 +136,7 @@ pipeline {
         }
 
         stage('Check deploy marker') {
+            when { expression { !fileExists('.upstream-beta') } }
             // Package/Deploy used to run every week regardless of whether HEAD had
             // moved since the last successful deploy — a needless Homebridge restart
             // on weeks with nothing new (28 Sep 2026, Miguel: "si no hay cambios...
@@ -118,13 +151,20 @@ pipeline {
                     def headSha = readFile('.head-sha').trim()
                     def marker = '/var/tmp/ring-fork-deployed-sha'
                     def deployedSha = fileExists(marker) ? readFile(marker).trim() : ''
-                    env.NEEDS_DEPLOY = (headSha == deployedSha) ? 'false' : 'true'
+                    // Same content as what is deployed counts as deployed: a revert or a
+                    // no-op merge changes the SHA but not the tree, and must not restart Homebridge.
+                    def sameTree = false
+                    if (deployedSha) {
+                        sameTree = sh(returnStatus: true, script: '[ "$(git rev-parse HEAD^{tree})" = "$(git rev-parse "$(cat /var/tmp/ring-fork-deployed-sha)^{tree}" 2>/dev/null)" ]') == 0
+                    }
+                    env.NEEDS_DEPLOY = (headSha == deployedSha || sameTree) ? 'false' : 'true'
                     echo "HEAD ${headSha} vs last deployed ${deployedSha ?: '(none)'} -> NEEDS_DEPLOY=${env.NEEDS_DEPLOY}"
                 }
             }
         }
 
         stage('Build, test, lint') {
+            when { expression { !fileExists('.upstream-beta') } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
@@ -142,6 +182,7 @@ pipeline {
         stage('Push merge') {
             when {
                 allOf {
+                    expression { !fileExists('.upstream-beta') }
                     expression { params.PUSH_MERGE }
                     expression { readFile('.upstream-behind').trim() != '0' }
                 }
@@ -155,7 +196,7 @@ pipeline {
         }
 
         stage('Package') {
-            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
+            when { allOf { expression { !fileExists('.upstream-beta') }; expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh '''
@@ -194,7 +235,7 @@ pipeline {
         }
 
         stage('Deploy to Homebridge') {
-            when { allOf { expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
+            when { allOf { expression { !fileExists('.upstream-beta') }; expression { params.DEPLOY }; expression { env.NEEDS_DEPLOY == 'true' } } }
             steps {
                 script { env.CURRENT_STAGE = env.STAGE_NAME }
                 sh 'sudo -n /usr/local/bin/deploy-ring-fork.sh "${STAGE_TARBALL}" "$(cat .head-sha)"'
@@ -209,6 +250,19 @@ pipeline {
         }
         success {
             script {
+                if (fileExists('.upstream-beta')) {
+                    def betaVersion = readFile('.upstream-beta').trim()
+                    def notified = '/var/tmp/ring-fork-beta-notified'
+                    def last = fileExists(notified) ? readFile(notified).trim() : ''
+                    echo "Upstream is at prerelease ${betaVersion}: nothing merged, built or deployed."
+                    if (last != betaVersion) {
+                        telegram("Ring: dgreif/ring está en ${betaVersion} (beta). No he mergeado ni desplegado nada, Homebridge sigue como estaba. Solo mergeo versiones estables.")
+                        writeFile file: notified, text: betaVersion + '\n'
+                    } else {
+                        echo "Telegram note for ${betaVersion} already sent, not repeating."
+                    }
+                    return
+                }
                 def behind = fileExists('.upstream-behind') ? readFile('.upstream-behind').trim() : '?'
                 def log = fileExists('.upstream-changelog') ? readFile('.upstream-changelog').trim() : ''
 
@@ -239,6 +293,8 @@ pipeline {
                 def msg
                 if (fileExists('.merge-conflict')) {
                     msg = "Ring: el merge de dgreif/ring da CONFLICTO con tus cambios del intercom. He abortado el merge, no he tocado nada ni en el repo ni en la raspi. Lo resuelvo yo a mano cuando me digas."
+                } else if (fileExists('.needs-pnpm')) {
+                    msg = "Ring: dgreif/ring ${readFile('.needs-pnpm').trim()} (estable) usa pnpm y este Jenkinsfile usa npm. No he mergeado ni desplegado nada. Hace falta el Jenkinsfile con pnpm: está en la rama upstream-15-beta de tu fork."
                 } else {
                     msg = "Ring: la pipeline semanal ha fallado en la fase '${env.CURRENT_STAGE ?: env.STAGE_NAME}'. Si llegó a desplegar, el script de deploy ya ha hecho rollback solo. Consola: http://192.168.1.240:9123/job/${env.JOB_NAME}/${env.BUILD_NUMBER}/console"
                 }
